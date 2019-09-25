@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>MapView.qml</file>
+        <file>QuickInfoDelegate.qml</file>
+        <file>SensorDelegate.qml</file>
+        <file>CarsDelegate.qml</file>
+        <file>WeatherDelegate.qml</file>
+        <file>SensorMapItem.qml</file>
+        <file>CarMapItem.qml</file>
     </qresource>
 </RCC>
