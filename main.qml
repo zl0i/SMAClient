@@ -18,27 +18,21 @@ ApplicationWindow {
 
 
     Component.onCompleted: {
-
         var component = Qt.createComponent("MapView.qml", Component.Asynchronous, _root)
         component.statusChanged.connect(function(status) {
             if(status === Component.Ready) {
-                _window.map = component.createObject(_root, {"z":0})
-                if(_window.map) {
-                    _img.visible = false
+                _window.map = component.incubateObject(_root, {"z":0}, Qt.Asynchronous)
+                map.onStatusChanged = function(status) {
+                    if (status === Component.Ready) {
+                        console.log("win!")
+
+                    }
                 }
             }
         })
     }
-    Timer {
-        interval: 1000
-        repeat: false
-        running: true
-        onTriggered: {
-            _models.fillInTestData()
-        }
-    }
 
-    Connections {
+    /*Connections {
         target: _models
         onSensorModelChanged: {
             var sensors = Qt.createComponent("SensorMapItem.qml")
@@ -67,7 +61,7 @@ ApplicationWindow {
             }
             console.log("cars")
         }
-    }
+    }*/
 
 
     Item {
@@ -81,17 +75,7 @@ ApplicationWindow {
             layer.effect: FastBlur {
                 radius: 16
             }
-            /*BusyIndicator {
-                anchors.centerIn: parent
-            }
-            Label {
-                anchors.centerIn: parent
-                anchors.verticalCenterOffset: 40
-                text: "Грузим карту"
-            }*/
         }
-
-
 
         Rectangle {
             visible: true
@@ -111,11 +95,8 @@ ApplicationWindow {
                 spacing: 10
                 clip: true
                 model: _objectModel
-                /*populate: Transition {
+                populate: Transition {
                     id: dispTrans
-                    Component.onCompleted: {
-                        console.log(dispTrans.ViewTransition.index)
-                    }
 
                     SequentialAnimation {
                         PauseAnimation {
@@ -124,13 +105,12 @@ ApplicationWindow {
                         }
                         NumberAnimation {
                             properties: "y";
-                            from: _listView.height;
-                            //to: dispTrans.ViewTransition.destination.x
+                            from: _listView.height
                             duration: 400;
                             easing.type: Easing.OutCubic
                         }
                     }
-                }*/
+                }
             }
         }
     }

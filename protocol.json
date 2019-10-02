@@ -1,0 +1,240 @@
+{
+    "type": "Authorization", 
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    },
+    "main": {
+        "login": "zloi",
+        "password": "0000"
+    }
+}
+
+{
+    "type": "Authorization",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    },
+    "main": {
+        "login": "zloi",
+        "answer": true,
+        "fullname": "Попов Дмитрий Александрович",
+        "token": "asd21312asdasde213",
+    }
+}
+
+{
+    "type": "UpdateSensors",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    }    
+}
+
+{
+    "type": "UpdateSensors",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    },
+    "main": {
+        "sensors": [
+            {
+                "id": 1,
+                "name": "sensors1",
+                "latitude": 51.511281,
+                "longitude": 39.267537,
+                "temperature": 24.5,
+                "humidity": 75,
+                "pressure": 785,
+                "soil": {
+                }
+            },                        
+            {
+                "id": 2,
+                "name": "sensors2",
+                "latitude": 51.522671,
+                "longitude": 39.267861,
+                "temperature": 27,
+                "humidity": 65,
+                "pressure": 780,
+                "soil": {                    
+                }
+            },
+            {
+                "id": 3,
+                "name": "sensors3",
+                "latitude": 51.521788,
+                "longitude": 39.279748,
+                "temperature": 23,
+                "humidity": 82,
+                "pressure": 790,
+                "soil": {                    
+                }
+            },
+            {
+                "id": 4,
+                "name": "sensors4",
+                "latitude": 51.510167,
+                "longitude": 39.279191,
+                "temperature": 20,
+                "humidity": 50,
+                "pressure": 460,
+                "soil": {                    
+                }
+            }
+        ]
+    }
+}
+
+
+
+{
+    "type": "UpdateCars",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    }    
+}
+
+{
+    "type": "UpdateCars",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    },
+    "main": {
+        "cars": [
+            {
+                "id": 1,
+                "name": "cars1",
+                "latitude": 51.511226,
+                "longitude": 39.286618,
+                "speed": 0,                
+                "path": {
+                }
+            },                        
+            {
+                "id": 2,
+                "name": "cars2",
+                "latitude": 51.511039,
+                "longitude": 39.286660,
+                "speed": 0,                
+                "path": {
+                }
+            },
+            {
+                "id": 3,
+                "name": "cars3",
+                "latitude": 51.510959,
+                "longitude": 39.276959,
+                "speed": 30,                
+                "path": [
+                    {
+                        "latitude": 51.511505, 
+                        "longitude": 39.268714
+                    },
+                    {
+                        "latitude": 51.511974, 
+                        "longitude":39.268725 
+                    },
+                    {
+                        "latitude": 51.511499, 
+                        "longitude": 39.278037  
+                    },
+                    {
+                        "latitude": 51.512028, 
+                        "longitude":39.278005 
+                    },
+                    {
+                        "latitude": 51.512643, 
+                        "longitude":39.268435 
+                    },
+                ]
+            },            
+        ]
+    }
+}
+
+{
+    "type": "HistorySensors",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    },
+    "main": {
+        "target_id": 1,
+        "dt_start": 1569482872,
+        "dt_end": 1569655672,
+        "property": "humidity"
+    }  
+}
+
+{
+    "type": "HistorySensors",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    },
+    "main": {
+        "target_id": 1,
+        "dt_start": 1569484800,
+        "dt_end":  1569657600,
+        "property": "humidity",
+        "history": [
+            {
+                "dt": 1569484800,
+                "value": 55
+            },
+            {
+                "dt":1569499200,
+                "value": 60
+            },
+            {
+                "dt": 1569513600,
+                "value": 50
+            },
+            {
+                "dt": 1569528000,
+                "value": 57
+            },
+            {
+                "dt": 1569542400,
+                "value": 59
+            },
+            {
+                "dt": 1569556800,
+                "value": 65
+            },
+            {
+                "dt": 1569571200,
+                "value": 53
+            },
+            {
+                "dt": 1569585600,
+                "value": 40
+            },
+            {
+                "dt": 1569600000,
+                "value": 51
+            },
+            {
+                "dt": 1569655672,
+                "value": 55
+            },
+            {
+                "dt": 1569628800,
+                "value": 60
+            },
+            {
+                "dt": 1569643200,
+                "value": 70
+            },
+            {
+                "dt": 1569657600,
+                "value": 80
+            },
+        ]        
+    }  
+}

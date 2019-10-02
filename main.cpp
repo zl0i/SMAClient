@@ -15,10 +15,9 @@ int main(int argc, char *argv[])
     MainWorker *mainWorker = new MainWorker();
     engine.rootContext()->setContextProperty("_server", mainWorker->serverWorker);
     engine.rootContext()->setContextProperty("_weather", mainWorker->weatherWorker);
-    engine.rootContext()->setContextProperty("_models", mainWorker->dataWorker);
+    engine.rootContext()->setContextProperty("_sensors", mainWorker->sensorWorker);
+    engine.rootContext()->setContextProperty("_cars", mainWorker->carWorker);
 
-    mainWorker->serverWorker->connectToServer();
-    //mainWorker->dataWorker->fillInTestData();
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

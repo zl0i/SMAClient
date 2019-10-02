@@ -6,35 +6,54 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
-#include <QDataStream>
+#include <QHostAddress>
+#include <QDateTime>
+#include <QAbstractSocket>
 
 class ServerWorker : public QObject
 {
     Q_OBJECT
 
-    QTcpSocket *soc;
-    QDataStream out;
-    QDataStream in;
+    QTcpSocket *socket;
+    QString login;
+    QString password;
+    QString token;
 
 public:
     explicit ServerWorker(QObject *parent = nullptr);
+    ~ServerWorker() ;
 
     typedef enum {
         Authorization = 1,
-        UpdateSensorData,
-        UpdateCarsData
+        UpdateSensors,
+        UpdateCars,
+        HistorySensors
     }Request;
 
-    void connectToServer();
+    void connectToServer(QString addr, uint16_t port, QString login, QString password);
+    void connectToTestServer();
+
+
+
+private:
+    QJsonDocument getFormatedJson(Request);
+    QJsonDocument getFormatedJson(Request, QJsonObject);
+    void sendServerJsonDocument(QJsonDocument);
+    QJsonDocument getServerJsonDocument();
+
 signals:
     void winConnected();
-    void errorConnected(QString error);
+    void errorConnected(QString);
+
+    void comeDataCars(Request type, QJsonObject obj);
+    void comeDataSensors(Request type, QJsonObject obj);
 
 public slots:
     void slotConnected();
     void slotReadyRead();
     void slotTcpError(QAbstractSocket::SocketError socketError);
     void slotDisconnected();
+
 };
 
 #endif // SERVERWORKER_H

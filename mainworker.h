@@ -4,7 +4,8 @@
 #include <QObject>
 #include "serverworker.h"
 #include "weatherworker.h"
-#include "dataworker.h"
+#include "sensorworker.h"
+#include "carworker.h"
 
 class MainWorker : public QObject
 {
@@ -12,9 +13,10 @@ class MainWorker : public QObject
 public:
     explicit MainWorker(QObject *parent = nullptr);
 
-    ServerWorker *serverWorker = new ServerWorker();
-    DataWorker *dataWorker = new DataWorker();
-    WeatherWorker *weatherWorker = new WeatherWorker();
+    ServerWorker *serverWorker = new ServerWorker(this);
+    SensorWorker *sensorWorker = new SensorWorker(this);
+    CarWorker *carWorker = new CarWorker(this);
+    WeatherWorker *weatherWorker = new WeatherWorker(this);
 
 signals:
 

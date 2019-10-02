@@ -14,9 +14,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        dataworker.cpp \
+        carworker.cpp \
         main.cpp \
         mainworker.cpp \
+        sensorworker.cpp \
         serverworker.cpp \
         weatherworker.cpp
 
@@ -35,7 +36,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    dataworker.h \
+    carworker.h \
     mainworker.h \
+    sensorworker.h \
     serverworker.h \
     weatherworker.h
+
+DISTFILES += \
+    protocol.json
