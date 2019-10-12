@@ -3,7 +3,6 @@
 ServerWorker::ServerWorker(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket(this);
-
 }
 
 ServerWorker::~ServerWorker() {
@@ -88,7 +87,6 @@ void ServerWorker::slotReadyRead()  {
     }
     }
 
-
 }
 
 void ServerWorker::slotTcpError(QAbstractSocket::SocketError socketError) {
@@ -143,4 +141,24 @@ QJsonDocument ServerWorker::getServerJsonDocument() {
     QJsonDocument doc;
     doc.fromJson(socket->readAll());
     return doc;
+}
+
+void ServerWorker::requestUpdateSensors() {
+    QJsonDocument doc = getFormatedJson(UpdateSensors);
+    sendServerJsonDocument(doc);
+}
+
+void ServerWorker::requestHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end) {
+    QJsonObject obj;
+    obj.insert("target_id", id);
+    obj.insert("dt_start", static_cast<int>(dt_start));
+    obj.insert("dt_end", static_cast<int>(dt_end));
+    obj.insert("property", property);
+    QJsonDocument doc = getFormatedJson(HistorySensors, obj);
+    sendServerJsonDocument(doc);
+}
+
+void ServerWorker::requestUpdateCars() {
+    QJsonDocument doc = getFormatedJson(UpdateCars);
+    sendServerJsonDocument(doc);
 }

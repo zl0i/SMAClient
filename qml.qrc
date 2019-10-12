@@ -1,12 +1,24 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>MapView.qml</file>
-        <file>QuickInfoDelegate.qml</file>
-        <file>SensorDelegate.qml</file>
-        <file>CarsDelegate.qml</file>
-        <file>WeatherDelegate.qml</file>
-        <file>SensorMapItem.qml</file>
-        <file>CarMapItem.qml</file>
+        <file>Components/qmldir</file>
+        <file>Components/TabMenu.qml</file>
+        <file>Components/WeatherItem.qml</file>
+        <file>MapPage.qml</file>
+        <file>MainPage.qml</file>
+        <file>Components/Controls/qmldir</file>
+        <file>Components/Dialogs/ConnectDialog.qml</file>
+        <file>Components/Dialogs/qmldir</file>
+        <file>Components/MapItem/CarMapItem.qml</file>
+        <file>Components/MapItem/MyMap.qml</file>
+        <file>Components/MapItem/qmldir</file>
+        <file>Components/MapItem/SensorMapItem.qml</file>
+        <file>Components/Controls/CustomTabButton.qml</file>
+        <file>SettingsPage.qml</file>
+        <file>Components/Controls/SensorDelegate.qml</file>
+        <file>Components/Controls/FieldDelegate.qml</file>
+        <file>Components/Controls/CarDelegate.qml</file>
+        <file>Components/Controls/AddFooter.qml</file>
     </qresource>
+    <qresource prefix="/components"/>
 </RCC>

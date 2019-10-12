@@ -52,5 +52,8 @@ void CarWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
         }
         emit carsModelChanged();
     }
+}
 
+void CarWorker::updateCars() {
+    emit updateCarsFromServer();
 }

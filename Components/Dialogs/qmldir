@@ -1,0 +1,2 @@
+module Dialogs
+ConnectDialog 1.0 ConnectDialog.qml

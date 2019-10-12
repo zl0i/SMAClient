@@ -9,7 +9,7 @@
 class CarWorker : public QObject
 {
     Q_OBJECT
-     Q_PROPERTY(QStandardItemModel *carsModel READ getCarsModel RESET resetCarsModel NOTIFY carsModelChanged)
+    Q_PROPERTY(QStandardItemModel *carsModel READ getCarsModel RESET resetCarsModel NOTIFY carsModelChanged)
 public:
     explicit CarWorker(QObject *parent = nullptr);
 
@@ -22,14 +22,20 @@ public:
     }CarsRole;
     Q_ENUM(CarsRole)
 
-    QStandardItemModel *carsModel = new QStandardItemModel();
+    Q_INVOKABLE void updateCars();
+
     QStandardItemModel *getCarsModel() { return  carsModel; }
     void resetCarsModel() { carsModel->clear(); }
 
     void fillTestData();
 
+private:
+     QStandardItemModel *carsModel = new QStandardItemModel();
+
 signals:
     void carsModelChanged();
+
+    void updateCarsFromServer();
 
 public slots:
     void parseDate(ServerWorker::Request, QJsonObject);

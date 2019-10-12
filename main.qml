@@ -1,35 +1,74 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.5
-import QtLocation 5.13
-import QtPositioning 5.6
 import QtGraphicalEffects 1.0
-import QtQml.Models 2.3
+import QtQml.Models 2.12
+
+import Components 1.0
+import Components.Dialogs 1.0
+
+
 
 ApplicationWindow {
     id: _window
     visible: true
-    width: 920
-    height: 620
-    title: qsTr("SMA Client")
+    width: 920;  height: 700
+    title: qsTr("SMA Client")   
 
-    property var sensorsArray: []
-    property var carsArray: []
-    property var map
-
+    font {
+        pixelSize: 14
+    }
 
     Component.onCompleted: {
-        var component = Qt.createComponent("MapView.qml", Component.Asynchronous, _root)
-        component.statusChanged.connect(function(status) {
-            if(status === Component.Ready) {
-                _window.map = component.incubateObject(_root, {"z":0}, Qt.Asynchronous)
-                map.onStatusChanged = function(status) {
-                    if (status === Component.Ready) {
-                        console.log("win!")
+        _connectDialog.open()
+    }
 
-                    }
-                }
-            }
-        })
+    ConnectDialog {
+        id: _connectDialog
+        blurItem: _window.contentItem
+        onAuthentication: {
+            close()
+        }
+        onQuit: {
+            Qt.quit()
+        }
+    }
+
+    TabMenu {
+        id: _tabMenu
+        width: 75; height: parent.height
+        onSelectStartPage: {
+            _list.positionViewAtIndex(0, ListView.SnapPosition)
+        }
+        onSelectMapPage: {
+            _list.positionViewAtIndex(1, ListView.SnapPosition)
+        }
+        onSelectSettingsPage: {
+            _list.positionViewAtIndex(2, ListView.SnapPosition)
+        }
+    }
+
+
+    ListView {
+        id: _list
+        x: _tabMenu.width; y: 0
+        width: parent.width-x; height: parent.height
+        model: _pageModel
+        interactive: false        
+    }
+
+
+    ObjectModel {
+        id: _pageModel
+        MainPage {
+            width: _list.width; height: _list.height
+
+        }
+        MapPage {
+            width: _list.width; height: _list.height
+        }
+        SettingsPage {
+            width: _list.width; height: _list.height
+        }
     }
 
     /*Connections {
@@ -63,78 +102,4 @@ ApplicationWindow {
         }
     }*/
 
-
-    Item {
-        id: _root
-        anchors.fill: parent
-        Image {
-            id: _img
-            anchors.fill: parent
-            source: "qrc:/image/map.png"
-            layer.enabled: true
-            layer.effect: FastBlur {
-                radius: 16
-            }
-        }
-
-        Rectangle {
-            visible: true
-            x: parent.width-width-20; y:20; z:1
-            width: 240; height: parent.height-40
-            radius: 20
-            color: "#FFFFFF"
-            layer.enabled: true
-            layer.effect: DropShadow {
-                samples: 16
-                radius: 8
-            }
-            ListView {
-                id: _listView
-                x:10; y:10
-                width: parent.width-20; height: parent.height-20
-                spacing: 10
-                clip: true
-                model: _objectModel
-                populate: Transition {
-                    id: dispTrans
-
-                    SequentialAnimation {
-                        PauseAnimation {
-                            duration: (dispTrans.ViewTransition.index -
-                                      dispTrans.ViewTransition.targetIndexes[0]) * 200
-                        }
-                        NumberAnimation {
-                            properties: "y";
-                            from: _listView.height
-                            duration: 400;
-                            easing.type: Easing.OutCubic
-                        }
-                    }
-                }
-            }
-        }
-    }
-    ObjectModel {
-        id: _objectModel
-        QuickInfoDelegate {
-            width: _listView.width
-            height: 50
-            color: "black"
-        }
-        SensorDelegate {
-            width: _listView.width
-            height: 50
-            color: "green"
-        }
-        CarsDelegate {
-            width: _listView.width
-            height: 50
-            color: "blue"
-        }
-        WeatherDelegate {
-            width: _listView.width
-            height: 50
-            color: "red"
-        }
-    }
 }

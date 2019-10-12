@@ -1,4 +1,4 @@
-QT += quick location network
+QT += quick location network charts
 
 CONFIG += c++11
 
@@ -25,7 +25,8 @@ RESOURCES += qml.qrc \
     image.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+QML_IMPORT_PATH = $$PWD
+QML2_IMPORT_PATH = $$PWD
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
@@ -43,4 +44,5 @@ HEADERS += \
     weatherworker.h
 
 DISTFILES += \
+    exampleTwoForecast.json \
     protocol.json

@@ -12,17 +12,11 @@ SensorWorker::SensorWorker(QObject *parent) : QObject(parent)
     hash.insert(SensorWorker::SoilRole, "soil");
     sensorModel->setItemRoleNames(hash);
 
-
+    hash.clear();
+    hash.insert(SensorWorker::dtRole, "dateTime");
+    hash.insert(SensorWorker::valueRole, "value");
+    historyModel->setItemRoleNames(hash);
 }
-
-void SensorWorker::addSensorData(QJsonObject obj) {
-    Q_UNUSED(obj)
-}
-
-void SensorWorker::addCarsData(QJsonObject obj) {
-    Q_UNUSED(obj)
-}
-
 
 void SensorWorker::fillInTestData() {
     sensorModel->insertColumn(0);
@@ -80,6 +74,11 @@ void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
         emit sensorModelChanged();
     }
     if(type == ServerWorker::HistorySensors) {
+        this->target_id = mainObj.value("target_id").toInt();
+        this->valueName = mainObj.value("property").toString();
+        this->dtStart = QDateTime::fromSecsSinceEpoch(mainObj.value("dt_start").toInt());
+        this->dtStart = QDateTime::fromSecsSinceEpoch(mainObj.value("dt_end").toInt());
+
         QJsonArray array = mainObj.value("history").toArray();
         historyModel->clear();
         historyModel->insertColumn(0);
@@ -87,12 +86,19 @@ void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
         for(int i = 0; i < array.count(); ++i) {
             QJsonObject obj = array.at(i).toObject();
             QModelIndex index = sensorModel->index(i, 0);
-            historyModel->setData(index, obj.value("id").toInt(), SensorWorker::idRole);
-            historyModel->setData(index, obj.value("latitude").toDouble(), SensorWorker::LatitudeRole);
+            historyModel->setData(index, obj.value("dt").toInt(), SensorWorker::dtRole);
+            historyModel->setData(index, obj.value("value").toDouble(), SensorWorker::valueRole);
         }
         emit sensorModelChanged();
     }
+}
 
+void SensorWorker::updateSensors() {
+    emit updateSensorsFromServer();
+}
+
+void SensorWorker::getHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end) {
+    emit getHistorySensorFromServer(id, property, dt_start, dt_end);
 }
 
 

@@ -1,0 +1,3 @@
+module Components
+TabMenu 1.0 TabMenu.qml
+WeatherItem 1.0 WeatherItem.qml

@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-
+    engine.addImportPath(":/");
     MainWorker *mainWorker = new MainWorker();
     engine.rootContext()->setContextProperty("_server", mainWorker->serverWorker);
     engine.rootContext()->setContextProperty("_weather", mainWorker->weatherWorker);

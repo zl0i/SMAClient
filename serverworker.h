@@ -54,6 +54,10 @@ public slots:
     void slotTcpError(QAbstractSocket::SocketError socketError);
     void slotDisconnected();
 
+    void requestUpdateSensors();
+    void requestHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end);
+    void requestUpdateCars();
+
 };
 
 #endif // SERVERWORKER_H

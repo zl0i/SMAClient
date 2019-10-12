@@ -18,9 +18,12 @@ public:
     CarWorker *carWorker = new CarWorker(this);
     WeatherWorker *weatherWorker = new WeatherWorker(this);
 
+private:
+    QTimer *weatherTimer = new QTimer;
 signals:
 
 public slots:
+    void slotUpdateWeatherTimer();
 };
 
 #endif // MAINWORKER_H
