@@ -27,13 +27,13 @@ Item {
                 orientation: ListView.Horizontal
                 spacing: 18
                 model: fieldModel
-                delegate: FieldDelegate {
+                delegate: FavoritesFieldDelegate {
                     name: modelData.name
                     area: modelData.area
                     count: modelData.count
                 }
 
-                footer: AddFooter {
+                footer: AddFavoritesFooter {
                     onAdd: {
                         console.log("Добавить поле")
                     }
@@ -54,13 +54,13 @@ Item {
                 orientation: ListView.Horizontal
                 spacing: 18
                 model: sensorModel
-                delegate: SensorDelegate {
+                delegate: FavoritesSensorDelegate {
                     name: modelData.name
                     temperature: modelData.temperature
                     humidity: modelData.humidity
                     pressure: modelData.pressure
                 }
-                footer: AddFooter {
+                footer: AddFavoritesFooter {
                     onAdd: {
                         console.log("Добавить датчик")
                     }
@@ -80,13 +80,13 @@ Item {
                 orientation: ListView.Horizontal
                 spacing: 18
                 model: carModel
-                delegate: CarDelegate {
+                delegate: FavoritesCarDelegate {
                     name: modelData.name
                     benzin: modelData.benzin
                     speed: modelData.speed
                 }
 
-                footer: AddFooter {
+                footer: AddFavoritesFooter {
                     onAdd: {
                         console.log("Добавить машину")
                     }

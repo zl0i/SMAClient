@@ -2,4 +2,4 @@ module MapItem
 MyMap 1.0 MyMap.qml
 CarMapItem 1.0 CarMapItem.qml
 SensorMapItem 1.0 SensorMapItem.qml
-
+FieldMapItem 1.0 FieldMapItem.qml

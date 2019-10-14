@@ -1,7 +1,7 @@
 module Controls
 CustomTabButton 1.0 CustomTabButton.qml
-SensorDelegate 1.0 SensorDelegate.qml
-CarDelegate 1.0 CarDelegate.qml
-FieldDelegate 1.0 FieldDelegate.qml
-AddFooter 1.0 AddFooter.qml
+FavoritesSensorDelegate 1.0 FavoritesSensorDelegate.qml
+FavoritesCarDelegate 1.0 FavoritesCarDelegate.qml
+FavoritesFieldDelegate 1.0 FavoritesFieldDelegate.qml
+AddFavoritesFooter 1.0 AddFavoritesFooter.qml
 

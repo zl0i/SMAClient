@@ -15,10 +15,11 @@
         <file>Components/MapItem/SensorMapItem.qml</file>
         <file>Components/Controls/CustomTabButton.qml</file>
         <file>SettingsPage.qml</file>
-        <file>Components/Controls/SensorDelegate.qml</file>
-        <file>Components/Controls/FieldDelegate.qml</file>
-        <file>Components/Controls/CarDelegate.qml</file>
-        <file>Components/Controls/AddFooter.qml</file>
+        <file>Components/Controls/FavoritesSensorDelegate.qml</file>
+        <file>Components/Controls/FavoritesFieldDelegate.qml</file>
+        <file>Components/Controls/FavoritesCarDelegate.qml</file>
+        <file>Components/Controls/AddFavoritesFooter.qml</file>
+        <file>Components/MapItem/FieldMapItem.qml</file>
     </qresource>
     <qresource prefix="/components"/>
 </RCC>

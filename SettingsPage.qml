@@ -11,7 +11,7 @@ Item {
         model: modelSettings
         delegate: Rectangle {
             id: _delegate
-            width: parent.width; height: 75
+            width: parent.width; height: 50
             color: _listSettings.currentIndex === index ? "#87CEFA" : "#FFFFFF"
             Label {
                 x: parent.width/2-width/2; y: parent.height/2 - height/2
