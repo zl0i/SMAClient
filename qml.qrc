@@ -3,7 +3,6 @@
         <file>main.qml</file>
         <file>Components/qmldir</file>
         <file>Components/TabMenu.qml</file>
-        <file>Components/WeatherItem.qml</file>
         <file>MapPage.qml</file>
         <file>MainPage.qml</file>
         <file>Components/Controls/qmldir</file>
@@ -20,6 +19,19 @@
         <file>Components/Controls/FavoritesCarDelegate.qml</file>
         <file>Components/Controls/AddFavoritesFooter.qml</file>
         <file>Components/MapItem/FieldMapItem.qml</file>
+        <file>WeatherPage.qml</file>
+        <file>Components/Dialogs/ProfilePopup.qml</file>
+        <file>Components/Controls/RoundButton.qml</file>
+        <file>Components/Controls/InputText.qml</file>
+        <file>Components/Controls/LoadingAnimation.qml</file>
+        <file>Components/MapItem/NavigationMap.qml</file>
+        <file>Components/Controls/CustomTabButton2.qml</file>
+        <file>MyStyle.qml</file>
+        <file>Components/Controls/FindField.qml</file>
+        <file>Components/Controls/CircleImageButton.qml</file>
+        <file>Components/Delegats/qmldir</file>
+        <file>Components/Delegats/FieldDelegat.qml</file>
+        <file>Components/Delegats/SensorDelegat.qml</file>
+        <file>Components/Delegats/CarDelegat.qml</file>
     </qresource>
-    <qresource prefix="/components"/>
 </RCC>

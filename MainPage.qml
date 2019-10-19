@@ -1,99 +1,66 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtQml.Models 2.12
 import QtGraphicalEffects 1.0
 
 import Components.Controls 1.0
 
 Item {
     Label {
-        x: 50; y:10
-        font.pixelSize: 48
+        x: 50; y:25
+        font.pixelSize: 36
         font.weight: Font.Bold
-        text: qsTr("Главная")
+        text: qsTr("Избранные данные")
     }
-    Column {
-        x: 50; y: 80
-        width: parent.width
-        spacing: 10
-        Label {
-            text: qsTr("Избранные поля")
-        }
-        Item {
-            width: parent.width-40; height: 170
-            clip: true
-            ListView {
-                x:10; y: 10
-                width: parent.width; height: parent.height
-                orientation: ListView.Horizontal
-                spacing: 18
-                model: fieldModel
-                delegate: FavoritesFieldDelegate {
-                    name: modelData.name
-                    area: modelData.area
-                    count: modelData.count
-                }
-
-                footer: AddFavoritesFooter {
-                    onAdd: {
-                        console.log("Добавить поле")
-                    }
-                }
-            }
-        }
-
-        Label {
-            font.pixelSize: 14
-            text: qsTr("Избранные датчики")
-        }
-        Item {
-            width: parent.width-40; height: 170
-            clip: true
-            ListView {
-                x:10; y: 10
-                width: parent.width; height: parent.height
-                orientation: ListView.Horizontal
-                spacing: 18
-                model: sensorModel
-                delegate: FavoritesSensorDelegate {
-                    name: modelData.name
-                    temperature: modelData.temperature
-                    humidity: modelData.humidity
-                    pressure: modelData.pressure
-                }
-                footer: AddFavoritesFooter {
-                    onAdd: {
-                        console.log("Добавить датчик")
-                    }
-                }
-            }
-
-        }
-        Label {
-            text: qsTr("Избранные машины")
-        }
-        Item {
-            width: parent.width-40; height: 170
-            clip: true
-            ListView {
-                x:10; y: 10
-                width: parent.width; height: parent.height
-                orientation: ListView.Horizontal
-                spacing: 18
-                model: carModel
-                delegate: FavoritesCarDelegate {
-                    name: modelData.name
-                    benzin: modelData.benzin
-                    speed: modelData.speed
-                }
-
-                footer: AddFavoritesFooter {
-                    onAdd: {
-                        console.log("Добавить машину")
-                    }
-                }
+    Flickable {
+        x: 50; y: 100
+        width: parent.width-x; height: parent.height-y
+        contentHeight: _flow.height+20
+        clip: true
+        Flow {
+            id: _flow
+            width: parent.width;// height: parent.height
+            spacing: 10
+            Repeater {
+                model: _favoritModel
             }
         }
     }
+    GridView {
+
+    }
+
+    ObjectModel {
+        id: _favoritModel
+        Rectangle {
+            width: 400; height: 400
+            color: "red"
+        }
+        Rectangle {
+            width: 400; height: 400
+            color: "red"
+        }
+        Rectangle {
+            width: 810; height: 400
+            color: "red"
+        }
+        Rectangle {
+            width: 400; height: 400
+            color: "red"
+        }
+        Rectangle {
+            width: 400; height: 400
+            color: "red"
+        }
+        Rectangle {
+            width: 400; height: 400
+            color: "red"
+        }
+    }
+
+
+
+
 
     readonly property var fieldModel: [
         {

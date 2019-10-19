@@ -1,2 +1,3 @@
 module Dialogs
 ConnectDialog 1.0 ConnectDialog.qml
+ProfilePopup 1.0 ProfilePopup.qml

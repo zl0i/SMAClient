@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>image/map.png</file>
-        <file>image/map2.png</file>
+        <file>image/map/background.png</file>
+        <file>image/other/profile.png</file>
+        <file>image/other/exit-white.svg</file>
+        <file>image/other/lens-white.svg</file>
     </qresource>
 </RCC>

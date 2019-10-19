@@ -1,0 +1,4 @@
+module Delegats
+FieldDelegat 1.0 FieldDelegat.qml
+SensorDelegat 1.0 SensorDelegat.qml
+CarDelegat 1.0 CarDelegat.qml

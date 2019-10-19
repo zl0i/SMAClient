@@ -15,35 +15,59 @@ ApplicationWindow {
     title: qsTr("SMA Client")   
 
     font {
+        family: "Roboto"
         pixelSize: 14
     }
+    Timer {
+        id: _tim
+        interval: 500
+        running: false
+        repeat: false
+        onTriggered: {
+            _connectDialog.close()
+        }
 
-    Component.onCompleted: {
-        _connectDialog.open()
     }
 
     ConnectDialog {
         id: _connectDialog
+        visible: true
         blurItem: _window.contentItem
         onAuthentication: {
-            close()
+            _tim.start()
+            //close()
         }
         onQuit: {
             Qt.quit()
         }
     }
+    ProfilePopup {
+        id: _profilePopup
+        x: 100; y:29
+        companyName: "ИП Сукачев"
+        fullName: "Сукачев Александр Игоревич"
+        onExit: {
+            _connectDialog.open()
+        }
+    }
 
     TabMenu {
         id: _tabMenu
-        width: 75; height: parent.height
-        onSelectStartPage: {
+        width: 90; height: parent.height
+        onProfileClicked: {
+            _profilePopup.open()
+        }
+        onSelectMainPage: {
             _list.positionViewAtIndex(0, ListView.SnapPosition)
         }
         onSelectMapPage: {
             _list.positionViewAtIndex(1, ListView.SnapPosition)
         }
+        onSelectWeatherPage: {
+             _list.positionViewAtIndex(2, ListView.SnapPosition)
+        }
         onSelectSettingsPage: {
-            _list.positionViewAtIndex(2, ListView.SnapPosition)
+            _list.positionViewAtIndex(3, ListView.SnapPosition)
         }
     }
 
@@ -61,9 +85,11 @@ ApplicationWindow {
         id: _pageModel
         MainPage {
             width: _list.width; height: _list.height
-
         }
         MapPage {
+            width: _list.width; height: _list.height
+        }
+        WeatherPage {
             width: _list.width; height: _list.height
         }
         SettingsPage {

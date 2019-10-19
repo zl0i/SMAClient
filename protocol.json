@@ -24,12 +24,78 @@
     }
 }
 
+
+{
+    "type": "UpdateFields",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    }
+}
+
+
+
 {
     "type": "UpdateSensors",
     "token": "asd21312asdasde213",
     "system": {
         "dt": 1569653340
     }    
+}
+
+{
+    "type": "UpdateFields",
+    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    },
+    "main": {
+        "fields": [
+            {
+                "id": 1,
+                "name": "filed1",
+                "location" : [
+                    {
+                        "latitude": 51.511281,
+                        "longitude": 39.267537
+                    },
+                    {
+                        "latitude": 51.511281,
+                        "longitude": 39.267537
+                    },
+                    {
+                        "latitude": 51.511281,
+                        "longitude": 39.267537
+                    },
+                    {
+                        "latitude": 51.511281,
+                        "longitude": 39.267537
+                    }
+                ],
+                "temperature": 24.5,
+                "humidity": 75,
+                "pressure": 785
+            },
+            {
+                "id": 2,
+                "name": "filed2",
+                "latitude": 51.522671,
+                "longitude": 39.267861,
+                "temperature": 27,
+                "humidity": 65,
+                "pressure": 780
+            },
+            {
+                "id": 3,
+                "name": "filed3",
+                "latitude": 51.521788,
+                "longitude": 39.279748,
+                "temperature": 23,
+                "humidity": 82,
+                "pressure": 790
+            }
+        ]
+    }
 }
 
 {

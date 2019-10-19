@@ -2,11 +2,13 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
 
+import Components.Controls 1.0
+
 Dialog {
     id: _dialog
     parent: Overlay.overlay
     x: parent.width/2-width/2; y:parent.height/2-height/2
-    width: 350; height: 230
+    width: 361; height: 246
     modal: true; dim: true
     padding: 0
     closePolicy: Popup.NoAutoClose
@@ -16,13 +18,15 @@ Dialog {
     signal quit()
 
     Overlay.modal: Rectangle {
-        color: "#aa000000"
+        color: "#AA000000"
         FastBlur {
-            z: -1
             anchors.fill: parent
             source: blurItem
-            radius: 32
+            radius: 48
         }
+    }
+    onVisibleChanged: {
+        if(visible) _loader.sourceComponent = _inputComponent
     }
 
     background: Rectangle {
@@ -30,75 +34,105 @@ Dialog {
         radius: 10
         color: "#FFFFFF"
     }
-
-    contentItem: Item {
-        anchors.fill: parent
-        Column {
-            anchors.top: parent.top; anchors.topMargin: 20
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 10
-            Row {
-                Label {
-                    width: 100; height: 40
-                    verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
-                    text: qsTr("Адрес")
-                }
-                TextField {
-                    id: _urlFielf
-                    width: 150; height: 40
-                    placeholderText: "url"
-                }
-                Label {
-                    height: 40
-                    verticalAlignment: Text.AlignVCenter
-                    text: ":"
-                }
-                TextField {
-                    id: _portField
-                    width: 45; height: 40
-                    placeholderText: "port"
-                }
+    contentItem: Loader {
+        id: _loader
+        width: parent.width; height: parent.height
+        sourceComponent: _inputComponent
+    }
+    Component {
+        id: _lodingComponent
+        Item {
+            width: parent.width; height: parent.height
+            LoadingAnimation {
+                x: parent.width/2 - width/2; y: 57
+                width: 100; height: 100
+                running: true
+                externalColor: "#323232"
+                internalColor: "#487690"
             }
-            Row {
-                Label {
-                    width: 100; height: 40
-                    verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
-                    text: qsTr("Логин")
-                }
-                TextField {
-                    id: _loginField
-                    width: 200; height: 40
-                }
-            }
-            Row {
-                Label {
-                    width: 100; height: 40
-                    verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
-                    text: qsTr("Пароль")
-                }
-                TextField {
-                    id: _passwordField
-                    width: 200; height: 40
-                }
+            Label {
+                x: 74; y: 164
+                width: 230; height: 70
+                verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                font.pixelSize: 24
+                text: qsTr("Идет подключение, одну секунду...")
             }
         }
-        Row {
-            anchors.bottom: parent.bottom; anchors.bottomMargin: 20
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 20
-            Button {
-                text: qsTr("Войти")
-                onClicked: {
-                    _dialog.authentication(_urlFielf.text,
-                                           _portField.text,
-                                           _loginField.text,
-                                           _passwordField.text)
+    }
+
+    Component{
+        id: _inputComponent
+        Item {
+            width: parent.width; height: parent.height
+            Column {
+                x: 20; y:18
+                spacing: 19
+                Row {
+                    Label {
+                        width: 75; height: 35
+                        verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+                        text: qsTr("Адрес")
+                    }
+                    InputText {
+                        id: _urlFielf
+                        width: 186
+                        placeholderText: "url"
+                    }
+                    Label {
+                        width: 14; height: 35
+                        verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
+                        text: ":"
+                    }
+                    InputText {
+                        id: _portField
+                        width: 56;
+                        placeholderText: "port"
+                    }
+                }
+                Row {
+                    Label {
+                        width: 75; height: 35
+                        verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+                        text: qsTr("Логин")
+                    }
+                    InputText {
+                        id: _loginField
+                        width: 256
+                    }
+                }
+                Row {
+                    Label {
+                        width: 75; height: 35
+                        verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+                        text: qsTr("Пароль")
+                    }
+                    InputText {
+                        id: _passwordField
+                        width: 256
+                    }
                 }
             }
-            Button {
-                text: qsTr("Выйти")
-                onClicked: {
-                    _dialog.quit()
+            Row {
+                anchors.bottom: parent.bottom; anchors.bottomMargin: 20
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 20
+                RoundButton {
+                    text: qsTr("Войти")
+                    onClicked: {
+                        _loader.sourceComponent = _lodingComponent
+                        _dialog.authentication(_urlFielf.text,
+                                               _portField.text,
+                                               _loginField.text,
+                                               _passwordField.text)
+                    }
+                }
+                RoundButton {
+                    style: "dark"
+                    text: qsTr("Выйти")
+                    onClicked: {
+                        _dialog.quit()
+                    }
                 }
             }
         }

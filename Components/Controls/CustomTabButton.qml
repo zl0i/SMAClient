@@ -2,33 +2,42 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 
 
-TabButton {
+MouseArea {
     id: _tabButton
+    hoverEnabled: true
+
+
+    property bool hovered: false
+    property string text: ""
+    property bool checked: false
+
     property color backgroundColor
     property color checkedColor
     property color lineColor
 
-    property var image
+    onEntered: hovered = true
+    onExited:  hovered = false
 
-    indicator: Rectangle {
-        width: parent.width; height: parent.height
-        color: _tabButton.checked ? checkedColor : backgroundColor
-
-        Rectangle {
-            width: 3; height: parent.height
-            visible: _tabButton.checked
-            color: lineColor
-        }
-    }
-
-    contentItem: Label {
+    Label {
         width: parent.width; height: parent.height
         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
-        color: "#FFFFFF" //_tabButton.checked ? "#000000" : "#404040"
-        font.pixelSize: 12
+        color: "#FFFFFF"
+        font.pixelSize: 14
         wrapMode: Text.WordWrap
         elide: Text.ElideRight
         text: _tabButton.text
     }
 
+    Rectangle {
+        width: parent.width; height: parent.height
+        color: checkedColor
+        opacity: 0.3
+        visible: _tabButton.hovered || _tabButton.checked
+
+        Rectangle {
+            width: 4; height: parent.height
+            visible: _tabButton.checked
+            color: lineColor
+        }
+    }
 }

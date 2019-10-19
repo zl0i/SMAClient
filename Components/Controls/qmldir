@@ -1,7 +1,15 @@
 module Controls
 CustomTabButton 1.0 CustomTabButton.qml
+CustomTabButton2 1.0 CustomTabButton2.qml
 FavoritesSensorDelegate 1.0 FavoritesSensorDelegate.qml
 FavoritesCarDelegate 1.0 FavoritesCarDelegate.qml
 FavoritesFieldDelegate 1.0 FavoritesFieldDelegate.qml
 AddFavoritesFooter 1.0 AddFavoritesFooter.qml
+RoundButton 1.0 RoundButton.qml
+InputText 1.0 InputText.qml
+LoadingAnimation 1.0 LoadingAnimation.qml
+FindField 1.0 FindField.qml
+CircleImageButton 1.0 CircleImageButton.qml
+
+
 
