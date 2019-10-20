@@ -1,31 +1,67 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
+import Components.Controls 1.0
+
 Item {
 
-    ListView {
-        id: _listSettings
-        width: 150; height: parent.height
-        clip: true
-        currentIndex: 0
-        model: modelSettings
-        delegate: Rectangle {
-            id: _delegate
-            width: parent.width; height: 50
-            color: _listSettings.currentIndex === index ? "#87CEFA" : "#FFFFFF"
-            Label {
-                x: parent.width/2-width/2; y: parent.height/2 - height/2
-                text: modelData.title
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: _listSettings.currentIndex = index
+    Rectangle {
+
+        width: 256; height: parent.height
+        color: "#323232"
+        Label {
+            width: parent.width; height: 94
+            leftPadding: 20
+            verticalAlignment: Text.AlignVCenter
+            font.pixelSize: 24
+            font.weight: Font.Bold
+            color: "#FFFFFF"
+            text: qsTr("Настройки")
+        }
+        Rectangle {
+            x: 0; y: 95
+            width: parent.width; height: 1
+            color: "#6AABF7"
+        }
+        ListView {
+            id: _placeList
+            x: 0; y: 96
+            width: parent.width; height: parent.height-y-90
+            clip: true
+            model: modelSettings
+            delegate: Item {
+                id: _delegat
+                width: parent.width; height: 64
+                Label {
+                    width: parent.width; height: parent.height
+                    leftPadding: 20
+                    verticalAlignment: Text.AlignVCenter
+                    font.pixelSize: 20
+                    color: "#FFFFFF"
+                    text: modelData.title
+                }
+                Rectangle {
+                    width: parent.width; height: parent.height
+                    visible: _delegat.ListView.isCurrentItem || _mouseArea.hovered
+                    opacity: _mouseArea.pressed ? 0.3 : 0.5
+                    color: "#C4C4C4"
+                }
+                MouseArea {
+                    id: _mouseArea
+                    width: parent.width; height: parent.height
+                    hoverEnabled: true
+                    property bool hovered: false
+                    onEntered: hovered = true
+                    onExited: hovered = false
+                    onClicked: {
+                        _delegat.ListView.view.currentIndex = index
+                    }
+                }
             }
         }
-
     }
     Loader {
-        x: _listSettings.width
+        x: 256; y: 0
         width: parent.width-x; height: parent.height
         //source: _listSettings.currentItem.modelData.component
     }

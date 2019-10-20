@@ -1,4 +1,4 @@
-QT += quick location network charts
+QT += quick location network charts svg
 
 CONFIG += c++11
 
@@ -45,4 +45,5 @@ HEADERS += \
 
 DISTFILES += \
     exampleTwoForecast.json \
-    protocol.json
+    protocol.json \
+    supporteedOsmMap.json

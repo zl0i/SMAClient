@@ -18,8 +18,7 @@ public:
     ~WeatherWorker();
 
     QJsonObject wether() { return  m_currentWether; }
-    QJsonObject weekForecast() { return  m_weekForecast; }
-    QJsonObject twoWeekForecast() { return  m_twoWeekForecast; }
+
 
     Q_INVOKABLE void updateCurrentWeather();
     Q_INVOKABLE void updateForecastWeather(int countDay = 7);
@@ -32,17 +31,14 @@ private:
     typedef enum {
         Idle,
         currentWeather,
-        forecastWeather,
-        UVIndex,
-        AirPollution
+        dailyForecast,
+        twoDaylyForecast
     }TypeRequest;
 
     QNetworkAccessManager *networkManager;
 
-
     QJsonObject m_currentWether;
-    QJsonObject m_weekForecast;
-    QJsonObject m_twoWeekForecast;
+
 
     qreal latitude;
     qreal longitude;

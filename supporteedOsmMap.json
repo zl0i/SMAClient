@@ -1,0 +1,128 @@
+{
+    "0": {
+        "objectName": "",
+        "style": 1,
+        "name": "Street Map",
+        "description": "Street map view in daylight mode",
+        "mobile": false,
+        "night": false,
+        "cameraCapabilities": {
+            "objectName": "",
+            "minimumZoomLevel": 0,
+            "maximumZoomLevel": 19,
+            "minimumTilt": 0,
+            "maximumTilt": 80,
+            "minimumFieldOfView": 20,
+            "maximumFieldOfView": 120
+        },
+        "metadata": {}
+    },
+    "1": {
+        "objectName": "",
+        "style": 2,
+        "name": "Satellite Map",
+        "description": "Satellite map view in daylight mode",
+        "mobile": false,
+        "night": false,
+        "cameraCapabilities": {
+            "objectName": "",
+            "minimumZoomLevel": 0,
+            "maximumZoomLevel": 19,
+            "minimumTilt": 0,
+            "maximumTilt": 80,
+            "minimumFieldOfView": 20,
+            "maximumFieldOfView": 120
+        },
+        "metadata": {}
+    },
+    "2": {
+        "objectName": "",
+        "style": 10,
+        "name": "Cycle Map",
+        "description": "Cycle map view in daylight mode",
+        "mobile": false,
+        "night": false,
+        "cameraCapabilities": {
+            "objectName": "",
+            "minimumZoomLevel": 0,
+            "maximumZoomLevel": 19,
+            "minimumTilt": 0,
+            "maximumTilt": 80,
+            "minimumFieldOfView": 20,
+            "maximumFieldOfView": 120
+        },
+        "metadata": {}
+    },
+    "3": {
+        "objectName": "",
+        "style": 6,
+        "name": "Transit Map",
+        "description": "Public transit map view in daylight mode",
+        "mobile": false,
+        "night": false,
+        "cameraCapabilities": {
+            "objectName": "",
+            "minimumZoomLevel": 0,
+            "maximumZoomLevel": 19,
+            "minimumTilt": 0,
+            "maximumTilt": 80,
+            "minimumFieldOfView": 20,
+            "maximumFieldOfView": 120
+        },
+        "metadata": {}
+    },
+    "4": {
+        "objectName": "",
+        "style": 6,
+        "name": "Night Transit Map",
+        "description": "Public transit map view in night mode",
+        "mobile": false,
+        "night": true,
+        "cameraCapabilities": {
+            "objectName": "",
+            "minimumZoomLevel": 0,
+            "maximumZoomLevel": 19,
+            "minimumTilt": 0,
+            "maximumTilt": 80,
+            "minimumFieldOfView": 20,
+            "maximumFieldOfView": 120
+        },
+        "metadata": {}
+    },
+    "5": {
+        "objectName": "",
+        "style": 4,
+        "name": "Terrain Map",
+        "description": "Terrain map view",
+        "mobile": false,
+        "night": false,
+        "cameraCapabilities": {
+            "objectName": "",
+            "minimumZoomLevel": 0,
+            "maximumZoomLevel": 19,
+            "minimumTilt": 0,
+            "maximumTilt": 80,
+            "minimumFieldOfView": 20,
+            "maximumFieldOfView": 120
+        },
+        "metadata": {}
+    },
+    "6": {
+        "objectName": "",
+        "style": 8,
+        "name": "Hiking Map",
+        "description": "Hiking map view",
+        "mobile": false,
+        "night": false,
+        "cameraCapabilities": {
+            "objectName": "",
+            "minimumZoomLevel": 0,
+            "maximumZoomLevel": 19,
+            "minimumTilt": 0,
+            "maximumTilt": 80,
+            "minimumFieldOfView": 20,
+            "maximumFieldOfView": 120
+        },
+        "metadata": {}
+    }
+}

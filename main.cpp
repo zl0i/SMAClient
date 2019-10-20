@@ -18,6 +18,9 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("_sensors", mainWorker->sensorWorker);
     engine.rootContext()->setContextProperty("_cars", mainWorker->carWorker);
 
+    mainWorker->sensorWorker->fillInTestData();
+    mainWorker->carWorker->fillTestData();
+
     qmlRegisterSingletonType(QUrl("qrc:/MyStyle.qml"), "MyStyle", 1, 0, "MyStyle");
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

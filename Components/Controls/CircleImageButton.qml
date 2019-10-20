@@ -8,8 +8,6 @@ Rectangle {
     radius: 58
     color: _mousearea.pressed ? pressedColor : releasedColor
 
-
-
     property color pressedColor
     property color releasedColor
 
@@ -24,6 +22,10 @@ Rectangle {
     signal pressed(var mouse)
     signal released(var mouse)
 
+    Behavior on color {
+        ColorAnimation { duration: 150 }
+    }
+
 
     states: [
         State {
@@ -32,6 +34,14 @@ Rectangle {
                 target: _root
                 releasedColor: "#1D1D1D"
                 pressedColor: "#05AEF1"
+            }
+        },
+        State {
+            name: "white"
+            PropertyChanges {
+                target: _root
+                releasedColor: "#FFFFFF"
+                pressedColor: "#487690"
             }
         },
         State {
@@ -80,7 +90,7 @@ Rectangle {
             }
         }
     ]
-    state: "blue"
+    state: "white"
 
     Image {
         id: _img

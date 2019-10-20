@@ -32,9 +32,8 @@ Rectangle {
 
     Column {
         id: _column
-        y: 107
+        y: 120
         width: parent.width
-        spacing: 10
         CustomTabButton {
             id: _mainButton
             width: parent.width; height: 60

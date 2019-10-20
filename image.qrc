@@ -4,5 +4,36 @@
         <file>image/other/profile.png</file>
         <file>image/other/exit-white.svg</file>
         <file>image/other/lens-white.svg</file>
+        <file>image/other/favorite-blue.png</file>
+        <file>image/other/arrow-next-black.svg</file>
+        <file>image/other/arrow-next-white.svg</file>
+        <file>image/other/exit-black.svg</file>
+        <file>image/other/lens-black.svg</file>
+        <file>image/other/menu-white.svg</file>
+        <file>image/other/more-white.svg</file>
+        <file>image/other/plus-white.svg</file>
+        <file>image/map/car.png</file>
+        <file>image/map/field.png</file>
+        <file>image/map/sensor.png</file>
+        <file>image/other/arrow-back-white.svg</file>
+        <file>image/other/arrow-down-white.svg</file>
+        <file>image/other/menu-black.svg</file>
+        <file>image/other/more-black.svg</file>
+        <file>image/other/plus-black.svg</file>
+        <file>image/weather/brokenClouds-black.svg</file>
+        <file>image/weather/clearSky-black.svg</file>
+        <file>image/weather/downsun-black.svg</file>
+        <file>image/weather/fewClouds-black.svg</file>
+        <file>image/weather/humidity-black.svg</file>
+        <file>image/weather/mist-black.svg</file>
+        <file>image/weather/pressure-black.svg</file>
+        <file>image/weather/rain-black.svg</file>
+        <file>image/weather/scatteredClouds-black.svg</file>
+        <file>image/weather/showerRain-black.svg</file>
+        <file>image/weather/snow-black.svg</file>
+        <file>image/weather/temperature-black.svg</file>
+        <file>image/weather/thunderstorm-black.svg</file>
+        <file>image/weather/upsun-black.svg</file>
+        <file>image/weather/wind-black.svg</file>
     </qresource>
 </RCC>

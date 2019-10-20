@@ -5,6 +5,7 @@ import QtPositioning 5.6
 import QtQml.Models 2.12
 
 import Components.MapItem 1.0
+import Components.Controls 1.0
 
 Item {
     id: _root
@@ -35,7 +36,37 @@ Item {
     }
 
     NavigationMap {
+        id: _navigationMap
+        onMoveMap: {
+
+        }
 
     }
+
+    CircleImageButton {
+        x: parent.width - width-20; y: 20
+        width: 40; height: 40
+         //iconWidth: 20; iconHeight: 20
+        source: "qrc:/image/other/more-black.svg"
+
+    }
+
+    CircleImageButton {
+        x: parent.width - width-20; y: 80
+        width: 40; height: 40
+        iconWidth: 22.5; iconHeight: 20
+        source: "qrc:/image/other/menu-black.svg"
+
+    }
+
+    CircleImageButton {
+        x: parent.width - width-20; y: 140
+        width: 40; height: 40
+        iconWidth: 20; iconHeight: 20
+        source: "qrc:/image/other/plus-black.svg"
+
+    }
+
+
 
 }

@@ -33,5 +33,8 @@
         <file>Components/Delegats/FieldDelegat.qml</file>
         <file>Components/Delegats/SensorDelegat.qml</file>
         <file>Components/Delegats/CarDelegat.qml</file>
+        <file>Components/Delegats/SmallWeatherDelegat.qml</file>
+        <file>Components/Delegats/WeatherDelegat.qml</file>
+        <file>Components/Delegats/BaseWeatherDelegate.qml</file>
     </qresource>
 </RCC>

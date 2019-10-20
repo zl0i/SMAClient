@@ -11,7 +11,7 @@ import Components.Dialogs 1.0
 ApplicationWindow {
     id: _window
     visible: true
-    width: 920;  height: 700
+    width: 1112;  height: 834
     title: qsTr("SMA Client")   
 
     font {
@@ -26,7 +26,6 @@ ApplicationWindow {
         onTriggered: {
             _connectDialog.close()
         }
-
     }
 
     ConnectDialog {
@@ -53,6 +52,7 @@ ApplicationWindow {
 
     TabMenu {
         id: _tabMenu
+        z: 5
         width: 90; height: parent.height
         onProfileClicked: {
             _profilePopup.open()
