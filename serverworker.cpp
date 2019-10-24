@@ -9,16 +9,29 @@ ServerWorker::~ServerWorker() {
     socket->close();
 }
 
-void ServerWorker::connectToServer(QString addr, uint16_t port, QString login, QString password) {
-    this->login = login;
-    this->password = password;
-    socket->connectToHost(QHostAddress(addr), port, QIODevice::ReadWrite);
-    connect(socket, &QTcpSocket::connected, this, &ServerWorker::slotConnected);
-    connect(socket, &QTcpSocket::readyRead, this, &ServerWorker::slotReadyRead);
-    //connect(soc, &QTcpSocket::error, this, &ServerWorker::slotTcpError);
-    connect(socket, &QTcpSocket::disconnected, this, &ServerWorker::slotDisconnected);
-    connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),
-            this, SLOT(slotTcpError(QAbstractSocket::SocketError)));
+void ServerWorker::connectToServer(QString addr, int port, QString login, QString password, bool remember) {
+    emit winConnected();
+    if(addr.isEmpty() || port == 0 || login.isEmpty() || password.isEmpty()) {
+        emit  errorConnected(401, "");
+        return;
+    }
+    this->m_login = login;
+    this->m_password = password;
+    emit inputChanged();
+    if(remember) {
+
+    }
+    if(!socket->isOpen()) {
+        socket->connectToHost(QHostAddress(addr), static_cast<uint16_t>(port), QIODevice::ReadWrite);
+        connect(socket, &QTcpSocket::connected, this, &ServerWorker::slotConnected);
+        connect(socket, &QTcpSocket::readyRead, this, &ServerWorker::slotReadyRead);
+        connect(socket, &QTcpSocket::disconnected, this, &ServerWorker::slotDisconnected);
+        connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),
+                this, SLOT(slotTcpError(QAbstractSocket::SocketError)));
+    }
+    else {
+        slotConnected();
+    }
 }
 
 void ServerWorker::connectToTestServer() {
@@ -32,26 +45,9 @@ void ServerWorker::connectToTestServer() {
 }
 
 void ServerWorker::slotConnected() {
-    /*qDebug() << "connect";
     QJsonObject obj;
-    obj.insert("name", "Sisoev Dmitry");
-    QJsonObject obj1;
-    obj1.insert("name", "Popov Dmitry");
-    QJsonObject obj2;
-    obj2.insert("name", "Sisoev2 Dmitry2");
-    QJsonArray arr;
-    arr.append(obj);
-    arr.append(obj1);
-    arr.append(obj2);
-    QJsonObject obj3;
-    obj3.insert("dayni", arr);
-    QJsonDocument doc(obj3);
-    QString strJson(doc.toJson(QJsonDocument::Compact));
-    socket->write(strJson.toUtf8());*/
-
-    QJsonObject obj;
-    obj.insert("login", this->login);
-    obj.insert("password", this->password);
+    obj.insert("login", this->m_login);
+    obj.insert("password", this->m_password);
     sendServerJsonDocument(getFormatedJson(Authorization, obj));
 
 }
@@ -60,16 +56,15 @@ void ServerWorker::slotReadyRead()  {
     QJsonDocument doc = getServerJsonDocument();
     QJsonObject obj = doc.object();
     Request type = static_cast<Request>(obj.value("type").toInt());
-
+    qDebug() << doc;
     switch (type) {
     case Authorization: {
         QJsonObject mainObj = obj.value("main").toObject();
         if(mainObj.value("answer").toBool()) {
-            this->token = mainObj.value("token").toString();
             emit winConnected();
         }
         else {
-            emit errorConnected(socket->errorString());
+            emit errorConnected(401, socket->errorString());
         }
         break;
     }
@@ -85,6 +80,9 @@ void ServerWorker::slotReadyRead()  {
         emit comeDataSensors(type, obj.value("main").toObject());
         break;
     }
+    default: {
+        emit errorConnected(400, socket->errorString());
+    }
     }
 
 }
@@ -92,8 +90,8 @@ void ServerWorker::slotReadyRead()  {
 void ServerWorker::slotTcpError(QAbstractSocket::SocketError socketError) {
     socket->close();
     Q_UNUSED(socketError)
-    emit errorConnected(socket->errorString());
-    qDebug() << "Error: " << socket->errorString();
+    emit errorConnected(404, socket->errorString());
+
 }
 
 void ServerWorker::slotDisconnected() {
@@ -111,7 +109,6 @@ QJsonDocument ServerWorker::getFormatedJson(Request type) {
     systemObj.insert("dt", QDateTime::currentSecsSinceEpoch());
     QJsonObject mainObj;
     mainObj.insert("type", type);
-    mainObj.insert("token", token);
     mainObj.insert("system", systemObj);
     QJsonDocument doc;
     doc.setObject(mainObj);
@@ -123,7 +120,6 @@ QJsonDocument ServerWorker::getFormatedJson(Request type, QJsonObject obj) {
     systemObj.insert("dt", QDateTime::currentSecsSinceEpoch());
     QJsonObject mainObj;
     mainObj.insert("type", type);
-    mainObj.insert("token", token);
     mainObj.insert("system", systemObj);
     mainObj.insert("main", obj);
     QJsonDocument doc;
@@ -134,13 +130,16 @@ QJsonDocument ServerWorker::getFormatedJson(Request type, QJsonObject obj) {
 void ServerWorker::sendServerJsonDocument(QJsonDocument doc) {
     QString strJson(doc.toJson(QJsonDocument::Compact));
     socket->write(strJson.toUtf8());
-    socket->write(strJson.toUtf8());
+    socket->write("\n");
 }
 
-QJsonDocument ServerWorker::getServerJsonDocument() {
-    QJsonDocument doc;
-    doc.fromJson(socket->readAll());
-    return doc;
+QJsonDocument ServerWorker::getServerJsonDocument() {   
+    return QJsonDocument::fromJson(socket->readAll());
+}
+
+void ServerWorker::requestUpdateFields() {
+    QJsonDocument doc = getFormatedJson(UpdateSensors);
+    sendServerJsonDocument(doc);
 }
 
 void ServerWorker::requestUpdateSensors() {

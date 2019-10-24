@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
 
 import Components.Controls 1.0
+import MyStyle 1.0
 
 Dialog {
     id: _dialog
@@ -13,9 +14,46 @@ Dialog {
     padding: 0
     closePolicy: Popup.NoAutoClose
 
+    property string url: "46.72.206.93"//_server.url
+    property var port: 6666//_server.port
+    property string login: _server.login
+    property string password: _server.password
+
     property var blurItem
     signal authentication(var url, var port, var login, var password)
     signal quit()
+
+    function setErrorCode(code) {
+        _loader.sourceComponent = _inputComponent
+        switch(code) {
+        case 404:
+            _errorState.state = "errorServer"
+            break;
+        case 200:
+            _errorState.state = "idle"
+            break;
+        case 401:
+            _errorState.state = "errorLogPass"
+            break;
+        }
+    }
+
+
+    StateGroup {
+        id: _errorState
+        states: [
+            State {
+                name: "idle"
+            },
+            State {
+                name: "errorServer"
+            },
+            State {
+                name: "errorLogPass"
+            }
+        ]
+        state: "idle"
+    }
 
     Overlay.modal: Rectangle {
         color: "#AA000000"
@@ -26,13 +64,16 @@ Dialog {
         }
     }
     onVisibleChanged: {
-        if(visible) _loader.sourceComponent = _inputComponent
+        if(visible) {
+            _errorState.state = "idle"
+            _loader.sourceComponent = _inputComponent
+        }
     }
 
     background: Rectangle {
         width: parent.width; height: parent.height
         radius: 10
-        color: "#FFFFFF"
+        color: MyStyle.foregroundColor
     }
     contentItem: Loader {
         id: _loader
@@ -47,7 +88,7 @@ Dialog {
                 x: parent.width/2 - width/2; y: 57
                 width: 100; height: 100
                 running: true
-                externalColor: "#323232"
+                externalColor: MyStyle.textColor
                 internalColor: "#487690"
             }
             Label {
@@ -56,6 +97,7 @@ Dialog {
                 verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 font.pixelSize: 24
+                color: MyStyle.textColor
                 text: qsTr("Идет подключение, одну секунду...")
             }
         }
@@ -72,44 +114,57 @@ Dialog {
                     Label {
                         width: 75; height: 35
                         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+                        color:  MyStyle.textColor
                         text: qsTr("Адрес")
                     }
                     InputText {
                         id: _urlFielf
                         width: 186
                         placeholderText: "url"
+                        error: _errorState.state === "errorServer"
+                        text: _dialog.url
+
                     }
                     Label {
                         width: 14; height: 35
                         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
+                        color:  MyStyle.textColor
                         text: ":"
                     }
                     InputText {
                         id: _portField
                         width: 56;
                         placeholderText: "port"
+                        text: _dialog.port
+                        error: _errorState.state === "errorServer"
                     }
                 }
                 Row {
                     Label {
                         width: 75; height: 35
                         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+                        color:  MyStyle.textColor
                         text: qsTr("Логин")
                     }
                     InputText {
                         id: _loginField
                         width: 256
+                        text: _dialog.login
+                        error: _errorState.state === "errorLogPass"
                     }
                 }
                 Row {
                     Label {
                         width: 75; height: 35
                         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+                        color:  MyStyle.textColor
                         text: qsTr("Пароль")
                     }
                     InputText {
                         id: _passwordField
                         width: 256
+                        text: _server.password
+                        error: _errorState.state === "errorLogPass"
                     }
                 }
             }
@@ -122,7 +177,7 @@ Dialog {
                     onClicked: {
                         _loader.sourceComponent = _lodingComponent
                         _dialog.authentication(_urlFielf.text,
-                                               _portField.text,
+                                               Number(_portField.text),
                                                _loginField.text,
                                                _passwordField.text)
                     }

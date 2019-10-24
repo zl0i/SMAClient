@@ -34,7 +34,7 @@ Canvas {
 
         ctx.strokeStyle = externalColor
         ctx.beginPath()
-        ctx.arc(centerX, centerY, radius, 0 + angleK, Math.PI + angleK);
+        ctx.arc(centerX, centerY, radius, 0 + angleK, Math.PI + angleK, true);
         ctx.stroke()
 
         ctx.translate(centerX,centerY )
@@ -42,7 +42,7 @@ Canvas {
 
         ctx.strokeStyle = internalColor
         ctx.beginPath()
-        ctx.arc(0, 0,  radius-10, 0 + angleK*2, Math.PI + angleK*2);
+        ctx.arc(0, 0,  radius-10, 0 + angleK*2, Math.PI + angleK*2, false);
         ctx.stroke()
     }
 }

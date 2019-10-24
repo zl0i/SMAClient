@@ -1,11 +1,13 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 
-
 import Components.Controls 1.0
 import Components.Delegats 1.0
 
-Item {
+import MyStyle 1.0
+
+Rectangle {
+    color: MyStyle.backgroundColor
 
     Rectangle {
         width: 256; height: parent.height
@@ -81,7 +83,7 @@ Item {
         Label {
             x: 20; y:17
             font.pixelSize: 32
-            color: "#000000"
+            color: MyStyle.textColor
             text: "Поле 3"
         }
         WeatherDelegat {
@@ -99,7 +101,7 @@ Item {
         }
         Label {
             x:20; y:310
-            color: "#000000"
+            color: MyStyle.textColor
             font.pixelSize: 32
             text: qsTr("Прогноз на 5 дней")
         }
@@ -120,13 +122,12 @@ Item {
                 maxTemperature: -5
                 windSpeed: 5
                 windDirection: "с-в"
-
             }
         }
         Label {
             x: 21; y: 585
             font.pixelSize: 32
-            color: "#000000"
+            color: MyStyle.textColor
             text: qsTr("Прогноз на 14 дней")
         }
 

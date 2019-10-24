@@ -12,7 +12,9 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.addImportPath(":/");
-    MainWorker *mainWorker = new MainWorker();
+    engine.addImportPath("D:/Project/Qt/ModuleQML");
+
+    MainWorker *mainWorker = new MainWorker();    
     engine.rootContext()->setContextProperty("_server", mainWorker->serverWorker);
     engine.rootContext()->setContextProperty("_weather", mainWorker->weatherWorker);
     engine.rootContext()->setContextProperty("_sensors", mainWorker->sensorWorker);
@@ -21,13 +23,12 @@ int main(int argc, char *argv[])
     mainWorker->sensorWorker->fillInTestData();
     mainWorker->carWorker->fillTestData();
 
+
     qmlRegisterSingletonType(QUrl("qrc:/MyStyle.qml"), "MyStyle", 1, 0, "MyStyle");
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
-
-
 
     return app.exec();
 }

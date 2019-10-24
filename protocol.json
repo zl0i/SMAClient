@@ -1,6 +1,5 @@
 {
-    "type": "Authorization", 
-    "token": "asd21312asdasde213",
+    "type": "Authorization",    
     "system": {
         "dt": 1569653340
     },
@@ -11,8 +10,7 @@
 }
 
 {
-    "type": "Authorization",
-    "token": "asd21312asdasde213",
+    "type": "Authorization",   
     "system": {
         "dt": 1569653340
     },
@@ -20,32 +18,20 @@
         "login": "zloi",
         "answer": true,
         "fullname": "Попов Дмитрий Александрович",
-        "token": "asd21312asdasde213",
+        "companyName": "ИП Сукачев"
     }
 }
 
 
 {
-    "type": "UpdateFields",
-    "token": "asd21312asdasde213",
+    "type": "UpdateFields",    
     "system": {
         "dt": 1569653340
     }
 }
 
-
-
 {
-    "type": "UpdateSensors",
-    "token": "asd21312asdasde213",
-    "system": {
-        "dt": 1569653340
-    }    
-}
-
-{
-    "type": "UpdateFields",
-    "token": "asd21312asdasde213",
+    "type": "UpdateFields",    
     "system": {
         "dt": 1569653340
     },
@@ -79,20 +65,18 @@
             {
                 "id": 2,
                 "name": "filed2",
-                "latitude": 51.522671,
-                "longitude": 39.267861,
                 "temperature": 27,
                 "humidity": 65,
-                "pressure": 780
+                "pressure": 780,
+                "location": []
             },
             {
                 "id": 3,
-                "name": "filed3",
-                "latitude": 51.521788,
-                "longitude": 39.279748,
+                "name": "filed3",               
                 "temperature": 23,
                 "humidity": 82,
-                "pressure": 790
+                "pressure": 790,
+                "location": []
             }
         ]
     }
@@ -100,7 +84,13 @@
 
 {
     "type": "UpdateSensors",
-    "token": "asd21312asdasde213",
+    "system": {
+        "dt": 1569653340
+    }
+}
+
+{
+    "type": "UpdateSensors",    
     "system": {
         "dt": 1569653340
     },
@@ -114,7 +104,13 @@
                 "temperature": 24.5,
                 "humidity": 75,
                 "pressure": 785,
-                "soil": {
+                "battery": 47,
+                "gsmlvl": 85,
+                "ground": {
+                    "1": 58,
+                    "2": 60,
+                    "3": 65,
+                    "4": 70
                 }
             },                        
             {
@@ -125,7 +121,9 @@
                 "temperature": 27,
                 "humidity": 65,
                 "pressure": 780,
-                "soil": {                    
+                "battery": 47,
+                "gsmlvl": 85,
+                "ground": {
                 }
             },
             {
@@ -136,7 +134,9 @@
                 "temperature": 23,
                 "humidity": 82,
                 "pressure": 790,
-                "soil": {                    
+                "battery": 47,
+                "gsmlvl": 85,
+                "ground": {
                 }
             },
             {
@@ -147,7 +147,9 @@
                 "temperature": 20,
                 "humidity": 50,
                 "pressure": 460,
-                "soil": {                    
+                "battery": 47,
+                "gsmlvl": 85,
+                "ground": {
                 }
             }
         ]
@@ -157,16 +159,14 @@
 
 
 {
-    "type": "UpdateCars",
-    "token": "asd21312asdasde213",
+    "type": "UpdateCars",    
     "system": {
         "dt": 1569653340
     }    
 }
 
 {
-    "type": "UpdateCars",
-    "token": "asd21312asdasde213",
+    "type": "UpdateCars",    
     "system": {
         "dt": 1569653340
     },
@@ -177,9 +177,7 @@
                 "name": "cars1",
                 "latitude": 51.511226,
                 "longitude": 39.286618,
-                "speed": 0,                
-                "path": {
-                }
+                "speed": 0,
             },                        
             {
                 "id": 2,
@@ -187,45 +185,20 @@
                 "latitude": 51.511039,
                 "longitude": 39.286660,
                 "speed": 0,                
-                "path": {
-                }
             },
             {
                 "id": 3,
                 "name": "cars3",
                 "latitude": 51.510959,
                 "longitude": 39.276959,
-                "speed": 30,                
-                "path": [
-                    {
-                        "latitude": 51.511505, 
-                        "longitude": 39.268714
-                    },
-                    {
-                        "latitude": 51.511974, 
-                        "longitude":39.268725 
-                    },
-                    {
-                        "latitude": 51.511499, 
-                        "longitude": 39.278037  
-                    },
-                    {
-                        "latitude": 51.512028, 
-                        "longitude":39.278005 
-                    },
-                    {
-                        "latitude": 51.512643, 
-                        "longitude":39.268435 
-                    },
-                ]
+                "speed": 30
             },            
         ]
     }
 }
 
 {
-    "type": "HistorySensors",
-    "token": "asd21312asdasde213",
+    "type": "HistorySensors",    
     "system": {
         "dt": 1569653340
     },
@@ -238,8 +211,7 @@
 }
 
 {
-    "type": "HistorySensors",
-    "token": "asd21312asdasde213",
+    "type": "HistorySensors",    
     "system": {
         "dt": 1569653340
     },

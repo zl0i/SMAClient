@@ -1,6 +1,8 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 
+import MyStyle 1.0
+
 TextField {
     id: _field
     width: 200; height: 35
@@ -9,27 +11,33 @@ TextField {
     property color noFocusColor: "#828282"
     property color errorColor: "#D91818"
 
-    property bool erorr: false
+    property bool error: false
 
     states: [
         State {
             name: "focus"; when: _field.focus
         },
         State {
-            name: "noFocus"; when: _field.focus === false
+            name: "noFocus"; when: !_field.focus
         },
         State {
-            name: "erorr"; when: _field.erorr
+            name: "error"; when: _field.error
         }
     ]
     state: "noFocus"
 
+    onTextEdited: {
+        error = false
+    }
+    color: MyStyle.textColor
+
     background: Rectangle {
         width: parent.width; height: parent.height
+        color: MyStyle.foregroundColor
         border.width: 2; border.color: {
+            if(error) return errorColor
             if(_field.state === "focus") return focusColor
-            if(_field.state === "nofocus") return noFocusColor
-            if(_field.state === "erorr") return errorColor
+            if(_field.state === "nofocus") return noFocusColor            
             return noFocusColor
         }
     }

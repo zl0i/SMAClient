@@ -6,35 +6,44 @@ import QtQml.Models 2.12
 import Components 1.0
 import Components.Dialogs 1.0
 
+import MyStyle 1.0
+
 
 
 ApplicationWindow {
     id: _window
     visible: true
     width: 1112;  height: 834
-    title: qsTr("SMA Client")   
+    title: qsTr("SMA Client")
 
     font {
         family: "Roboto"
         pixelSize: 14
     }
-    Timer {
-        id: _tim
-        interval: 500
-        running: false
-        repeat: false
-        onTriggered: {
+
+    Component.onCompleted: {
+        MyStyle.theme = MyStyle.Theme.Black
+    }
+
+
+    Connections {
+        target: _server
+        onWinConnected: {
             _connectDialog.close()
         }
+        onErrorConnected: {
+            console.log(code)
+            _connectDialog.setErrorCode(code)
+        }
     }
+
 
     ConnectDialog {
         id: _connectDialog
         visible: true
         blurItem: _window.contentItem
         onAuthentication: {
-            _tim.start()
-            //close()
+            _server.connectToServer(url, port, login, password, true)
         }
         onQuit: {
             Qt.quit()
@@ -64,7 +73,7 @@ ApplicationWindow {
             _list.positionViewAtIndex(1, ListView.SnapPosition)
         }
         onSelectWeatherPage: {
-             _list.positionViewAtIndex(2, ListView.SnapPosition)
+            _list.positionViewAtIndex(2, ListView.SnapPosition)
         }
         onSelectSettingsPage: {
             _list.positionViewAtIndex(3, ListView.SnapPosition)
@@ -77,7 +86,8 @@ ApplicationWindow {
         x: _tabMenu.width; y: 0
         width: parent.width-x; height: parent.height
         model: _pageModel
-        interactive: false        
+        interactive: false
+
     }
 
 

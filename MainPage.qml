@@ -4,145 +4,114 @@ import QtQml.Models 2.12
 import QtGraphicalEffects 1.0
 
 import Components.Controls 1.0
+import Components.Delegats 1.0
+import MyStyle 1.0
 
-Item {
+import DropView 1.0
+
+Rectangle {
+    color: MyStyle.backgroundColor
     Label {
         x: 50; y:25
         font.pixelSize: 36
         font.weight: Font.Bold
+        color: MyStyle.textColor
         text: qsTr("Избранные данные")
     }
+    MouseArea {
+        anchors.fill: parent
+        onClicked: _flick.isEdit = false
+    }
     Flickable {
+        id: _flick
         x: 50; y: 100
-        width: parent.width-x; height: parent.height-y
-        contentHeight: _flow.height+20
+        width: parent.width-x-50; height: parent.height-y
+        implicitHeight: 500
         clip: true
+        contentHeight: _flow.height+20
+        property bool isEdit: false
         Flow {
             id: _flow
-            width: parent.width;// height: parent.height
-            spacing: 10
+            x:10; y:10
+            width: parent.width-20;// height: parent.height
+            spacing: 20
             Repeater {
-                model: _favoritModel
+                id: _repeter
+                model: DelegateModel {
+                    id: _visualModel
+                    model: favoritModel
+                    delegate: DragWrapper {
+                        width: _loader.width; height: _loader.height
+                        isEdit: _flick.isEdit
+                        view: _repeter
+                        Loader {
+                            id: _loader
+                            source: "Components/Delegats/" + modelData.component
+                            onStatusChanged: {
+                                setPropertyComponen(item, modelData)
+                            }
+                        }
+                        onEditStart: {
+                            _flick.isEdit = true
+                        }
+                        onDropEntered: {
+                            _visualModel.items.move(drag.source.DelegateModel.itemsIndex, DelegateModel.itemsIndex)
+                        }
+                    }
+                }
+            }
+            AddFooter {
+                z: -1
+
             }
         }
     }
-    GridView {
 
-    }
-
-    ObjectModel {
-        id: _favoritModel
-        Rectangle {
-            width: 400; height: 400
-            color: "red"
-        }
-        Rectangle {
-            width: 400; height: 400
-            color: "red"
-        }
-        Rectangle {
-            width: 810; height: 400
-            color: "red"
-        }
-        Rectangle {
-            width: 400; height: 400
-            color: "red"
-        }
-        Rectangle {
-            width: 400; height: 400
-            color: "red"
-        }
-        Rectangle {
-            width: 400; height: 400
-            color: "red"
+    function setPropertyComponen(obj, model) {
+        for(var key in model) {
+            if(key === "component") continue
+            obj[key] = model[key]
         }
     }
 
-
-
-
-
-    readonly property var fieldModel: [
+    property var favoritModel: [
         {
-            "id": 1,
-            "name": "filed1",
-            "count": 1,
-            "area": 20
+            "component": "WeatherDelegat.qml",
+            "temperature": -10,
+            "pressure": 755,
+            "humidity": 85
         },
         {
-            "id": 1,
-            "name": "filed2",
-            "count": 1,
-            "area": 20
+            "component": "SmallWeatherDelegat.qml",
+            "temperature": 25,
+            "pressure": 755,
+            "humidity": 85
         },
         {
-            "id": 1,
-            "name": "filed3",
-            "count": 2,
-            "area": 40
-        }
+            "component": "SmallWeatherDelegat.qml",
+            "temperature": 25,
+            "pressure": 755,
+            "humidity": 85
+        },
+        {
+            "component": "SmallWeatherDelegat.qml",
+            "temperature": 25,
+            "pressure": 755,
+            "humidity": 85
+        },
+        {
+            "component": "WeatherDelegat.qml",
+            "temperature": 25,
+            "pressure": 755,
+            "humidity": 85
+        },
+        {
+            "component": "SmallWeatherDelegat.qml",
+            "temperature": 25,
+            "pressure": 755,
+            "humidity": 85
+        },
     ]
 
-
-
-    readonly property var sensorModel: [
-        {
-            "id": 1,
-            "name": "sensors1",
-            "latitude": 51.511281,
-            "longitude": 39.267537,
-            "temperature": 24.5,
-            "humidity": 75,
-            "pressure": 785
-        },
-        {
-            "id": 2,
-            "name": "sensors2",
-            "latitude": 51.522671,
-            "longitude": 39.267861,
-            "temperature": 27,
-            "humidity": 65,
-            "pressure": 780
-        },
-        {
-            "id": 3,
-            "name": "sensors3",
-            "latitude": 51.521788,
-            "longitude": 39.279748,
-            "temperature": 23,
-            "humidity": 82,
-            "pressure": 790
-        },
-        {
-            "id": 4,
-            "name": "sensors4",
-            "latitude": 51.510167,
-            "longitude": 39.279191,
-            "temperature": 20,
-            "humidity": 50,
-            "pressure": 460
-        }
-    ]
-
-    readonly property var carModel: [
-        {
-            "id": 1,
-            "name": "car1",
-            "benzin": 40,
-            "speed": 0
-        },
-        {
-            "id": 1,
-            "name": "car2",
-            "benzin": 40,
-            "speed": 0
-        },
-        {
-            "id": 1,
-            "name": "car3",
-            "benzin": 20,
-            "speed": 10
-        }
-    ]
 
 }

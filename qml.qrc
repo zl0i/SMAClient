@@ -36,5 +36,6 @@
         <file>Components/Delegats/SmallWeatherDelegat.qml</file>
         <file>Components/Delegats/WeatherDelegat.qml</file>
         <file>Components/Delegats/BaseWeatherDelegate.qml</file>
+        <file>Components/Delegats/AddFooter.qml</file>
     </qresource>
 </RCC>

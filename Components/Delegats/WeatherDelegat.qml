@@ -2,40 +2,22 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
 
-Rectangle {
+import MyStyle 1.0
+
+BaseWeatherDelegate {
     id: _delegat
     width: 410; height: 200
-    radius: 20
-    gradient: Gradient {
-        orientation: Gradient.Vertical
-        GradientStop { position:  0.55;  color: "#FFFFFF"}
-        GradientStop { position:  1.0;  color: "#126797"}
-    }
-    layer.enabled: true
-    layer.effect: DropShadow {
-        radius: 8
-        samples: 16
-        color: "#80000000"
-    }
 
-    property var date
-    property int temperature
+    property var date    
     property int minTemperature
-    property int maxTemperature
-    property int pressure
-    property int humidity
-    property var sunrise
-    property var sunset
+    property int maxTemperature   
     property string windDirection
-    property int windSpeed
-
-    property string typeWeather
-    property string localTypeWeather
 
 
     Label {
         x:16; y:3
         font.pixelSize: 20
+        color: MyStyle.textColor
         text: {
             if(date.getDate() === new Date().getDate()) {
                 return qsTr("Сегодня (%1)").arg(date.toLocaleString(Qt.locale(), "dd MMMM"))
@@ -47,15 +29,17 @@ Rectangle {
         id: _mainTemp
         x:16; y:35
         font.pixelSize: 36
-        color: "#000000"
+        color: MyStyle.textColor
         text: (_delegat.temperature > 0 ? "+" : "")  + _delegat.temperature + " C"
     }
     Label {
         x: _mainTemp.x + _mainTemp.contentWidth + 10; y:31
+        color: MyStyle.textColor
         text: _delegat.maxTemperature
     }
     Label {
         x: _mainTemp.x + _mainTemp.contentWidth + 10; y:68
+        color: MyStyle.textColor
         text: _delegat.minTemperature
     }
     Row {
@@ -65,10 +49,15 @@ Rectangle {
         Image {
             width: 33; height: 17
             source: "qrc:/image/weather/upsun-black.svg"
+            layer.enabled: true
+            layer.effect: ColorOverlay {
+                color: MyStyle.textColor
+            }
         }
         Label {
             height: 17
             verticalAlignment: Text.AlignVCenter
+            color: MyStyle.textColor
             text: sunrise.toLocaleString(Qt.locale(), "HH:mm")
         }
     }
@@ -79,10 +68,15 @@ Rectangle {
         Image {
             width: 33; height: 11
             source: "qrc:/image/weather/downsun-black.svg"
+            layer.enabled: true
+            layer.effect: ColorOverlay {
+                color: MyStyle.textColor
+            }
         }
         Label {
             height: 11
             verticalAlignment: Text.AlignVCenter
+            color: MyStyle.textColor
             text: sunrise.toLocaleString(Qt.locale(), "HH:mm")
         }
     }
@@ -98,11 +92,16 @@ Rectangle {
                 anchors.centerIn: parent
                 width: 13; height: 20
                 source: "qrc:/image/weather/humidity-black.svg"
+                layer.enabled: true
+                layer.effect: ColorOverlay {
+                    color: MyStyle.textColor
+                }
             }
         }
         Label {
             height: 22
             verticalAlignment: Text.AlignVCenter
+            color: MyStyle.textColor
             text: _delegat.humidity + " %"
         }
         Item {
@@ -111,11 +110,16 @@ Rectangle {
                 anchors.centerIn: parent
                 width: 20; height: 20
                 source: "qrc:/image/weather/pressure-black.svg"
+                layer.enabled: true
+                layer.effect: ColorOverlay {
+                    color: MyStyle.textColor
+                }
             }
         }
         Label {
             height: 22
             verticalAlignment: Text.AlignVCenter
+            color: MyStyle.textColor
             text: _delegat.pressure + " мм"
         }
         Item {
@@ -125,16 +129,22 @@ Rectangle {
                 width: 26.5; height: 15
                 antialiasing: true
                 source: "qrc:/image/weather/wind-black.svg"
+                layer.enabled: true
+                layer.effect: ColorOverlay {
+                    color: MyStyle.textColor
+                }
             }
         }
         Label {
             height: 22
             verticalAlignment: Text.AlignVCenter
+            color: MyStyle.textColor
             text: _delegat.windDirection
         }
         Label {
             height: 22
             verticalAlignment: Text.AlignVCenter
+            color: MyStyle.textColor
             text: _delegat.windSpeed + " м/с"
         }
     }
@@ -148,12 +158,17 @@ Rectangle {
                 width: 75; height: 60
                 fillMode: Image.PreserveAspectFit
                 source: "qrc:/image/weather/snow-black.svg"
+                layer.enabled: true
+                layer.effect: ColorOverlay {
+                    color: MyStyle.textColor
+                }
             }
         }
         Label {
             width: 100; height: 32
             verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
+            color: MyStyle.textColor
             text: "Снег"//"Перееменная облачность"
         }
     }
@@ -177,11 +192,13 @@ Rectangle {
             Label {
                 width: 37; height: 20
                 verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
+                color: MyStyle.textColor
                 text: "22:00"
             }
             Label {
                 width: 37; height: 20
                 verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
+                color: MyStyle.textColor
                 text: "+8 C"
             }
         }
