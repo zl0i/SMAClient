@@ -144,10 +144,15 @@ Item {
 
     DelegateModel {
         id: _filedModel
-        model: _cars.carsModel
+        model:  _fields.fieldModel
         delegate: FieldDelegat {
-            nameField: "Поле " + index
-            isFavorite: true
+            nameField: nameData
+            temperature: temperatureData
+            humidity: humidityData
+            pressure: pressureData
+            countSensors: countData
+            location: locationData
+            //isFavorite: true
             isLast: ListView.view.count -1 === index
         }
     }
@@ -155,11 +160,11 @@ Item {
     DelegateModel {
         id: _sensorModel
         model: _sensors.sensorModel
-        delegate: SensorDelegat {
-            nameSensor: "id"
-            temperature: temperature
-            pressure: pressure
-            humidity: humidity
+        delegate: SensorDelegat {            
+            nameSensor: nameData
+            temperature: temperatureData
+            pressure: pressureData
+            humidity: humidityData
             isLast: ListView.view.count -1 === index
         }
     }
@@ -168,8 +173,8 @@ Item {
         id: _carsModel
         model: _cars.carsModel
         delegate: CarDelegat {
-            nameCar: "name"
-            speed: speed
+            nameCar: nameData
+            speed: speedData
             isLast: ListView.view.count -1 === index
 
         }

@@ -7,16 +7,15 @@ import MyStyle 1.0
 BaseWeatherDelegate {
     id: _delegat
     width: 150; height: 200
-
-    property string date   
+    antialiasing: true
 
     Label {
-        x: 0; y: 7
+        x: 0; y: 5
         width: parent.width
         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
         color: MyStyle.textColor
         font.pixelSize: 16
-        text: "16 октября"
+        text: new Date(date).toLocaleString(Qt.locale(), "d MMMM")
     }
 
     Image {
@@ -30,12 +29,12 @@ BaseWeatherDelegate {
         }
     }
     Column {
-        x: 15; y: 65
-        spacing: 6
+        x: parent.width/2-width/2; y: 65
+        spacing: 5
         Row {
             spacing: 10
             Item {
-                width: 20; height: 18
+                width: 33; height: 18
                 Image {
                     anchors.centerIn: parent
                     width: 8; height: 16
@@ -50,13 +49,13 @@ BaseWeatherDelegate {
                 width: 53; height: 18
                 verticalAlignment: Text.AlignVCenter
                 color: MyStyle.textColor
-                text: _delegat.temperature + " C"
+                text: _delegat.temperature + " " + degTemperatureStr + "C"
             }
         }
         Row {
             spacing: 10
             Item {
-                width: 20; height: 18
+                width: 33; height: 18
                 Image {
                     anchors.centerIn: parent
                     width: 16; height: 16
@@ -77,7 +76,7 @@ BaseWeatherDelegate {
         Row {
             spacing: 10
             Item {
-                width: 20; height: 18
+                width: 33; height: 18
                 Image {
                     anchors.centerIn: parent
                     width: 16; height: 20
@@ -98,7 +97,7 @@ BaseWeatherDelegate {
         Row {
             spacing: 10
             Item {
-                width: 20; height: 18
+                width: 33; height: 18
                 Image {
                     anchors.centerIn: parent
                     width: 20; height: 13
@@ -114,6 +113,48 @@ BaseWeatherDelegate {
                 verticalAlignment: Text.AlignVCenter
                 color: MyStyle.textColor
                 text: _delegat.windSpeed + " м/с"
+            }
+        }
+        Row {
+            spacing: 10
+            Item {
+                width: 33; height: 18
+                Image {
+                    anchors.centerIn: parent
+                    width: 27; height: 16
+                    source: "qrc:/image/weather/upsun-black.svg"
+                    layer.enabled: true
+                    layer.effect: ColorOverlay {
+                        color: MyStyle.textColor
+                    }
+                }
+            }
+            Label {
+                width: 53; height: 16
+                verticalAlignment: Text.AlignVCenter
+                color: MyStyle.textColor
+                text: "8:00"
+            }
+        }
+        Row {
+            spacing: 10
+            Item {
+                width: 33; height: 18
+                Image {
+                    anchors.centerIn: parent
+                    width: 33; height: 11
+                    source: "qrc:/image/weather/downsun-black.svg"
+                    layer.enabled: true
+                    layer.effect: ColorOverlay {
+                        color: MyStyle.textColor
+                    }
+                }
+            }
+            Label {
+                width: 53; height: 11
+                verticalAlignment: Text.AlignVCenter
+                color: MyStyle.textColor
+                text: "20:00"
             }
         }
     }

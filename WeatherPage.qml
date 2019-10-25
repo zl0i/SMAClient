@@ -88,16 +88,16 @@ Rectangle {
         }
         WeatherDelegat {
             x:20; y: 68
-            temperature: +25
+            temperature: +15
             pressure: 755
             humidity: 85
-            minTemperature: -9
-            maxTemperature: -5
+            minTemperature: 25
+            maxTemperature: 25
             windSpeed: 5
-            windDirection: "с-в"
-            date: new Date()
-            sunrise: new Date()
-            sunset: new Date()
+            windDeg: 240
+            date: 1570266000
+            sunrise: 1570266000
+            sunset: 1570266000
         }
         Label {
             x:20; y:310
@@ -112,16 +112,16 @@ Rectangle {
             spacing: 20
             model: 6
             delegate: WeatherDelegat {
-                date: new Date()
-                sunrise: new Date()
-                sunset: new Date()
+                date: 1570266000
+                sunrise: 1570266000
+                sunset: 1570266000
                 temperature: -7
                 pressure: 755
                 humidity: 85
                 minTemperature: -9
                 maxTemperature: -5
                 windSpeed: 5
-                windDirection: "с-в"
+                windDeg: 357
             }
         }
         Label {

@@ -3,14 +3,15 @@
 ServerWorker::ServerWorker(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket(this);
+    m_login = "test";
+    m_password = "test";
 }
 
 ServerWorker::~ServerWorker() {
     socket->close();
 }
 
-void ServerWorker::connectToServer(QString addr, int port, QString login, QString password, bool remember) {
-    emit winConnected();
+void ServerWorker::connectToServer(QString addr, int port, QString login, QString password, bool remember) {    
     if(addr.isEmpty() || port == 0 || login.isEmpty() || password.isEmpty()) {
         emit  errorConnected(401, "");
         return;
@@ -18,6 +19,10 @@ void ServerWorker::connectToServer(QString addr, int port, QString login, QStrin
     this->m_login = login;
     this->m_password = password;
     emit inputChanged();
+    if(login == "test" && password == "test") {
+        emit winConnected();
+        return;
+    }
     if(remember) {
 
     }
@@ -61,6 +66,9 @@ void ServerWorker::slotReadyRead()  {
     case Authorization: {
         QJsonObject mainObj = obj.value("main").toObject();
         if(mainObj.value("answer").toBool()) {
+            m_fullName = mainObj.value("fullName").toString();
+            m_companyName = mainObj.value("companyName").toString();
+            emit clientChanged();
             emit winConnected();
         }
         else {

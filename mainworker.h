@@ -6,6 +6,7 @@
 #include "weatherworker.h"
 #include "sensorworker.h"
 #include "carworker.h"
+#include "fieldworker.h"
 
 class MainWorker : public QObject
 {
@@ -16,6 +17,7 @@ public:
     ServerWorker *serverWorker = new ServerWorker(this);
     SensorWorker *sensorWorker = new SensorWorker(this);
     CarWorker *carWorker = new CarWorker(this);
+    FieldWorker *fieldWorker = new FieldWorker(this);
     WeatherWorker *weatherWorker = new WeatherWorker(this);
 
 private:

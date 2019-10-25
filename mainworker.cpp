@@ -10,9 +10,6 @@ MainWorker::MainWorker(QObject *parent) : QObject(parent)
     weatherTimer->setInterval(1000*60*30);
     connect(weatherTimer, &QTimer::timeout, this, &MainWorker::slotUpdateWeatherTimer);
 
-    sensorWorker->fillInTestData();
-    carWorker->fillTestData();
-
 }
 
 

@@ -52,8 +52,8 @@ ApplicationWindow {
     ProfilePopup {
         id: _profilePopup
         x: 100; y:29
-        companyName: "ИП Сукачев"
-        fullName: "Сукачев Александр Игоревич"
+        companyName: _server.companyName
+        fullName: _server.fullName
         onExit: {
             _connectDialog.open()
         }

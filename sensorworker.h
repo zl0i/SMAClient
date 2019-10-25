@@ -26,6 +26,7 @@ public:
 
     typedef enum {
         idRole = Qt::UserRole+1,
+        NameRole,
         LatitudeRole,
         LongitudeRole,
         TemperatureRole,

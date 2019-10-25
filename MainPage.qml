@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQml.Models 2.12
 import QtGraphicalEffects 1.0
+import Qt.labs.settings 1.1
 
 import Components.Controls 1.0
 import Components.Delegats 1.0
@@ -25,7 +26,7 @@ Rectangle {
     Flickable {
         id: _flick
         x: 50; y: 100
-        width: parent.width-x-50; height: parent.height-y
+        width: parent.width-x; height: parent.height-y
         implicitHeight: 500
         clip: true
         contentHeight: _flow.height+20
@@ -62,9 +63,22 @@ Rectangle {
             }
             AddFooter {
                 z: -1
+                visible: !_flick.isEdit
+                onClicked: {
+
+                }
 
             }
         }
+    }
+    Component.onCompleted: {
+        var temp = new Date()
+        //temp.setSeconds(1570159679)
+        //temp.setMilliseconds(1571961600)
+        temp.setMilliseconds(1570266000)
+        //temp.setUTC(1571961600)
+        console.log(temp)
+        console.log(new Date().getHours())
     }
 
     function setPropertyComponen(obj, model) {
@@ -79,37 +93,65 @@ Rectangle {
             "component": "WeatherDelegat.qml",
             "temperature": -10,
             "pressure": 755,
-            "humidity": 85
+            "humidity": 85,
+            "typeWeather": "snow",
+            "date": 1570159679,
+            "minTemperature": -12,
+            "maxTemperature": -5,
+            "windSpeed": 10,
+            "windDeg": 325,
+            "sunrise": 1570159679,
+            "sunset": 1570159679
         },
         {
             "component": "SmallWeatherDelegat.qml",
             "temperature": 25,
             "pressure": 755,
-            "humidity": 85
+            "humidity": 85,
+            "width": 200,
+            "typeWeather": "rain",
+            "date": 1570159679
         },
         {
             "component": "SmallWeatherDelegat.qml",
             "temperature": 25,
             "pressure": 755,
-            "humidity": 85
+            "humidity": 85,
+            "width": 200,
+            "typeWeather": "mist",
+            "date": 1572019348
         },
         {
             "component": "SmallWeatherDelegat.qml",
             "temperature": 25,
             "pressure": 755,
-            "humidity": 85
+            "humidity": 85,
+            "width": 200,
+            "date": 1572019348,
+            "typeWeather": "thunderstorm",
         },
         {
             "component": "WeatherDelegat.qml",
             "temperature": 25,
             "pressure": 755,
-            "humidity": 85
+            "humidity": 85,
+            "date": 1572019348,
+            "typeWeather": "clear sky",
+            "minTemperature": 23,
+            "maxTemperature": 27,
+            "windSpeed": 3,
+            "windDeg": 178,
+            "sunrise": 1570159679,
+            "sunset": 1570159679
         },
         {
             "component": "SmallWeatherDelegat.qml",
             "temperature": 25,
             "pressure": 755,
-            "humidity": 85
+            "humidity": 85,
+            "width": 200,
+            "date": 1572019348,
+            "typeWeather": "few clouds",
         },
     ]
 

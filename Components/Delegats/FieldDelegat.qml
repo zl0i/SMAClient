@@ -10,10 +10,11 @@ Item {
     property int temperature
     property int pressure
     property int humidity
+    property var location
     property bool isFavorite: false
     property bool isLast: false
 
-    signal clicked(var name)
+    signal clicked(var name, var coord)
 
     Label {
         id: _nameLable
@@ -78,7 +79,8 @@ Item {
         onEntered: hovered = true
         onExited: hovered = false
         onClicked: {
-            _delegat.clicked(_delegat.nameField)
+            console.log(JSON.stringify(location))
+            _delegat.clicked(_delegat.nameField, location[0])
         }
     }
 

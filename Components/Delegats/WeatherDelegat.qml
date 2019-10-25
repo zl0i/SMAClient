@@ -6,23 +6,22 @@ import MyStyle 1.0
 
 BaseWeatherDelegate {
     id: _delegat
-    width: 410; height: 200
-
-    property var date    
+    width: 410;
+    antialiasing: true
     property int minTemperature
     property int maxTemperature   
-    property string windDirection
-
+    property int windDeg
 
     Label {
         x:16; y:3
         font.pixelSize: 20
         color: MyStyle.textColor
         text: {
-            if(date.getDate() === new Date().getDate()) {
-                return qsTr("Сегодня (%1)").arg(date.toLocaleString(Qt.locale(), "dd MMMM"))
+            var temp = new Date(date)
+            if(temp.getDate() === new Date().getDate()) {
+                return qsTr("Сегодня (%1)").arg(temp.toLocaleString(Qt.locale(), "dd MMMM"))
             }
-            return date.toLocaleString(Qt.locale(), "dd MMMM")
+            return temp.toLocaleString(Qt.locale(), "dd MMMM")
         }
     }
     Label {
@@ -30,20 +29,22 @@ BaseWeatherDelegate {
         x:16; y:35
         font.pixelSize: 36
         color: MyStyle.textColor
-        text: (_delegat.temperature > 0 ? "+" : "")  + _delegat.temperature + " C"
+        text: (_delegat.temperature > 0 ? "+" : "")  + _delegat.temperature + " " + degTemperatureStr + "C"
     }
     Label {
+        id: _maxTemp
         x: _mainTemp.x + _mainTemp.contentWidth + 10; y:31
         color: MyStyle.textColor
-        text: _delegat.maxTemperature
+        text: (_delegat.maxTemperature > 0 ? "+" : "")  + _delegat.maxTemperature
     }
     Label {
+        id: _minTemp
         x: _mainTemp.x + _mainTemp.contentWidth + 10; y:68
         color: MyStyle.textColor
-        text: _delegat.minTemperature
+        text: (_delegat.minTemperature > 0 ? "+" : "")  + _delegat.minTemperature
     }
     Row {
-        x:146; y:32
+        x:_maxTemp.x + _maxTemp.contentWidth + 20; y:32
         height: 17
         spacing: 7
         Image {
@@ -58,11 +59,11 @@ BaseWeatherDelegate {
             height: 17
             verticalAlignment: Text.AlignVCenter
             color: MyStyle.textColor
-            text: sunrise.toLocaleString(Qt.locale(), "HH:mm")
+            text: new Date(sunrise).toLocaleString(Qt.locale(), "HH:mm")
         }
     }
     Row {
-        x:146; y:68
+        x:_maxTemp.x + _maxTemp.contentWidth + 20; y:68
         height: 11
         spacing: 7
         Image {
@@ -77,7 +78,7 @@ BaseWeatherDelegate {
             height: 11
             verticalAlignment: Text.AlignVCenter
             color: MyStyle.textColor
-            text: sunrise.toLocaleString(Qt.locale(), "HH:mm")
+            text: new Date(sunset).toLocaleString(Qt.locale(), "HH:mm")
         }
     }
 
@@ -139,7 +140,7 @@ BaseWeatherDelegate {
             height: 22
             verticalAlignment: Text.AlignVCenter
             color: MyStyle.textColor
-            text: _delegat.windDirection
+            text: getDirectionByDeg(windDeg)
         }
         Label {
             height: 22
@@ -157,7 +158,7 @@ BaseWeatherDelegate {
                 anchors.centerIn: parent
                 width: 75; height: 60
                 fillMode: Image.PreserveAspectFit
-                source: "qrc:/image/weather/snow-black.svg"
+                source: getIconByWeather(typeWeather)
                 layer.enabled: true
                 layer.effect: ColorOverlay {
                     color: MyStyle.textColor
@@ -169,7 +170,7 @@ BaseWeatherDelegate {
             verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
             color: MyStyle.textColor
-            text: "Снег"//"Перееменная облачность"
+            text: getNameByWeather(typeWeather)
         }
     }
 

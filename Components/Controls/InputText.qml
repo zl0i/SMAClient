@@ -6,6 +6,9 @@ import MyStyle 1.0
 TextField {
     id: _field
     width: 200; height: 35
+    selectByMouse: true
+    selectedTextColor: MyStyle.textColor
+    selectionColor: "#80487690"
 
     property color focusColor: "#487690"
     property color noFocusColor: "#828282"

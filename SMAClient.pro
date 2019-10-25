@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         carworker.cpp \
+        fieldworker.cpp \
         main.cpp \
         mainworker.cpp \
         sensorworker.cpp \
@@ -38,6 +39,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     carworker.h \
+    fieldworker.h \
     mainworker.h \
     sensorworker.h \
     serverworker.h \

@@ -165,6 +165,7 @@ Dialog {
                         width: 256
                         text: _server.password
                         error: _errorState.state === "errorLogPass"
+                        echoMode: TextInput.Password
                     }
                 }
             }

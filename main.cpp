@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include <QDebug>
 #include "mainworker.h"
+#include <QDateTime>
 
 int main(int argc, char *argv[])
 {
@@ -17,12 +18,17 @@ int main(int argc, char *argv[])
     MainWorker *mainWorker = new MainWorker();    
     engine.rootContext()->setContextProperty("_server", mainWorker->serverWorker);
     engine.rootContext()->setContextProperty("_weather", mainWorker->weatherWorker);
+    engine.rootContext()->setContextProperty("_fields", mainWorker->fieldWorker);
     engine.rootContext()->setContextProperty("_sensors", mainWorker->sensorWorker);
     engine.rootContext()->setContextProperty("_cars", mainWorker->carWorker);
 
+    mainWorker->fieldWorker->fillInTestData();
     mainWorker->sensorWorker->fillInTestData();
     mainWorker->carWorker->fillTestData();
 
+    QDateTime dt;
+    dt.setSecsSinceEpoch(1571961600);
+    qDebug() << dt.toLocalTime();
 
     qmlRegisterSingletonType(QUrl("qrc:/MyStyle.qml"), "MyStyle", 1, 0, "MyStyle");
 

@@ -3,13 +3,14 @@
 SensorWorker::SensorWorker(QObject *parent) : QObject(parent)
 {  
     QHash<int, QByteArray> hash;
-    hash.insert(SensorWorker::idRole, "id");
-    hash.insert(SensorWorker::LatitudeRole, "latitude");
-    hash.insert(SensorWorker::LongitudeRole, "longitude");
-    hash.insert(SensorWorker::TemperatureRole, "temperature");
-    hash.insert(SensorWorker::HumidityRole, "humidity");
-    hash.insert(SensorWorker::PressureRole, "pressure");
-    hash.insert(SensorWorker::SoilRole, "soil");
+    hash.insert(SensorWorker::idRole, "sensor_id");
+     hash.insert(SensorWorker::NameRole, "nameData");
+    hash.insert(SensorWorker::LatitudeRole, "latitudeData");
+    hash.insert(SensorWorker::LongitudeRole, "longitudeData");
+    hash.insert(SensorWorker::TemperatureRole, "temperatureData");
+    hash.insert(SensorWorker::HumidityRole, "humidityData");
+    hash.insert(SensorWorker::PressureRole, "pressureData");
+    //hash.insert(SensorWorker::SoilRole, "soil");
     sensorModel->setItemRoleNames(hash);
 
     hash.clear();
@@ -23,6 +24,7 @@ void SensorWorker::fillInTestData() {
     sensorModel->insertRows(0, 4);
     QModelIndex index = sensorModel->index(0, 0);
     sensorModel->setData(index, 0, SensorWorker::idRole);
+    sensorModel->setData(index, "Сенсор 1", SensorWorker::NameRole);
     sensorModel->setData(index, 51.511281, SensorWorker::LatitudeRole);
     sensorModel->setData(index, 39.267537, SensorWorker::LongitudeRole);
     sensorModel->setData(index, 23.3, SensorWorker::TemperatureRole);
@@ -31,6 +33,7 @@ void SensorWorker::fillInTestData() {
 
     index = sensorModel->index(1, 0);
     sensorModel->setData(index, 1, SensorWorker::idRole);
+    sensorModel->setData(index, "Сенсор 2", SensorWorker::NameRole);
     sensorModel->setData(index, 51.522671, SensorWorker::LatitudeRole);
     sensorModel->setData(index, 39.267861, SensorWorker::LongitudeRole);
     sensorModel->setData(index, 26, SensorWorker::TemperatureRole);
@@ -39,6 +42,7 @@ void SensorWorker::fillInTestData() {
 
     index = sensorModel->index(2, 0);
     sensorModel->setData(index, 2, SensorWorker::idRole);
+    sensorModel->setData(index, "Сенсор 3", SensorWorker::NameRole);
     sensorModel->setData(index, 51.521788, SensorWorker::LatitudeRole);
     sensorModel->setData(index, 39.279748, SensorWorker::LongitudeRole);
     sensorModel->setData(index, 24.5, SensorWorker::TemperatureRole);
@@ -47,6 +51,7 @@ void SensorWorker::fillInTestData() {
 
     index = sensorModel->index(3, 0);
     sensorModel->setData(index, 3, SensorWorker::idRole);
+    sensorModel->setData(index, "Сенсор 4", SensorWorker::NameRole);
     sensorModel->setData(index, 51.510167, SensorWorker::LatitudeRole);
     sensorModel->setData(index, 39.279191, SensorWorker::LongitudeRole);
     sensorModel->setData(index, 20, SensorWorker::TemperatureRole);

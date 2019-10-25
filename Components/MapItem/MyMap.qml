@@ -7,9 +7,27 @@ Map {
     plugin: Plugin { name: "osm" } //mapboxgl esri osm
     center: QtPositioning.coordinate(51.516005, 39.273783)
     zoomLevel: 14
-    activeMapType: supportedMapTypes["0"]
+    //activeMapType: supportedMapTypes["0"]
 
-    Component.onCompleted: {
-        //console.log(JSON.stringify(supportedMapTypes))
+    MapItemView {
+        model: _fields.fieldModel
+        delegate: FieldMapItem {
+
+        }
+    }
+
+    MapItemView {
+        model: _sensors.sensorModel
+        delegate: SensorMapItem {
+            latitude: latitudeData
+            longitude: longitudeData
+        }
+    }
+    MapItemView {
+        model: _cars.carsModel
+        delegate: CarMapItem {
+            latitude: latitudeData
+            longitude: longitudeData
+        }
     }
 }
