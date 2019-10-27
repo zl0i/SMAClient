@@ -5,13 +5,16 @@ Item {
     id: _delegat
     width: 233; height: 55
 
+    property int car_id
     property string nameCar: ""
     property string belongsNameFiled: ""
     property int speed: 0
     property bool isFavorite: false
     property bool isLast: false
+    property var latitude
+    property var longitude
 
-    signal clicked(var name)
+    signal clicked(var id, var coord)
 
     Label {
         id: _nameLable
@@ -68,7 +71,10 @@ Item {
         onEntered: hovered = true
         onExited: hovered = false
         onClicked: {
-            _delegat.clicked(_delegat.nameCar)
+            _delegat.clicked(_delegat.car_id, {
+                                 "latitude": _delegat.latitude,
+                                 "longitude": _delegat.longitude
+                             })
         }
     }
 

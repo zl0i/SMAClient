@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQml.Models 2.3
+import QtPositioning 5.12
 
 import Components.Controls 1.0
 import Components.Delegats 1.0
@@ -154,6 +155,11 @@ Item {
             location: locationData
             //isFavorite: true
             isLast: ListView.view.count -1 === index
+            onClicked: {
+                var point = QtPositioning.coordinate(coord.latitude,
+                                                     coord.longitude)
+                _root.moveMap(point)
+            }
         }
     }
 
@@ -165,7 +171,14 @@ Item {
             temperature: temperatureData
             pressure: pressureData
             humidity: humidityData
+            latitude: latitudeData
+            longitude: longitudeData
             isLast: ListView.view.count -1 === index
+            onClicked: {
+                var point = QtPositioning.coordinate(coord.latitude,
+                                                     coord.longitude)
+                _root.moveMap(point)
+            }
         }
     }
 
@@ -175,7 +188,14 @@ Item {
         delegate: CarDelegat {
             nameCar: nameData
             speed: speedData
+            latitude: latitudeData
+            longitude: longitudeData
             isLast: ListView.view.count -1 === index
+            onClicked: {
+                var point = QtPositioning.coordinate(coord.latitude,
+                                                     coord.longitude)
+                _root.moveMap(point)
+            }
 
         }
     }

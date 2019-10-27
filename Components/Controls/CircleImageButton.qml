@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.4
+import QtGraphicalEffects 1.0
 
 Rectangle {
     id: _root
@@ -7,6 +8,10 @@ Rectangle {
     height: 58
     radius: 58
     color: _mousearea.pressed ? pressedColor : releasedColor
+
+    property bool isOverlayColor: false
+    property color pressedIconColor
+    property color releasedIconColor
 
     property color pressedColor
     property color releasedColor
@@ -98,7 +103,11 @@ Rectangle {
         width: parent.width-20
         height: parent.height-20
         fillMode: Image.PreserveAspectFit
-        antialiasing: true       
+        antialiasing: true
+        layer.enabled: isOverlayColor
+        layer.effect: ColorOverlay {
+            color: _mousearea.pressed ? pressedIconColor : releasedIconColor
+        }
     }
 
     MouseArea {

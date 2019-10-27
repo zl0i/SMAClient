@@ -81,7 +81,7 @@ Rectangle {
         clip: true
 
         Label {
-            x: 20; y:17
+            x: 20; y:20
             font.pixelSize: 32
             color: MyStyle.textColor
             text: "Поле 3"
@@ -100,13 +100,13 @@ Rectangle {
             sunset: 1570266000
         }
         Label {
-            x:20; y:310
+            x:20; y:283
             color: MyStyle.textColor
             font.pixelSize: 32
             text: qsTr("Прогноз на 5 дней")
         }
         ListView {
-            x: 20; y: 363
+            x: 20; y: 331
             width: parent.width-x; height: 200
             orientation: ListView.Horizontal
             spacing: 20
@@ -125,14 +125,14 @@ Rectangle {
             }
         }
         Label {
-            x: 21; y: 585
+            x: 21; y: 546
             font.pixelSize: 32
             color: MyStyle.textColor
             text: qsTr("Прогноз на 14 дней")
         }
 
         ListView {
-            x: 20; y: parent.height-height-20
+            x: 20; y: 596//parent.height-height-20
             width: parent.width-x; height: 160
             orientation: ListView.Horizontal
             spacing: 20
@@ -140,7 +140,7 @@ Rectangle {
             delegate: SmallWeatherDelegat {
                 temperature: 20
                 pressure: 755
-
+                date: 1570159679
             }
 
         }

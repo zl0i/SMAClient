@@ -1,3 +1,13 @@
 module Dialogs
 ConnectDialog 1.0 ConnectDialog.qml
 ProfilePopup 1.0 ProfilePopup.qml
+AddFavoriteDialog 1.0 AddFavoriteDialog.qml
+FilterMapPopup 1.0 FilterMapPopup.qml
+SelectTileMapPopup 1.0 SelectTileMapPopup.qml
+AddFieldDialog 1.0 AddFieldDialog.qml
+FieldInfoDialog 1.0 FieldInfoDialog.qml
+SensorInfoDialog 1.0 SensorInfoDialog.qml
+CarInfoDialog 1.0 CarInfoDialog.qml
+FieldMapPopup 1.0 FieldMapPopup.qml
+SensorMapPopup 1.0 SensorMapPopup.qml
+CarMapPopup 1.0 CarMapPopup.qml

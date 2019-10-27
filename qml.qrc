@@ -37,5 +37,20 @@
         <file>Components/Delegats/WeatherDelegat.qml</file>
         <file>Components/Delegats/BaseWeatherDelegate.qml</file>
         <file>Components/Delegats/AddFooter.qml</file>
+        <file>Components/SettingPage/qmldir</file>
+        <file>Components/SettingPage/GeneralPage.qml</file>
+        <file>Components/Dialogs/AddFavoriteDialog.qml</file>
+        <file>Components/Dialogs/FilterMapPopup.qml</file>
+        <file>Components/Controls/CustomCheckBox.qml</file>
+        <file>Components/Controls/CustomRadioButton.qml</file>
+        <file>Components/Dialogs/SelectTileMapPopup.qml</file>
+        <file>Components/Dialogs/AddFieldDialog.qml</file>
+        <file>Components/Controls/InputTextArea.qml</file>
+        <file>Components/Dialogs/FieldInfoDialog.qml</file>
+        <file>Components/Dialogs/SensorInfoDialog.qml</file>
+        <file>Components/Dialogs/CarInfoDialog.qml</file>
+        <file>Components/Dialogs/FieldMapPopup.qml</file>
+        <file>Components/Dialogs/SensorMapPopup.qml</file>
+        <file>Components/Dialogs/CarMapPopup.qml</file>
     </qresource>
 </RCC>

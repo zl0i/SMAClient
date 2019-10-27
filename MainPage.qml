@@ -6,15 +6,17 @@ import Qt.labs.settings 1.1
 
 import Components.Controls 1.0
 import Components.Delegats 1.0
+import Components.Dialogs 1.0
 import MyStyle 1.0
 
 import DropView 1.0
 
 Rectangle {
+    id: _root
     color: MyStyle.backgroundColor
     Label {
         x: 50; y:25
-        font.pixelSize: 36
+        font.pixelSize: 32
         font.weight: Font.Bold
         color: MyStyle.textColor
         text: qsTr("Избранные данные")
@@ -65,7 +67,7 @@ Rectangle {
                 z: -1
                 visible: !_flick.isEdit
                 onClicked: {
-
+                    _addFavoriteDialog.open()
                 }
 
             }
@@ -79,6 +81,10 @@ Rectangle {
         //temp.setUTC(1571961600)
         console.log(temp)
         console.log(new Date().getHours())
+    }
+
+    AddFavoriteDialog {
+        id: _addFavoriteDialog
     }
 
     function setPropertyComponen(obj, model) {

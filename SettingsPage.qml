@@ -2,8 +2,10 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 
 import Components.Controls 1.0
+import MyStyle 1.0
 
-Item {
+Rectangle {
+    color: MyStyle.backgroundColor
 
     Rectangle {
 
@@ -24,11 +26,12 @@ Item {
             color: "#6AABF7"
         }
         ListView {
-            id: _placeList
+            id:  _listSettings
             x: 0; y: 96
             width: parent.width; height: parent.height-y-90
             clip: true
-            model: modelSettings
+            model: modelSettings            
+
             delegate: Item {
                 id: _delegat
                 width: parent.width; height: 64
@@ -63,7 +66,8 @@ Item {
     Loader {
         x: 256; y: 0
         width: parent.width-x; height: parent.height
-        //source: _listSettings.currentItem.modelData.component
+        source: "qrc:Components/SettingPage/" + modelSettings[_listSettings.currentIndex].component
+
     }
 
 
@@ -80,27 +84,15 @@ Item {
             "component": ""
         },
         {
-            "title": "Профиль",
-            "info": "Настройки профиля",
-            "component": ""
-        },
-        {
             "title": "Интрефейс",
             "info": "Настройки интерфейса",
-            "component": ""
-        },
-        {
-            "title": "Шрифт",
-            "info": "Настройки шрифта",
-            "component": ""
-        },
+            "component": "GeneralPage.qml"
+        },        
         {
             "title": "Система",
             "info": "Настройки системы",
             "component": ""
-        },
-
-
+        }
     ]
 
 

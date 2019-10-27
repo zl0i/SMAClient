@@ -6,27 +6,13 @@ import QtQml.Models 2.12
 
 import Components.MapItem 1.0
 import Components.Controls 1.0
+import Components.Dialogs 1.0
+
+import MyStyle 1.0
 
 Item {
     id: _root
     property alias map: _mapLoader.item
-
-    /*Component.onCompleted: {
-        if(map) return
-        var component = Qt.createComponent("MyMap.qml", Component.Asynchronous, _root)
-        component.statusChanged.connect(function(status) {
-            if(status === Component.Ready) {
-                _mapLoader.sourceComponent = component
-                _root.map = component.incubateObject(_root, {"z":0}, Qt.Asynchronous)
-                map.onStatusChanged = function(status) {
-                    if (status === Component.Ready) {
-                        console.log("win!")
-
-                    }
-                }
-            }
-        })
-    }*/
 
     Loader {
         id: _mapLoader
@@ -38,24 +24,63 @@ Item {
     NavigationMap {
         id: _navigationMap
         onMoveMap: {
-
+            map.moveCenter(coordinate)
         }
 
     }
 
     CircleImageButton {
         x: parent.width - width-20; y: 20
-        width: 40; height: 40
-         //iconWidth: 20; iconHeight: 20
+        width: 40; height: 40        
+        style: "custom"
+        releasedColor: MyStyle.foregroundColor
+        pressedColor: "#487690"
+        isOverlayColor: true
+        releasedIconColor: MyStyle.textColor
+        pressedIconColor: MyStyle.textColor
         source: "qrc:/image/other/more-black.svg"
+        onClicked:  {
+            _filterPopup.open()
+        }
 
+        FilterMapPopup {
+            id: _filterPopup
+            x: parent.width-width
+            onVisibleFiledsChanged: {
+                map.visibleFields = visibleFileds
+            }
+            onVisibleBorderFieldsChanged: {
+                map.visibleBorderFields = visibleBorderFields
+            }
+            onVisibleSensorsChanged: {
+                map.visibleSensors = visibleSensors
+            }
+            onVisibleCarsChanged: {
+                map.visibleCars = visibleCars
+            }
+        }
     }
 
     CircleImageButton {
         x: parent.width - width-20; y: 80
         width: 40; height: 40
         iconWidth: 22.5; iconHeight: 20
+        style: "custom"
+        releasedColor: MyStyle.foregroundColor
+        pressedColor: "#487690"
+        isOverlayColor: true
+        releasedIconColor: MyStyle.textColor
+        pressedIconColor: MyStyle.textColor
         source: "qrc:/image/other/menu-black.svg"
+        onClicked:  {
+            _selectTileMapPopup.open()
+        }
+
+        SelectTileMapPopup {
+            id: _selectTileMapPopup
+            x: parent.width-width
+
+        }
 
     }
 
@@ -63,8 +88,20 @@ Item {
         x: parent.width - width-20; y: 140
         width: 40; height: 40
         iconWidth: 20; iconHeight: 20
+        style: "custom"
+        releasedColor: MyStyle.foregroundColor
+        pressedColor: "#487690"
+        isOverlayColor: true
+        releasedIconColor: MyStyle.textColor
+        pressedIconColor: MyStyle.textColor
         source: "qrc:/image/other/plus-black.svg"
+        onClicked: {
+            _addFieldDialog.open()
+        }
+    }
 
+    AddFieldDialog {
+        id: _addFieldDialog
     }
 
 

@@ -5,6 +5,7 @@ Item {
     id: _delegat
     width: 233; height: 55
 
+    property int sensor_id
     property string nameSensor: ""
     property string belongsNameFiled: ""
     property int temperature: 0
@@ -13,7 +14,10 @@ Item {
     property bool isFavorite: false
     property bool isLast: false
 
-    signal clicked(var name)
+    property var latitude
+    property var longitude
+
+    signal clicked(var id, var coord)
 
     Label {
         id: _nameLable
@@ -38,15 +42,15 @@ Item {
         height: 11
         spacing: 10
         Label {
-            color: "#FFFFFF"             
+            color: "#FFFFFF"
             text: qsTr("T: %1 C").arg(_delegat.temperature)
         }
         Label {
-            color: "#FFFFFF"             
+            color: "#FFFFFF"
             text: qsTr("H: %1 %").arg(_delegat.humidity)
         }
         Label {
-            color: "#FFFFFF"            
+            color: "#FFFFFF"
             text: qsTr("P: %1 мм").arg(_delegat.pressure)
         }
     }
@@ -77,7 +81,10 @@ Item {
         onEntered: hovered = true
         onExited: hovered = false
         onClicked: {
-            _delegat.clicked(_delegat.nameSensor)
+            _delegat.clicked(_delegat.sensor_id, {
+                                 "latitude": _delegat.latitude,
+                                 "longitude": _delegat.longitude
+                             })
         }
     }
 

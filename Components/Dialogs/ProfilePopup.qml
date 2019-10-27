@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
 
 import Components.Controls 1.0
+import MyStyle 1.0
 
 Popup {
     id: _popup
@@ -15,12 +16,10 @@ Popup {
 
     signal exit()
 
-
-
     background: Rectangle {
         width: parent.width; height: parent.height
         radius: 20
-
+        color: MyStyle.foregroundColor
         Rectangle {
             x: -5; y: 21
             width: 13; height: 13

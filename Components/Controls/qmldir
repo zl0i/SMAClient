@@ -10,6 +10,9 @@ InputText 1.0 InputText.qml
 LoadingAnimation 1.0 LoadingAnimation.qml
 FindField 1.0 FindField.qml
 CircleImageButton 1.0 CircleImageButton.qml
+CustomCheckBox 1.0 CustomCheckBox.qml
+CustomRadioButton 1.0 CustomRadioButton.qml
+InputTextArea 1.0 InputTextArea.qml
 
 
 

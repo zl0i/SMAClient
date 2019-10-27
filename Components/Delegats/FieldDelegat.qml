@@ -5,6 +5,7 @@ Item {
     id: _delegat
     width: 233; height: 55
 
+    property int field_id
     property string nameField: ""
     property int countSensors
     property int temperature
@@ -14,7 +15,7 @@ Item {
     property bool isFavorite: false
     property bool isLast: false
 
-    signal clicked(var name, var coord)
+    signal clicked(var id, var coord)
 
     Label {
         id: _nameLable
@@ -78,9 +79,8 @@ Item {
         property bool hovered: false
         onEntered: hovered = true
         onExited: hovered = false
-        onClicked: {
-            console.log(JSON.stringify(location))
-            _delegat.clicked(_delegat.nameField, location[0])
+        onClicked: {           
+            _delegat.clicked(_delegat.field_id, location[0])
         }
     }
 

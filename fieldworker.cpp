@@ -17,24 +17,26 @@ FieldWorker::FieldWorker(QObject *parent) : QObject(parent)
 void FieldWorker::fillInTestData() {
     fieldModel->insertColumn(0);
     fieldModel->insertRows(0, 2);
-     QJsonArray arr;
+    QJsonArray arr;
 
-     QJsonObject obj;
-     obj.insert("latitude", 51.511281);
-     obj.insert("longitude", 39.267537);
-     arr.append(obj);
+    QJsonObject obj;
+    obj.insert("latitude", 51.513202);
+    obj.insert("longitude", 39.242075);
+    arr.append(obj);
 
-     obj.insert("latitude", 51.511281);
-     obj.insert("longitude", 39.267537);
-     arr.append(obj);
+    obj.insert("latitude", 51.525009);
+    obj.insert("longitude", 39.242204);
+    arr.append(obj);
 
-     obj.insert("latitude", 51.511281);
-     obj.insert("longitude", 39.267537);
-     arr.append(obj);
+    obj.insert("latitude", 51.524045);
+    obj.insert("longitude", 39.253491);
+    arr.append(obj);
 
-     obj.insert("latitude", 51.511281);
-     obj.insert("longitude", 39.267537);
-     arr.append(obj);
+    obj.insert("latitude", 51.512693);
+    obj.insert("longitude", 39.252847);
+    arr.append(obj);
+
+
 
     QModelIndex index = fieldModel->index(0, 0);
     fieldModel->setData(index, 0, FieldWorker::idRole);
@@ -51,7 +53,7 @@ void FieldWorker::fillInTestData() {
     }
 
     obj.insert("latitude",  51.511176);
-    obj.insert("longitude",39.267689);
+    obj.insert("longitude", 39.267689);
     arr.append(obj);
 
     obj.insert("latitude", 51.522716);
@@ -65,6 +67,8 @@ void FieldWorker::fillInTestData() {
     obj.insert("latitude", 51.510265);
     obj.insert("longitude", 39.279362);
     arr.append(obj);
+
+    qDebug() << arr.count();
 
     index = fieldModel->index(1, 0);
     fieldModel->setData(index, 1, FieldWorker::idRole);

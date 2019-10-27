@@ -60,7 +60,7 @@ Dialog {
         FastBlur {
             anchors.fill: parent
             source: blurItem
-            radius: 48
+            radius: 64
         }
     }
     onVisibleChanged: {
