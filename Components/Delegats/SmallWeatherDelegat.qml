@@ -133,7 +133,7 @@ BaseWeatherDelegate {
                 width: 53; height: 16
                 verticalAlignment: Text.AlignVCenter
                 color: MyStyle.textColor
-                text: "8:00"
+                text:  new Date(sunrise).toLocaleString(Qt.locale(), "hh:mm")
             }
         }
         Row {
@@ -154,7 +154,7 @@ BaseWeatherDelegate {
                 width: 53; height: 11
                 verticalAlignment: Text.AlignVCenter
                 color: MyStyle.textColor
-                text: "20:00"
+                text:  new Date(sunset).toLocaleString(Qt.locale(), "hh:mm")
             }
         }
     }

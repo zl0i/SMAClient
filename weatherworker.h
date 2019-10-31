@@ -5,23 +5,29 @@
 #include <QJsonObject>
 #include <QtNetwork>
 #include <QDateTime>
+#include <QDebug>
 
 class WeatherWorker : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QJsonObject currentWether READ wether NOTIFY wetherChanged)
-    //Q_PROPERTY(QJsonObject weekForecast READ weekForecast NOTIFY weekForecastChanged)
-    //Q_PROPERTY(QJsonObject twoWeekForecast READ twoWeekForecast NOTIFY twoWeekForecastChanged)
+    Q_PROPERTY(QJsonObject currentWeather READ wether NOTIFY currentWetherChanged)
+    Q_PROPERTY(QJsonArray dailyForecast READ dailyForecast NOTIFY dailyForecastChanged)
+    Q_PROPERTY(QJsonArray twoDailyForecast READ twoDailyForecast NOTIFY twoDailyForecastChanged)
 
 public:
     explicit WeatherWorker(QObject *parent = nullptr);
     ~WeatherWorker();
 
-    QJsonObject wether() { return  m_currentWether; }
+    QJsonObject wether() { return  m_currentWeather; }
+    QJsonArray dailyForecast() { return  m_dailyForecast; }
+    QJsonArray twoDailyForecast() { return  m_twoDailyForecast; }
 
 
     Q_INVOKABLE void updateCurrentWeather();
-    Q_INVOKABLE void updateForecastWeather(int countDay = 7);
+    Q_INVOKABLE void updateDailyForecastWeather();
+    Q_INVOKABLE void updateTwoDailyForecastWeather();
+
+    Q_INVOKABLE void updateAll();
 
 
     Q_INVOKABLE QStringList getSytiList();
@@ -30,33 +36,39 @@ private:
 
     typedef enum {
         Idle,
-        currentWeather,
-        dailyForecast,
-        twoDaylyForecast
+        CurrentWeather,
+        DailyForecast,
+        TwoDailyForecast
     }TypeRequest;
 
-    QNetworkAccessManager *networkManager;
+    TypeRequest type = Idle;
 
-    QJsonObject m_currentWether;
+    QNetworkAccessManager networkManager;
+
+    QJsonObject m_currentWeather;
+    QJsonArray m_dailyForecast;
+    QJsonArray m_twoDailyForecast;
+
+    void parseCurrentWeather(QNetworkReply *reply);
+    void parseDailyForecast(QNetworkReply *reply);
+    void parseTwoDailyForecast(QNetworkReply *reply);
+
+    QString getStringDateFromUTS(int);
+
+    bool m_allUpdate = false;
 
 
-    qreal latitude;
-    qreal longitude;
 
-    QString add_id;
-    QString cyti_id;
 
-    void requestCurrentWeather();
-    void requestWeekForecast();
-    void requestTwoWeekForecast();
+
 
 signals:
-    void wetherChanged();
-    void weekForecastChanged();
-    void twoWeekForecastChanged();
+    void currentWetherChanged();
+    void dailyForecastChanged();
+    void twoDailyForecastChanged();
 
 public slots:
-    void readReady(QNetworkReply *reply);
+    void onResult(QNetworkReply *reply);
 };
 
 #endif // WEATHERWORKER_H

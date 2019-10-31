@@ -46,6 +46,8 @@ HEADERS += \
     weatherworker.h
 
 DISTFILES += \
+    exampleCurrentWeather \
+    exampleFiveDayForecast \
     exampleTwoForecast.json \
     protocol.json \
     supporteedOsmMap.json

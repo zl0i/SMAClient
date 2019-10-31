@@ -88,16 +88,17 @@ Rectangle {
         }
         WeatherDelegat {
             x:20; y: 68
-            temperature: +15
-            pressure: 755
-            humidity: 85
-            minTemperature: 25
-            maxTemperature: 25
-            windSpeed: 5
-            windDeg: 240
-            date: 1570266000
-            sunrise: 1570266000
-            sunset: 1570266000
+            temperature: _weather.currentWeather.temp
+            pressure: _weather.currentWeather.pressure
+            humidity: _weather.currentWeather.humidity
+            minTemperature: _weather.currentWeather.min_temp
+            maxTemperature: _weather.currentWeather.max_temp
+            windSpeed: _weather.currentWeather.speedWind
+            windDeg: _weather.currentWeather.degWind
+            date: _weather.currentWeather.dt
+            sunrise: _weather.currentWeather.sunrise
+            sunset: _weather.currentWeather.sunset
+            typeWeather: _weather.currentWeather.type
         }
         Label {
             x:20; y:283
@@ -110,18 +111,18 @@ Rectangle {
             width: parent.width-x; height: 200
             orientation: ListView.Horizontal
             spacing: 20
-            model: 6
+            model: _weather.dailyForecast
             delegate: WeatherDelegat {
-                date: 1570266000
-                sunrise: 1570266000
-                sunset: 1570266000
-                temperature: -7
-                pressure: 755
-                humidity: 85
-                minTemperature: -9
-                maxTemperature: -5
-                windSpeed: 5
-                windDeg: 357
+                date: modelData.dt
+                sunrise:  modelData.sunrise
+                sunset:  modelData.sunset
+                temperature:  modelData.temp
+                pressure: modelData.pressure
+                humidity: modelData.humidity
+                minTemperature: modelData.temp_min
+                maxTemperature: modelData.temp_max
+                windSpeed:  modelData.speedWind
+                windDeg: modelData.degWind
             }
         }
         Label {
@@ -136,11 +137,15 @@ Rectangle {
             width: parent.width-x; height: 160
             orientation: ListView.Horizontal
             spacing: 20
-            model: 6
+            model: _weather.twoDailyForecast
             delegate: SmallWeatherDelegat {
-                temperature: 20
-                pressure: 755
-                date: 1570159679
+                temperature: modelData.temp
+                pressure: modelData.pressure
+                humidity: modelData.humidity
+                windSpeed:  modelData.speedWind
+                sunrise: modelData.sunrise
+                sunset: modelData.sunset
+                date: modelData.dt
             }
 
         }

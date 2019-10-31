@@ -37,6 +37,8 @@ Rectangle {
         switch(type) {
         case "clear sky":
             return "qrc:/image/weather/clearSky-black.svg"
+        case "clouds":
+             return "qrc:/image/weather/brokenClouds-black.svg"
         case "few clouds":
             return "qrc:/image/weather/fewClouds-black.svg"
         case "scattered clouds":

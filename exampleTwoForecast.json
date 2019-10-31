@@ -1,5 +1,3 @@
-//http://api.openweathermap.org/data/2.5/forecast/daily?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4&&cnt=16
-
 {
     "city": {
         "id": 472045,

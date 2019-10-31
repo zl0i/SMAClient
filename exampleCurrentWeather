@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": 39.17,
+        "lat": 51.67
+    },
+    "weather": [
+        {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 273.15,
+        "pressure": 1021,
+        "humidity": 52,
+        "temp_min": 273.15,
+        "temp_max": 273.15
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 7,
+        "deg": 320
+    },
+    "clouds": {
+        "all": 90
+    },
+    "dt": 1572515851,
+    "sys": {
+        "type": 1,
+        "id": 9034,
+        "country": "RU",
+        "sunrise": 1572495269,
+        "sunset": 1572530356
+    },
+    "timezone": 10800,
+    "id": 472045,
+    "name": "Voronezh",
+    "cod": 200
+}

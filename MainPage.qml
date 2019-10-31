@@ -1,8 +1,9 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQml.Models 2.12
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.12
 import Qt.labs.settings 1.1
+import QtQml 2.13
 
 import Components.Controls 1.0
 import Components.Delegats 1.0
@@ -25,6 +26,41 @@ Rectangle {
         anchors.fill: parent
         onClicked: _flick.isEdit = false
     }
+    Item {
+        anchors { bottom: parent.bottom; right: parent.right;}
+        width: 200; height: 200
+        visible: _flick.isEdit
+        RadialGradient {
+            anchors.fill: parent
+            verticalRadius: 100
+            horizontalRadius: 100
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#D33131" }
+                GradientStop {
+                    position: _dropArea.hovered ? 1 : 0.7;
+                    color: "transparent"
+                    Behavior on position {
+                        NumberAnimation { duration: 250 }
+                    }
+                }
+            }
+
+        }
+        DropArea {
+            id: _dropArea
+            anchors.fill: parent
+            property bool hovered: false
+            onEntered: {
+                hovered = true
+            }
+            onExited: hovered = false
+            onDropped: {
+                _visualModel.items.remove(drag.source.DelegateModel.itemsIndex, 1)
+                console.log("drop")
+            }
+        }
+
+    }
     Flickable {
         id: _flick
         x: 50; y: 100
@@ -46,12 +82,12 @@ Rectangle {
                     delegate: DragWrapper {
                         width: _loader.width; height: _loader.height
                         isEdit: _flick.isEdit
-                        view: _repeter
+                        view: _flick
                         Loader {
                             id: _loader
                             source: "Components/Delegats/" + modelData.component
                             onStatusChanged: {
-                                setPropertyComponen(item, modelData)
+                                setPropertyComponent(item, modelData)
                             }
                         }
                         onEditStart: {
@@ -60,6 +96,7 @@ Rectangle {
                         onDropEntered: {
                             _visualModel.items.move(drag.source.DelegateModel.itemsIndex, DelegateModel.itemsIndex)
                         }
+
                     }
                 }
             }
@@ -72,22 +109,13 @@ Rectangle {
 
             }
         }
-    }
-    Component.onCompleted: {
-        var temp = new Date()
-        //temp.setSeconds(1570159679)
-        //temp.setMilliseconds(1571961600)
-        temp.setMilliseconds(1570266000)
-        //temp.setUTC(1571961600)
-        console.log(temp)
-        console.log(new Date().getHours())
-    }
+    }  
 
     AddFavoriteDialog {
         id: _addFavoriteDialog
     }
 
-    function setPropertyComponen(obj, model) {
+    function setPropertyComponent(obj, model) {
         for(var key in model) {
             if(key === "component") continue
             obj[key] = model[key]

@@ -107,35 +107,4 @@ ApplicationWindow {
         }
     }
 
-    /*Connections {
-        target: _models
-        onSensorModelChanged: {
-            var sensors = Qt.createComponent("SensorMapItem.qml")
-            for(var i = 0; i < _models.sensorModel.rowCount(); i++) {
-                var index = _models.sensorModel.index(i, 0);
-                var item = sensors.createObject(_window.map, {
-                                                    "center.latitude": _models.sensorModel.data(index, 258),
-                                                    "center.longitude": _models.sensorModel.data(index, 259)
-                                                })
-                _window.map.addMapItem(item)
-                sensorsArray[i] = item
-            }
-
-            console.log("sensor")
-        }
-        onCarsModelChanged: {
-            var sensors = Qt.createComponent("CarMapItem.qml")
-            for(var i = 0; i < _models.carsModel.rowCount(); i++) {
-                var index = _models.carsModel.index(i, 0);
-                var item = sensors.createObject(_window.map, {
-                                                    "center.latitude": _models.carsModel.data(index, 265),
-                                                    "center.longitude": _models.carsModel.data(index, 266)
-                                                })
-                _window.map.addMapItem(item)
-                carsArray[i] = item
-            }
-            console.log("cars")
-        }
-    }*/
-
 }

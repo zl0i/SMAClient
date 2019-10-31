@@ -26,10 +26,6 @@ int main(int argc, char *argv[])
     mainWorker->sensorWorker->fillInTestData();
     mainWorker->carWorker->fillTestData();
 
-    QDateTime dt;
-    dt.setSecsSinceEpoch(1571961600);
-    qDebug() << dt.toLocalTime();
-
     qmlRegisterSingletonType(QUrl("qrc:/MyStyle.qml"), "MyStyle", 1, 0, "MyStyle");
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

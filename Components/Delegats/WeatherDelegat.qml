@@ -9,7 +9,7 @@ BaseWeatherDelegate {
     width: 410;
     antialiasing: true
     property int minTemperature
-    property int maxTemperature   
+    property int maxTemperature
     property int windDeg
 
     Label {
@@ -59,7 +59,7 @@ BaseWeatherDelegate {
             height: 17
             verticalAlignment: Text.AlignVCenter
             color: MyStyle.textColor
-            text: new Date(sunrise).toLocaleString(Qt.locale(), "HH:mm")
+            text: new Date(sunrise).toLocaleString(Qt.locale(), "hh:mm")
         }
     }
     Row {
@@ -78,7 +78,7 @@ BaseWeatherDelegate {
             height: 11
             verticalAlignment: Text.AlignVCenter
             color: MyStyle.textColor
-            text: new Date(sunset).toLocaleString(Qt.locale(), "HH:mm")
+            text: new Date(sunset).toLocaleString(Qt.locale(), "hh:mm")
         }
     }
 
