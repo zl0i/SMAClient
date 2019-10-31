@@ -55,5 +55,8 @@
         <file>Components/SettingPage/MapPage.qml</file>
         <file>Components/SettingPage/InterfacePage.qml</file>
         <file>Components/SettingPage/SystemPage.qml</file>
+        <file>Components/SettingPage/RowCheckBox.qml</file>
+        <file>Components/SettingPage/RowComboBox.qml</file>
+        <file>Components/SettingPage/RowTextField.qml</file>
     </qresource>
 </RCC>

@@ -15,33 +15,13 @@ Item {
     Flickable {
         x: 20; y: 80
         width: parent.width-2*x; height: parent.height-y
-        contentHeight: children.height
+        contentHeight: _clolumn.height
+        clip: true
         Column {
+            id: _clolumn
             width: parent.width
             spacing: 15
-            RowLayout {
-                width: parent.width
-                Label {
-                    Layout.alignment: Qt.AlignLeft
-                    height: 35
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: 18
-                    color: MyStyle.textColor
-                    text: qsTr("Темная тема")
-                }
-                CheckBox {
-                     Layout.alignment: Qt.AlignRight
-                    checked: MyStyle.theme === MyStyle.Theme.Black
-                    onCheckedChanged: {
-                        if(checked) {
-                            MyStyle.theme =  MyStyle.Theme.Black
-                        }
-                        else {
-                            MyStyle.theme =  MyStyle.Theme.White
-                        }
-                    }
-                }
-            }
+
         }
     }
 

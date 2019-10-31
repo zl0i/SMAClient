@@ -3,4 +3,6 @@ GeneralPage 1.0 GeneralPage.qml
 InterfacePage 1.0 InterfacePage.qml
 MapPage 1.0 MapPage.qml
 SystemPage 1.0 SystemPage.qml
+RowComboBox 1.0 RowComboBox.qml
+RowCheckBox 1.0 RowCheckBox.qml
 
