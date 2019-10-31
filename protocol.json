@@ -55,9 +55,14 @@
                             "longitude": 39.267537
                         }
                     ],
+                    "center": {
+                        "latitude": 51.511281,
+                        "longitude": 39.267537
+                    },
                     "temperature": 24.5,
                     "humidity": 75,
-                    "pressure": 785
+                    "pressure": 785,
+                    "lastUpdate": "16564897415"
                 },
                 {
                     "id": 2,
@@ -65,7 +70,12 @@
                     "temperature": 27,
                     "humidity": 65,
                     "pressure": 780,
-                    "location": []
+                    "center": {
+                        "latitude": 51.511281,
+                        "longitude": 39.267537
+                    },
+                    "location": [],
+                    "lastUpdate": "16564897415"
                 },
                 {
                     "id": 3,
@@ -73,7 +83,12 @@
                     "temperature": 23,
                     "humidity": 82,
                     "pressure": 790,
-                    "location": []
+                    "location": [],
+                    "center": {
+                        "latitude": 51.511281,
+                        "longitude": 39.267537
+                    },
+                    "lastUpdate": "16564897415"
                 }
             ]
         }
@@ -106,7 +121,8 @@
                         "2": 60,
                         "3": 65,
                         "4": 70
-                    }
+                    },
+                    "lastUpdate": "16564897415"
                 },
                 {
                     "id": 2,
@@ -118,7 +134,8 @@
                     "pressure": 780,
                     "battery": 47,
                     "gsmlvl": 85,
-                    "ground": {}
+                    "ground": {},
+                    "lastUpdate": "16564897415"
                 },
                 {
                     "id": 3,
@@ -130,7 +147,8 @@
                     "pressure": 790,
                     "battery": 47,
                     "gsmlvl": 85,
-                    "ground": {}
+                    "ground": {},
+                    "lastUpdate": "16564897415"
                 },
                 {
                     "id": 4,
@@ -142,7 +160,8 @@
                     "pressure": 460,
                     "battery": 47,
                     "gsmlvl": 85,
-                    "ground": {}
+                    "ground": {},
+                    "lastUpdate": "16564897415"
                 }
             ]
         }
@@ -165,21 +184,24 @@
                     "name": "cars1",
                     "latitude": 51.511226,
                     "longitude": 39.286618,
-                    "speed": 0
+                    "speed": 0,
+                    "lastUpdate": "16564897415"
                 },
                 {
                     "id": 2,
                     "name": "cars2",
                     "latitude": 51.511039,
                     "longitude": 39.286660,
-                    "speed": 0
+                    "speed": 0,
+                    "lastUpdate": "16564897415"
                 },
                 {
                     "id": 3,
                     "name": "cars3",
                     "latitude": 51.510959,
                     "longitude": 39.276959,
-                    "speed": 30
+                    "speed": 30,
+                    "lastUpdate": "16564897415"
                 }
             ]
         }
@@ -277,5 +299,15 @@
         },
         "code": 401,
         "msg": ""    
+    },
+    {
+        "type": 5, //AddField
+        "name": "filed4",
+        "location": [],
+        "center": {
+            "latitude": 51.511281,
+            "longitude": 39.267537
+        }
+
     }
 ]

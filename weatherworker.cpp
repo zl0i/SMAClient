@@ -9,11 +9,8 @@ WeatherWorker::WeatherWorker(QObject *parent) : QObject(parent)
     //updateCurrentWeather();
     //updateDailyForecastWeather();
     //updateTwoDailyForecastWeather();
-    updateAll();
 
-    //networkManager->get(QNetworkRequest(QUrl("https://api.openweathermap.org/data/2.5/weather?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4")));
-
-    //networkManager->get(QNetworkRequest(QUrl("https://api.openweathermap.org/data/2.5/uvi?lat=51.67&lon=39.17&appid=10a1eeb233d35e9780031ad22d567cd4")));
+    //updateAll();
 
     //https://api.openweathermap.org/data/2.5/uvi?lat=51.67&lon=39.17&appid=10a1eeb233d35e9780031ad22d567cd4 // ультрафиолет
     //https://api.openweathermap.org/data/2.5/forecast?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4 // прогноз на 5 дней
@@ -67,7 +64,7 @@ void WeatherWorker::onResult(QNetworkReply *reply) {
     switch (type) {
     case CurrentWeather: {
         parseCurrentWeather(reply);
-        emit currentWetherChanged();
+        emit currentWetherChanged();       
         break;
     }
     case DailyForecast: {

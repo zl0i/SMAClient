@@ -16,14 +16,21 @@ public:
         idRole = Qt::UserRole+1,
         NameRole,
         LocationRole,
+        CenterRole,
         TemperatureRole,
         HumidityRole,
-        PressureRole ,
+        PressureRole,
         CountRole
     }FieldRole;
     Q_ENUM(FieldRole)
 
-    Q_INVOKABLE void fillInTestData();
+    void fillInTestData();
+
+    Q_INVOKABLE void updateFields();
+    Q_INVOKABLE void addField(QJsonObject);
+
+    Q_INVOKABLE QJsonObject getFiledById(int id);
+
 
     QStandardItemModel *getFieldModel() { return fieldModel; }
 
@@ -32,6 +39,9 @@ private:
 
 signals:
     void fieldModelChanged();
+
+    void updateFieldsFromServer();
+    void sendNewFieldToServer(QJsonObject);
 
 public slots:
     void parseDate(ServerWorker::Request, QJsonObject);

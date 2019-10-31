@@ -18,6 +18,7 @@ class ServerWorker : public QObject
 
     Q_PROPERTY(QString fullName READ fullName NOTIFY clientChanged)
     Q_PROPERTY(QString companyName READ companyName NOTIFY clientChanged)
+    Q_PROPERTY(QString role READ role NOTIFY clientChanged)
 
 
 public:
@@ -45,6 +46,7 @@ public:
     QString password() { return  m_password; }
     QString fullName() { return  m_fullName; }
     QString companyName() { return  m_companyName; }
+    QString role() { return m_role; }
 
 private:
     QTcpSocket *socket;
@@ -53,6 +55,7 @@ private:
 
     QString m_fullName;
     QString m_companyName;
+    QString m_role;
 
     QJsonDocument getFormatedJson(Request);
     QJsonDocument getFormatedJson(Request, QJsonObject);
@@ -63,8 +66,9 @@ signals:
     void winConnected();
     void errorConnected(int code, QString text);
 
-    void comeDataCars(Request type, QJsonObject obj);
+    void comeDataFields(Request type, QJsonObject obj);
     void comeDataSensors(Request type, QJsonObject obj);
+    void comeDataCars(Request type, QJsonObject obj);
 
     void inputChanged();
     void clientChanged();
@@ -76,8 +80,11 @@ public slots:
     void slotDisconnected();
 
     void requestUpdateFields();
+    void requestNewFields(QJsonObject);
+
     void requestUpdateSensors();
     void requestHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end);
+
     void requestUpdateCars();
 };
 

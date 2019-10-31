@@ -76,22 +76,22 @@ Rectangle {
         {
             "title": "Общее",
             "info": "Общие настройки",
-            "component": ""
+            "component": "GeneralPage.qml"
         },
         {
             "title": "Карта",
             "info": "Настройки карта",
-            "component": ""
+            "component": "MapPage.qml"
         },
         {
             "title": "Интрефейс",
             "info": "Настройки интерфейса",
-            "component": "GeneralPage.qml"
+            "component": "InterfacePage.qml"
         },        
         {
             "title": "Система",
             "info": "Настройки системы",
-            "component": ""
+            "component": "SystemPage.qml"
         }
     ]
 

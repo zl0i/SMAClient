@@ -3,14 +3,24 @@ import QtQuick.Controls 2.5
 import QtLocation 5.12
 import QtPositioning 5.12
 
+import Components.Dialogs 1.0
+
 MapItemGroup {
     id: _root
+
+    property alias filed_id: _filedMapPopup.field_id
+    property alias name: _filedMapPopup.name
     property var location
+    property var center
+    property alias temperature: _filedMapPopup.temperature
+    property alias pressure: _filedMapPopup.pressure
+    property alias humidity: _filedMapPopup.humidity
 
     property bool visiblePolygon: true
     property bool visibleField: true
 
-    signal clicked(var x, var y)
+
+    signal moreClicked(var filed_id)
 
     MapPolygon {
         visible: visiblePolygon
@@ -30,9 +40,16 @@ MapItemGroup {
             source: "qrc:/image/map/field.png"
             MouseArea {
                 width: parent.width; height: parent.height
-                onClicked: {
-                    var point = mapToItem(Overlay.overlay, mouseX, mouseY)
-                    _root.clicked(point.x-parent.width, point.y)
+                onClicked: {                    
+                    _filedMapPopup.open()
+                }
+            }
+            FieldMapPopup {
+                id: _filedMapPopup
+                x: parent.width/2; y: parent.height/2
+                onClickedMore: {
+                    close()
+                   _root.moreClicked(_root.filed_id)
                 }
             }
         }

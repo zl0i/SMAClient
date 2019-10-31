@@ -14,6 +14,10 @@ class WeatherWorker : public QObject
     Q_PROPERTY(QJsonArray dailyForecast READ dailyForecast NOTIFY dailyForecastChanged)
     Q_PROPERTY(QJsonArray twoDailyForecast READ twoDailyForecast NOTIFY twoDailyForecastChanged)
 
+
+
+
+
 public:
     explicit WeatherWorker(QObject *parent = nullptr);
     ~WeatherWorker();
@@ -21,6 +25,7 @@ public:
     QJsonObject wether() { return  m_currentWeather; }
     QJsonArray dailyForecast() { return  m_dailyForecast; }
     QJsonArray twoDailyForecast() { return  m_twoDailyForecast; }
+
 
 
     Q_INVOKABLE void updateCurrentWeather();
@@ -45,6 +50,8 @@ private:
 
     QNetworkAccessManager networkManager;
 
+
+
     QJsonObject m_currentWeather;
     QJsonArray m_dailyForecast;
     QJsonArray m_twoDailyForecast;
@@ -57,15 +64,10 @@ private:
 
     bool m_allUpdate = false;
 
-
-
-
-
-
 signals:
     void currentWetherChanged();
     void dailyForecastChanged();
-    void twoDailyForecastChanged();
+    void twoDailyForecastChanged();    
 
 public slots:
     void onResult(QNetworkReply *reply);

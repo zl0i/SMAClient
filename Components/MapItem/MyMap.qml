@@ -25,24 +25,20 @@ Map {
     MapItemView {
         model: _fields.fieldModel
         delegate: FieldMapItem {
+            filed_id: idData
+            name: nameData
             location: locationData
+            center: centerData
+            temperature: temperatureData
+            humidity: humidityData
+            pressure: pressureData
             visibleField:  _map.visibleFields
-            visiblePolygon: _map.visibleBorderFields
-            onClicked: {
-                _filedMapPopup.x = x;
-                _filedMapPopup.y = y;
-                _filedMapPopup.open()
+            visiblePolygon: _map.visibleBorderFields            
+            onMoreClicked: {
+                //_fields.getFiledById(filed_id)
+                _filedInfoDialog.open()
             }
 
-
-            FieldMapPopup {
-                id: _filedMapPopup
-                name: "Поле 1"
-                onClickedMore: {
-                    _filedInfoDialog.open()
-                    close()
-                }
-            }
         }
     }
     FieldInfoDialog {
@@ -53,17 +49,39 @@ Map {
         visible: _map.visibleSensors
         model: _sensors.sensorModel
         delegate: SensorMapItem {
+            sensor_id: idData
+            name: nameData
+            temperature: temperatureData
+            humidity: humidityData
+            pressure: pressureData
             latitude: latitudeData
             longitude: longitudeData
+            onMoreClicked: {
+                _sensorInfoDialog.open()
+            }
+
         }
     }
+    SensorInfoDialog {
+         id: _sensorInfoDialog
+    }
+
     MapItemView {
         visible: _map.visibleCars
         model: _cars.carsModel
         delegate: CarMapItem {
+            car_id: idData
+            name: nameData
             latitude: latitudeData
             longitude: longitudeData
+            onMoreClicked: {
+                _carInfoDialog.open()
+            }
         }
+    }
+
+    CarInfoDialog {
+        id: _carInfoDialog
     }
 
     ParallelAnimation {

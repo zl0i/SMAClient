@@ -9,9 +9,15 @@ Popup {
     id: _popup
 
     width: 120; height: 120
-    padding: 0
+    padding: 9
 
+
+    property string field_id
     property string name
+    property real temperature
+    property real pressure
+    property real humidity
+
 
     signal clickedMore()
 
@@ -29,17 +35,84 @@ Popup {
     contentItem: Item {
         width: parent.width; height: parent.height
         Label {
-            y: 10
-            width: parent.height
+            width: parent.width
             horizontalAlignment: Text.AlignHCenter
             color: MyStyle.textColor
             text: _popup.name
         }
+        Column {
+            y: 25
+            anchors.horizontalCenter: parent.horizontalCenter
+            Row {
+                spacing: 5
+                Item {
+                    width: 33; height: 18
+                    Image {
+                        anchors.centerIn: parent
+                        width: 8; height: 16
+                        source: "qrc:/image/weather/temperature-black.svg"
+                        layer.enabled: true
+                        layer.effect: ColorOverlay {
+                            color: MyStyle.textColor
+                        }
+                    }
+                }
+                Label {
+                    width: 53; height: 18
+                    verticalAlignment: Text.AlignVCenter
+                    color: MyStyle.textColor
+                    text: _popup.temperature + " °C"
+                }
+            }
+            Row {
+                spacing: 5
+                Item {
+                    width: 33; height: 18
+                    Image {
+                        anchors.centerIn: parent
+                        width: 16; height: 16
+                        source: "qrc:/image/weather/pressure-black.svg"
+                        layer.enabled: true
+                        layer.effect: ColorOverlay {
+                            color: MyStyle.textColor
+                        }
+                    }
+                }
+                Label {
+                    width: 53; height: 18
+                    verticalAlignment: Text.AlignVCenter
+                    color: MyStyle.textColor
+                    text: _popup.pressure + " мм"
+                }
+            }
+            Row {
+                spacing: 5
+                Item {
+                    width: 33; height: 18
+                    Image {
+                        anchors.centerIn: parent
+                        width: 16; height: 20
+                        source: "qrc:/image/weather/humidity-black.svg"
+                        layer.enabled: true
+                        layer.effect: ColorOverlay {
+                            color: MyStyle.textColor
+                        }
+                    }
+                }
+                Label {
+                    width: 53; height: 18
+                    verticalAlignment: Text.AlignVCenter
+                    color: MyStyle.textColor
+                    text: _popup.humidity + " %"
+                }
+            }
+        }
+
         MouseArea {
-            x: parent.width/2 - width/2; y: parent.height-height-10
+            x: parent.width/2 - width/2; y: parent.height-height
             width: 95; height: 15
             onClicked: {
-                _popup.clickedMore()
+                _popup.clickedMore(_popup.field_id)
             }
             Row {
                 spacing: 10

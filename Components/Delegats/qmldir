@@ -5,4 +5,5 @@ CarDelegat 1.0 CarDelegat.qml
 SmallWeatherDelegat 1.0 SmallWeatherDelegat.qml
 WeatherDelegat 1.0 WeatherDelegat.qml
 AddFooter 1.0 AddFooter.qml
+internal BaseWeatherDelegate BaseWeatherDelegate.qml
 

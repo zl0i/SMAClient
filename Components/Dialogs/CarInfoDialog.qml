@@ -8,7 +8,7 @@ Dialog {
     id: _dialog
 
     parent: Overlay.overlay
-    x: parent.width/2 - width/2; y: parent.height - height/2
+    x: parent.width/2 - width/2; y: parent.height/2 - height/2
     width: 500; height: 280
     modal: true; dim: true
     padding: 0

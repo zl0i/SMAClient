@@ -3,12 +3,12 @@
 CarWorker::CarWorker(QObject *parent) : QObject(parent)
 {
     QHash<int, QByteArray> hash;
-    hash.insert(CarWorker::idRole, "car_id");
+    hash.insert(CarWorker::idRole, "idData");
     hash.insert(CarWorker::NameRole, "nameData");
     hash.insert(CarWorker::LatitudeRole, "latitudeData");
     hash.insert(CarWorker::LongitudeRole, "longitudeData");
     hash.insert(CarWorker::SpeedRole, "speedData");
-    hash.insert(CarWorker::PathRole, "path");
+      hash.insert(CarWorker::LastUpdateRole, "lasUpdateData");
     carsModel->setItemRoleNames(hash);
 }
 
@@ -49,10 +49,11 @@ void CarWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
             QJsonObject obj = array.at(i).toObject();
             QModelIndex index = carsModel->index(i, 0);
             carsModel->setData(index, obj.value("id").toInt(), CarWorker::idRole);
+            carsModel->setData(index, obj.value("name").toInt(), CarWorker::NameRole);
             carsModel->setData(index, obj.value("latitude").toDouble(), CarWorker::LatitudeRole);
             carsModel->setData(index, obj.value("longitude").toDouble(), CarWorker::LongitudeRole);
             carsModel->setData(index, obj.value("speed").toInt(), CarWorker::SpeedRole);
-            //carsModel->setData(index, obj.value("path").toVariant(), CarWorker::PathRole);
+            carsModel->setData(index, obj.value("lastUpdate").toInt(), CarWorker::LastUpdateRole);
         }
         emit carsModelChanged();
     }

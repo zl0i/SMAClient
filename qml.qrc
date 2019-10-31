@@ -52,5 +52,8 @@
         <file>Components/Dialogs/FieldMapPopup.qml</file>
         <file>Components/Dialogs/SensorMapPopup.qml</file>
         <file>Components/Dialogs/CarMapPopup.qml</file>
+        <file>Components/SettingPage/MapPage.qml</file>
+        <file>Components/SettingPage/InterfacePage.qml</file>
+        <file>Components/SettingPage/SystemPage.qml</file>
     </qresource>
 </RCC>

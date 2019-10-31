@@ -20,6 +20,10 @@ void ServerWorker::connectToServer(QString addr, int port, QString login, QStrin
     this->m_password = password;
     emit inputChanged();
     if(login == "test" && password == "test") {
+        m_fullName = "Сукачев Александр Игоревич";
+        m_companyName = "ИП Сукачев";
+        m_role = "Директор";
+        emit clientChanged();
         emit winConnected();
         return;
     }
@@ -74,6 +78,10 @@ void ServerWorker::slotReadyRead()  {
         else {
             emit errorConnected(401, socket->errorString());
         }
+        break;
+    }
+    case UpdateFields: {
+        emit comeDataFields(type, obj.value("main").toObject());
         break;
     }
     case UpdateSensors: {
@@ -146,8 +154,12 @@ QJsonDocument ServerWorker::getServerJsonDocument() {
 }
 
 void ServerWorker::requestUpdateFields() {
-    QJsonDocument doc = getFormatedJson(UpdateSensors);
+    QJsonDocument doc = getFormatedJson(UpdateFields);
     sendServerJsonDocument(doc);
+}
+
+void ServerWorker::requestNewFields(QJsonObject obj) {
+    Q_UNUSED(obj)
 }
 
 void ServerWorker::requestUpdateSensors() {

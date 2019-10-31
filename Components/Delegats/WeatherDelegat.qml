@@ -12,6 +12,8 @@ BaseWeatherDelegate {
     property int maxTemperature
     property int windDeg
 
+    property bool visibleSun: true
+
     Label {
         x:16; y:3
         font.pixelSize: 20
@@ -47,6 +49,7 @@ BaseWeatherDelegate {
         x:_maxTemp.x + _maxTemp.contentWidth + 20; y:32
         height: 17
         spacing: 7
+        visible: _delegat.visibleSun
         Image {
             width: 33; height: 17
             source: "qrc:/image/weather/upsun-black.svg"
@@ -66,6 +69,7 @@ BaseWeatherDelegate {
         x:_maxTemp.x + _maxTemp.contentWidth + 20; y:68
         height: 11
         spacing: 7
+        visible: _delegat.visibleSun
         Image {
             width: 33; height: 11
             source: "qrc:/image/weather/downsun-black.svg"

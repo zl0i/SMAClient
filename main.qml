@@ -54,6 +54,7 @@ ApplicationWindow {
         x: 100; y:29
         companyName: _server.companyName
         fullName: _server.fullName
+        role: _server.role
         onExit: {
             _connectDialog.open()
         }

@@ -9,10 +9,11 @@ Popup {
     id: _popup
     parent: Overlay.overlay
     width: 317; height: 166
-    padding: 0
+    padding: 10
 
     property string fullName: ""
     property string companyName: ""
+    property string role: ""
 
     signal exit()
 
@@ -24,7 +25,7 @@ Popup {
             x: -5; y: 21
             width: 13; height: 13
             rotation: 45
-            color: "#FFFFFF"
+            color: parent.color
         }
         layer.enabled: true
         layer.effect: DropShadow {
@@ -37,16 +38,24 @@ Popup {
         Label {
             x:13; y:5
             font.pixelSize: 18
+            color: MyStyle.textColor
             text: _popup.companyName
         }
         Label {
             x:13; y:38
             font.pixelSize: 18
+            color: MyStyle.textColor
             text: _popup.fullName
+        }
+        Label {
+            x:13; y:70
+            font.pixelSize: 18
+            color: MyStyle.textColor
+            text: qsTr("Статус: %1").arg(_popup.role)
         }
 
         RoundButton {
-            x: parent.width-width-16; y: parent.height-height-16
+            x: parent.width-width; y: parent.height-height
             width: 115; height: 40
             size: "custom"
             style: "dark blue"

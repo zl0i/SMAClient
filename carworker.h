@@ -19,7 +19,7 @@ public:
         LatitudeRole,
         LongitudeRole,
         SpeedRole,
-        PathRole,
+        LastUpdateRole,
     }CarsRole;
     Q_ENUM(CarsRole)
 

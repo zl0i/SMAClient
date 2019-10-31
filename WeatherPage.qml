@@ -88,17 +88,17 @@ Rectangle {
         }
         WeatherDelegat {
             x:20; y: 68
-            temperature: _weather.currentWeather.temp
-            pressure: _weather.currentWeather.pressure
-            humidity: _weather.currentWeather.humidity
-            minTemperature: _weather.currentWeather.min_temp
-            maxTemperature: _weather.currentWeather.max_temp
-            windSpeed: _weather.currentWeather.speedWind
-            windDeg: _weather.currentWeather.degWind
-            date: _weather.currentWeather.dt
-            sunrise: _weather.currentWeather.sunrise
-            sunset: _weather.currentWeather.sunset
-            typeWeather: _weather.currentWeather.type
+            temperature:_weather.currentWeather.type ? _weather.currentWeather.temp : 0
+            pressure: _weather.currentWeather.type ? _weather.currentWeather.pressure : 0
+            humidity: _weather.currentWeather.type ? _weather.currentWeather.humidity : 0
+            minTemperature: _weather.currentWeather.type ? _weather.currentWeather.min_temp: 0
+            maxTemperature: _weather.currentWeather.type ? _weather.currentWeather.max_temp : 0
+            windSpeed: _weather.currentWeather.type ? _weather.currentWeather.speedWind : 0
+            windDeg: _weather.currentWeather.type ? _weather.currentWeather.degWind : 0
+            date: _weather.currentWeather.type ? _weather.currentWeather.dt : 0
+            sunrise: _weather.currentWeather.type ? _weather.currentWeather.sunrise : 0
+            sunset:_weather.currentWeather.type ? _weather.currentWeather.sunset : 0
+            typeWeather: _weather.currentWeather.type ?  _weather.currentWeather.type : ""
         }
         Label {
             x:20; y:283
@@ -123,6 +123,7 @@ Rectangle {
                 maxTemperature: modelData.temp_max
                 windSpeed:  modelData.speedWind
                 windDeg: modelData.degWind
+                visibleSun: false
             }
         }
         Label {

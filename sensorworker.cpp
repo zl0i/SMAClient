@@ -3,14 +3,18 @@
 SensorWorker::SensorWorker(QObject *parent) : QObject(parent)
 {  
     QHash<int, QByteArray> hash;
-    hash.insert(SensorWorker::idRole, "sensor_id");
-     hash.insert(SensorWorker::NameRole, "nameData");
+    hash.insert(SensorWorker::idRole, "idData");
+    hash.insert(SensorWorker::NameRole, "nameData");
     hash.insert(SensorWorker::LatitudeRole, "latitudeData");
     hash.insert(SensorWorker::LongitudeRole, "longitudeData");
     hash.insert(SensorWorker::TemperatureRole, "temperatureData");
     hash.insert(SensorWorker::HumidityRole, "humidityData");
     hash.insert(SensorWorker::PressureRole, "pressureData");
-    //hash.insert(SensorWorker::SoilRole, "soil");
+    hash.insert(SensorWorker::BattaryRole, "battaryData");
+    hash.insert(SensorWorker::GSMLevelRole, "gsmLevelData");
+    hash.insert(SensorWorker::GroundRole, "groundData");
+    hash.insert(SensorWorker::LastUpdateRole, "lastUpdateData");
+
     sensorModel->setItemRoleNames(hash);
 
     hash.clear();
@@ -75,6 +79,10 @@ void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
             sensorModel->setData(index, obj.value("temperature").toDouble(), SensorWorker::TemperatureRole);
             sensorModel->setData(index, obj.value("humidity").toDouble(), SensorWorker::HumidityRole);
             sensorModel->setData(index, obj.value("pressure").toInt(), SensorWorker::PressureRole);
+            sensorModel->setData(index, obj.value("battery").toInt(), SensorWorker::BattaryRole);
+            sensorModel->setData(index, obj.value("gsmlvl").toDouble(), SensorWorker::GSMLevelRole);
+            sensorModel->setData(index, obj.value("ground").toObject(), SensorWorker::GroundRole);
+            sensorModel->setData(index, obj.value("lastUpdate").toString(), SensorWorker::LastUpdateRole);
         }
         emit sensorModelChanged();
     }

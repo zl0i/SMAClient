@@ -32,7 +32,10 @@ public:
         TemperatureRole,
         HumidityRole,
         PressureRole,
-        SoilRole
+        BattaryRole,
+        GSMLevelRole,
+        GroundRole,
+        LastUpdateRole
     }SensorRole;
     Q_ENUM(SensorRole)   
 
