@@ -11,11 +11,15 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    QGuiApplication::setApplicationName("SMAClient");
+    QGuiApplication::setOrganizationName("zloi");
+
     QQmlApplicationEngine engine;
     engine.addImportPath(":/");
     engine.addImportPath("D:/Project/Qt/ModuleQML");
 
-    MainWorker *mainWorker = new MainWorker();    
+    MainWorker *mainWorker = new MainWorker();
+    engine.rootContext()->setContextProperty("_main", mainWorker);
     engine.rootContext()->setContextProperty("_server", mainWorker->serverWorker);
     engine.rootContext()->setContextProperty("_weather", mainWorker->weatherWorker);
     engine.rootContext()->setContextProperty("_fields", mainWorker->fieldWorker);

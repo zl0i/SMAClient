@@ -26,12 +26,13 @@ Item {
             RowCheckBox {
                 width: parent.width
                 text: qsTr("Темная тема")
-                onCheckedChanged: {
+                checked: _main.style === 1
+                onClicked:  {
                     if(checked) {
-                        MyStyle.theme =  MyStyle.Theme.Black
+                        _main.style = 1
                     }
                     else {
-                        MyStyle.theme =  MyStyle.Theme.White
+                        _main.style = 0
                     }
                 }
             }

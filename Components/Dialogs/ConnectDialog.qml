@@ -9,15 +9,16 @@ Dialog {
     id: _dialog
     parent: Overlay.overlay
     x: parent.width/2-width/2; y:parent.height/2-height/2
-    width: 361; height: 246
+    width: 360; height: 280
     modal: true; dim: true
     padding: 0
     closePolicy: Popup.NoAutoClose
 
     property string url: "46.72.206.93"//_server.url
     property var port: 6666//_server.port
-    property string login: _server.login
-    property string password: _server.password
+    property string login: _main.login
+    property string password: _main.password
+    property bool member: (_main.login.length !== 0) && (_main.password.length !== 0)
 
     property var blurItem
     signal authentication(var url, var port, var login, var password)
@@ -36,6 +37,10 @@ Dialog {
             _errorState.state = "errorLogPass"
             break;
         }
+    }
+
+    function validate() {
+
     }
 
 
@@ -163,12 +168,32 @@ Dialog {
                     InputText {
                         id: _passwordField
                         width: 256
-                        text: _server.password
+                        text: _dialog.password
                         error: _errorState.state === "errorLogPass"
                         echoMode: TextInput.Password
                     }
+                }                
+            }
+            Item {
+                x: 20; y: 178
+                width: parent.width - 30; height: 35
+                Label {
+                    width: 75; height: 35
+                    verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+                    color:  MyStyle.textColor
+                    text: qsTr("Запомнить меня")
+                }
+                CustomCheckBox {
+                    anchors.right: parent.right
+                    width: 35; height: 35
+                    checked: _dialog.member
+                    onClicked: {
+                        _dialog.member = checked
+                    }
+
                 }
             }
+
             Row {
                 anchors.bottom: parent.bottom; anchors.bottomMargin: 20
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -177,6 +202,14 @@ Dialog {
                     text: qsTr("Войти")
                     onClicked: {
                         _loader.sourceComponent = _lodingComponent
+                        if(member) {
+                            _main.login = _loginField.text
+                            _main.password = _passwordField.text
+                        } else {
+                            _main.login = ""
+                            _main.password = ""
+                        }
+
                         _dialog.authentication(_urlFielf.text,
                                                Number(_portField.text),
                                                _loginField.text,

@@ -10,7 +10,7 @@ Map {
     plugin: Plugin { name: "osm" } //mapboxgl esri osm
     center: QtPositioning.coordinate(51.516005, 39.273783)
     zoomLevel: 14
-    activeMapType: supportedMapTypes["1"]
+    activeMapType: supportedMapTypes[_main.mapType]
 
     property bool visibleFields: true
     property bool visibleBorderFields: true

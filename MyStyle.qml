@@ -3,7 +3,7 @@ import QtQuick 2.0
 
 QtObject {
 
-    property var theme: Theme.White
+    property var theme: _main.style
 
     enum Theme {
         White,

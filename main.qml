@@ -21,11 +21,6 @@ ApplicationWindow {
         pixelSize: 14
     }
 
-    Component.onCompleted: {
-        MyStyle.theme = MyStyle.Theme.Black
-    }
-
-
     Connections {
         target: _server
         onWinConnected: {
