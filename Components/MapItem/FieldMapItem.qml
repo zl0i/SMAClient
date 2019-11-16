@@ -22,16 +22,19 @@ MapItemGroup {
 
     signal moreClicked(var filed_id)
 
+
+
     MapPolygon {
+        id: _polygon
         visible: visiblePolygon
         color: "#6AABF7"
         opacity: 0.3
         border.width: 1; border.color: "#000000"
-        path: location
+        path: _root.location
     }
 
     MapQuickItem {
-        coordinate: QtPositioning.coordinate(location[0].latitude, location[0].longitude)
+        coordinate: QtPositioning.coordinate(center.latitude, center.longitude)
         anchorPoint.x: sourceItem.width/2
         anchorPoint.y: sourceItem.height/2
         visible: visibleField

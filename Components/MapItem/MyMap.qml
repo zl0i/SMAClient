@@ -34,11 +34,11 @@ Map {
             pressure: pressureData
             visibleField:  _map.visibleFields
             visiblePolygon: _map.visibleBorderFields            
-            onMoreClicked: {
-                //_fields.getFiledById(filed_id)
+            onMoreClicked: {                
+                 _filedInfoDialog.model = _fields.getFiledById(filed_id)
+                 console.log(JSON.stringify(_fields.getFiledById(filed_id)))
                 _filedInfoDialog.open()
             }
-
         }
     }
     FieldInfoDialog {

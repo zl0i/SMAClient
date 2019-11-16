@@ -39,8 +39,9 @@ public:
     Q_ENUM(ErrorServer)
 
 
-    Q_INVOKABLE void connectToServer(QString addr, int port, QString login, QString password, bool remember);
+    Q_INVOKABLE void connectToServer(QString addr, int port, QString login, QString password);
     void connectToTestServer();
+
 
     QString login() { return  m_login; }
     QString password() { return  m_password; }
@@ -56,6 +57,8 @@ private:
     QString m_fullName;
     QString m_companyName;
     QString m_role;
+
+    bool testMod = false;
 
     QJsonDocument getFormatedJson(Request);
     QJsonDocument getFormatedJson(Request, QJsonObject);

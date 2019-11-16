@@ -10,7 +10,7 @@ Dialog {
     x: parent.width/2 - width/2; y: parent.height/2 - height/2
     width: 500; height: 280
     modal: true; dim: true
-    padding: 0
+    padding: 20
     closePolicy: Popup.NoAutoClose
 
     property var model
@@ -21,7 +21,7 @@ Dialog {
     }
 
     background: Rectangle {
-        width: parent.width; height: parent.height; radius: 20
+        width: 500; height: 280; radius: 20
         color: MyStyle.foregroundColor
         CircleImageButton {
             x: parent.width-width-20; y: 20
@@ -40,10 +40,31 @@ Dialog {
 
     contentItem: Item {
         width: parent.width; height: parent.height
-        Label {
-            x: 20; y: 20
+        Label {           
+            font { weight: Font.Bold; pixelSize: 24 }
             color: MyStyle.textColor
-            text: qsTr(title)
+            text: model.name
+        }
+        ListView {
+           x:0; y: 40
+           width: 130; height: parent.height-50
+           model: _dialog.model.info
+           clip: true
+           delegate: Label {
+               width: 130; height: 40
+               color: MyStyle.textColor
+               text: modelData.dataName + ": " + modelData.data + modelData.type
+           }
+           section.property: "type"
+           section.criteria: ViewSection.FullString
+           section.delegate: Rectangle {
+               width: 130; height: 40
+               color: "red"
+               Label {
+                   text: "asdas"
+               }
+           }
+
         }
     }
 

@@ -38,7 +38,7 @@ ApplicationWindow {
         visible: true
         blurItem: _window.contentItem
         onAuthentication: {
-            _server.connectToServer(url, port, login, password, true)
+            _server.connectToServer(url, port, login, password)
         }
         onQuit: {
             Qt.quit()
@@ -51,7 +51,8 @@ ApplicationWindow {
         fullName: _server.fullName
         role: _server.role
         onExit: {
-            _connectDialog.open()
+            _connectDialog.open()           
+            _server.slotDisconnected()
         }
     }
 

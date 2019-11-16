@@ -11,6 +11,7 @@ BaseWeatherDelegate {
     property int minTemperature
     property int maxTemperature
     property int windDeg
+    property var dailyForecast
 
     property bool visibleSun: true
 
@@ -52,7 +53,7 @@ BaseWeatherDelegate {
         visible: _delegat.visibleSun
         Image {
             width: 33; height: 17
-            source: "qrc:/image/weather/upsun-black.svg"
+            source: "qrc:/image/weather/value-icons/upsun-black.svg"
             layer.enabled: true
             layer.effect: ColorOverlay {
                 color: MyStyle.textColor
@@ -72,7 +73,7 @@ BaseWeatherDelegate {
         visible: _delegat.visibleSun
         Image {
             width: 33; height: 11
-            source: "qrc:/image/weather/downsun-black.svg"
+            source: "qrc:/image/weather/value-icons/downsun-black.svg"
             layer.enabled: true
             layer.effect: ColorOverlay {
                 color: MyStyle.textColor
@@ -96,7 +97,7 @@ BaseWeatherDelegate {
             Image {
                 anchors.centerIn: parent
                 width: 13; height: 20
-                source: "qrc:/image/weather/humidity-black.svg"
+                source: "qrc:/image/weather/value-icons/humidity-black.svg"
                 layer.enabled: true
                 layer.effect: ColorOverlay {
                     color: MyStyle.textColor
@@ -114,7 +115,7 @@ BaseWeatherDelegate {
             Image {
                 anchors.centerIn: parent
                 width: 20; height: 20
-                source: "qrc:/image/weather/pressure-black.svg"
+                source: "qrc:/image/weather/value-icons/pressure-black.svg"
                 layer.enabled: true
                 layer.effect: ColorOverlay {
                     color: MyStyle.textColor
@@ -133,7 +134,7 @@ BaseWeatherDelegate {
                 anchors.centerIn: parent
                 width: 26.5; height: 15
                 antialiasing: true
-                source: "qrc:/image/weather/wind-black.svg"
+                source: "qrc:/image/weather/value-icons/wind-black.svg"
                 layer.enabled: true
                 layer.effect: ColorOverlay {
                     color: MyStyle.textColor
@@ -150,7 +151,7 @@ BaseWeatherDelegate {
             height: 22
             verticalAlignment: Text.AlignVCenter
             color: MyStyle.textColor
-            text: _delegat.windSpeed + " м/с"
+            text: _delegat.windSpeed + qsTr(" м/с")
         }
     }
     Column {
@@ -162,7 +163,7 @@ BaseWeatherDelegate {
                 anchors.centerIn: parent
                 width: 75; height: 60
                 fillMode: Image.PreserveAspectFit
-                source: getIconByWeather(typeWeather)
+                source: getIconByWeather(typeWeather, descriptionWeather)
                 layer.enabled: true
                 layer.effect: ColorOverlay {
                     color: MyStyle.textColor
@@ -174,7 +175,7 @@ BaseWeatherDelegate {
             verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
             color: MyStyle.textColor
-            text: getNameByWeather(typeWeather)
+            text: getNameByWeather(descriptionWeather)
         }
     }
 
@@ -190,7 +191,7 @@ BaseWeatherDelegate {
         orientation: ListView.Horizontal
         spacing: 20
         interactive: false
-        model: 7
+        model: dailyForecast
         delegate: Column {
             width: 37; height: 20
             spacing: 10
@@ -198,13 +199,13 @@ BaseWeatherDelegate {
                 width: 37; height: 20
                 verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
                 color: MyStyle.textColor
-                text: "22:00"
+                text: new Date(modelData.dt).toLocaleString(Qt.locale(), "hh:mm")
             }
             Label {
                 width: 37; height: 20
                 verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
                 color: MyStyle.textColor
-                text: "+8 C"
+                text: Math.floor(modelData.temp) + " " + degTemperatureStr + "C"
             }
         }
     }

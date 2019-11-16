@@ -22,7 +22,7 @@ BaseWeatherDelegate {
         x: parent.width/2-width/2; y: 26
         width: 30; height: 30
         fillMode: Image.PreserveAspectFit
-        source: getIconByWeather(_delegat.typeWeather)
+        source: getIconByWeather(_delegat.typeWeather, _delegat.descriptionWeather)
         layer.enabled: true
         layer.effect: ColorOverlay {
             color: MyStyle.textColor
@@ -38,7 +38,7 @@ BaseWeatherDelegate {
                 Image {
                     anchors.centerIn: parent
                     width: 8; height: 16
-                    source: "qrc:/image/weather/temperature-black.svg"
+                    source: "qrc:/image/weather/value-icons/temperature-black.svg"
                     layer.enabled: true
                     layer.effect: ColorOverlay {
                         color: MyStyle.textColor
@@ -59,7 +59,7 @@ BaseWeatherDelegate {
                 Image {
                     anchors.centerIn: parent
                     width: 16; height: 16
-                    source: "qrc:/image/weather/pressure-black.svg"
+                    source: "qrc:/image/weather/value-icons/pressure-black.svg"
                     layer.enabled: true
                     layer.effect: ColorOverlay {
                         color: MyStyle.textColor
@@ -80,7 +80,7 @@ BaseWeatherDelegate {
                 Image {
                     anchors.centerIn: parent
                     width: 16; height: 20
-                    source: "qrc:/image/weather/humidity-black.svg"
+                    source: "qrc:/image/weather/value-icons/humidity-black.svg"
                     layer.enabled: true
                     layer.effect: ColorOverlay {
                         color: MyStyle.textColor
@@ -101,7 +101,7 @@ BaseWeatherDelegate {
                 Image {
                     anchors.centerIn: parent
                     width: 20; height: 13
-                    source: "qrc:/image/weather/wind-black.svg"
+                    source: "qrc:/image/weather/value-icons/wind-black.svg"
                     layer.enabled: true
                     layer.effect: ColorOverlay {
                         color: MyStyle.textColor
@@ -112,7 +112,7 @@ BaseWeatherDelegate {
                 width: 53; height: 18
                 verticalAlignment: Text.AlignVCenter
                 color: MyStyle.textColor
-                text: _delegat.windSpeed + " м/с"
+                text: _delegat.windSpeed + qsTr(" м/с")
             }
         }
         Row {
@@ -122,7 +122,7 @@ BaseWeatherDelegate {
                 Image {
                     anchors.centerIn: parent
                     width: 27; height: 16
-                    source: "qrc:/image/weather/upsun-black.svg"
+                    source: "qrc:/image/weather/value-icons/upsun-black.svg"
                     layer.enabled: true
                     layer.effect: ColorOverlay {
                         color: MyStyle.textColor
@@ -143,7 +143,7 @@ BaseWeatherDelegate {
                 Image {
                     anchors.centerIn: parent
                     width: 33; height: 11
-                    source: "qrc:/image/weather/downsun-black.svg"
+                    source: "qrc:/image/weather/value-icons/downsun-black.svg"
                     layer.enabled: true
                     layer.effect: ColorOverlay {
                         color: MyStyle.textColor

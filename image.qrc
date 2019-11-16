@@ -20,20 +20,24 @@
         <file>image/other/menu-black.svg</file>
         <file>image/other/more-black.svg</file>
         <file>image/other/plus-black.svg</file>
-        <file>image/weather/brokenClouds-black.svg</file>
-        <file>image/weather/clearSky-black.svg</file>
-        <file>image/weather/downsun-black.svg</file>
-        <file>image/weather/fewClouds-black.svg</file>
-        <file>image/weather/humidity-black.svg</file>
-        <file>image/weather/mist-black.svg</file>
-        <file>image/weather/pressure-black.svg</file>
-        <file>image/weather/rain-black.svg</file>
-        <file>image/weather/scatteredClouds-black.svg</file>
-        <file>image/weather/showerRain-black.svg</file>
-        <file>image/weather/snow-black.svg</file>
-        <file>image/weather/temperature-black.svg</file>
-        <file>image/weather/thunderstorm-black.svg</file>
-        <file>image/weather/upsun-black.svg</file>
-        <file>image/weather/wind-black.svg</file>
+        <file>image/weather/value-icons/downsun-black.svg</file>
+        <file>image/weather/value-icons/humidity-black.svg</file>
+        <file>image/weather/value-icons/pressure-black.svg</file>
+        <file>image/weather/value-icons/temperature-black.svg</file>
+        <file>image/weather/value-icons/upsun-black.svg</file>
+        <file>image/weather/value-icons/wind-black.svg</file>
+        <file>image/weather/Thunderstorm/thunderstorm.svg</file>
+        <file>image/weather/Thunderstorm/thunderstorm-heavyRain.svg</file>
+        <file>image/weather/Thunderstorm/thunderstorm-rain.svg</file>
+        <file>image/weather/Snow/snow.svg</file>
+        <file>image/weather/Rain/rain.svg</file>
+        <file>image/weather/Drizzle/drizzle.svg</file>
+        <file>image/weather/Clear/clearSky.svg</file>
+        <file>image/weather/Atmosphere/mist.svg</file>
+        <file>image/weather/Atmosphere/tornado.svg</file>
+        <file>image/weather/Clouds/brokenClouds.svg</file>
+        <file>image/weather/Clouds/overcastClouds.svg</file>
+        <file>image/weather/Clouds/scatteredClouds.svg</file>
+        <file>image/weather/Clouds/fewClouds.svg</file>
     </qresource>
 </RCC>

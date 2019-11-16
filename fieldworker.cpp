@@ -88,21 +88,22 @@ void FieldWorker::fillInTestData() {
 }
 
 void FieldWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
-    if(type == ServerWorker::UpdateFields) {
+    if(type == ServerWorker::UpdateFields) {        
         QJsonArray array = mainObj.value("fields").toArray();
         fieldModel->clear();
         fieldModel->insertColumn(0);
         fieldModel->insertRows(0, array.count());
+
         for(int i = 0; i < array.count(); ++i) {
-            QJsonObject obj = array.at(i).toObject();
+            QJsonObject obj = array.at(i).toObject();           
             QModelIndex index = fieldModel->index(i, 0);
             fieldModel->setData(index, obj.value("id").toInt(), FieldWorker::idRole);
-            fieldModel->setData(index, obj.value("name").toObject(), FieldWorker::NameRole);
-            fieldModel->setData(index, obj.value("location").toObject(), FieldWorker::LocationRole);
-            fieldModel->setData(index, obj.value("center").toDouble(), FieldWorker::CenterRole);
+            fieldModel->setData(index, obj.value("name").toString(), FieldWorker::NameRole);
+            fieldModel->setData(index, obj.value("location").toArray(), FieldWorker::LocationRole);
+            fieldModel->setData(index, obj.value("center").toObject(), FieldWorker::CenterRole);
             fieldModel->setData(index, obj.value("temperature").toDouble(), FieldWorker::TemperatureRole);
             fieldModel->setData(index, obj.value("humidity").toDouble(), FieldWorker::HumidityRole);
-            fieldModel->setData(index, obj.value("pressure").toInt(), FieldWorker::PressureRole);
+            fieldModel->setData(index, obj.value("pressure").toDouble(), FieldWorker::PressureRole);
             //fieldModel->setData(index, obj.value("lastUpdate").toString(), FieldWorker::LastUpdateRole);
         }
         emit fieldModelChanged();
@@ -111,13 +112,40 @@ void FieldWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
 
 QJsonObject FieldWorker::getFiledById(int id) {
     QModelIndex index = fieldModel->index(id, 0);
+
     QJsonObject obj;
     obj.insert("id", fieldModel->data(index, FieldWorker::idRole).toJsonValue());
     obj.insert("name", fieldModel->data(index, FieldWorker::NameRole).toJsonValue());
-    obj.insert("location", fieldModel->data(index, FieldWorker::LocationRole).toJsonValue());
-    obj.insert("center", fieldModel->data(index, FieldWorker::CenterRole).toJsonValue());
-    obj.insert("temperature", fieldModel->data(index, FieldWorker::TemperatureRole).toJsonValue());
-    obj.insert("humidity", fieldModel->data(index, FieldWorker::HumidityRole).toJsonValue());
-    obj.insert("pressure", fieldModel->data(index, FieldWorker::PressureRole).toJsonValue());
+
+    QJsonArray arr;
+    QJsonObject temp;
+    /*temp.insert("type", "Environment");
+    temp.insert("dataName", tr("location"));
+    temp.insert("data", fieldModel->data(index, FieldWorker::LocationRole).toJsonValue());
+    arr.append(temp);
+
+
+    temp.insert("type", "Environment");
+    temp.insert("dataName", tr("center"));
+    temp.insert("data", fieldModel->data(index, FieldWorker::CenterRole).toJsonValue());
+    arr.append(temp);*/
+
+    temp.insert("type", "Environment");
+    temp.insert("dataName", tr("temperature"));
+    temp.insert("data", fieldModel->data(index, FieldWorker::TemperatureRole).toJsonValue());
+    arr.append(temp);
+
+    temp.insert("type", "Environment");
+    temp.insert("dataName", tr("humidity"));
+    temp.insert("data", fieldModel->data(index, FieldWorker::HumidityRole).toJsonValue());
+    arr.append(temp);
+
+    temp.insert("type", "Environment");
+    temp.insert("dataName", tr("pressure"));
+    temp.insert("data", fieldModel->data(index, FieldWorker::PressureRole).toJsonValue());
+    arr.append(temp);
+
+    obj.insert("info", arr);
+
     return  obj;
 }

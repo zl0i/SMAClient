@@ -119,7 +119,7 @@ void WeatherWorker::parseDailyForecast(QJsonObject obj) {
     }
 
     m_currentWeather.insert("forecast", model);
-    qDebug() << cnt <<model;
+    qDebug() << cnt << model;
     emit currentWetherChanged();
 
     for(; cnt < listObj.size(); ++cnt) {

@@ -15,9 +15,6 @@ class WeatherWorker : public QObject
     Q_PROPERTY(QJsonArray twoDailyForecast READ twoDailyForecast NOTIFY twoDailyForecastChanged)
 
 
-
-
-
 public:
     explicit WeatherWorker(QObject *parent = nullptr);
     ~WeatherWorker();
@@ -39,38 +36,32 @@ public:
 
 private:
 
-    typedef enum {
-        Idle,
-        CurrentWeather,
-        DailyForecast,
-        TwoDailyForecast
-    }TypeRequest;
-
-    TypeRequest type = Idle;
-
-    QNetworkAccessManager networkManager;
-
-
+    QNetworkAccessManager *networkManager;
 
     QJsonObject m_currentWeather;
     QJsonArray m_dailyForecast;
     QJsonArray m_twoDailyForecast;
 
-    void parseCurrentWeather(QNetworkReply *reply);
-    void parseDailyForecast(QNetworkReply *reply);
-    void parseTwoDailyForecast(QNetworkReply *reply);
+    void parseCurrentWeather(QJsonObject);
+    void parseDailyForecast(QJsonObject);
+    void parseTwoDailyForecast(QJsonObject);
+
 
     QString getStringDateFromUTS(int);
 
-    bool m_allUpdate = false;
 
 signals:
     void currentWetherChanged();
     void dailyForecastChanged();
     void twoDailyForecastChanged();    
 
-public slots:
-    void onResult(QNetworkReply *reply);
+public slots:   
+
+    void handlerCurrentWeather();
+    void handlerDailyForecast();
+    void handlerTwoDailyForecast();
+
+
 };
 
 #endif // WEATHERWORKER_H

@@ -14,6 +14,8 @@ Item {
     id: _root
     property alias map: _mapLoader.item
 
+
+
     Loader {
         id: _mapLoader
         anchors.fill: parent
@@ -23,6 +25,10 @@ Item {
 
     NavigationMap {
         id: _navigationMap
+        onSelectFields: {
+            _fields.updateFields();
+        }
+
         onMoveMap: {
             map.moveCenter(coordinate)
         }

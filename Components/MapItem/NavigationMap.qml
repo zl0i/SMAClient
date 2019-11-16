@@ -151,8 +151,8 @@ Item {
             temperature: temperatureData
             humidity: humidityData
             pressure: pressureData
-            countSensors: countData
-            location: locationData
+            //countSensors: countData
+            center: centerData
             //isFavorite: true
             isLast: ListView.view.count -1 === index
             onClicked: {

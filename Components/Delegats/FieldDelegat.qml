@@ -12,6 +12,7 @@ Item {
     property int pressure
     property int humidity
     property var location
+    property var center
     property bool isFavorite: false
     property bool isLast: false
 
@@ -80,7 +81,7 @@ Item {
         onEntered: hovered = true
         onExited: hovered = false
         onClicked: {           
-            _delegat.clicked(_delegat.field_id, location[0])
+            _delegat.clicked(_delegat.field_id, center)
         }
     }
 

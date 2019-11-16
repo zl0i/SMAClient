@@ -23,6 +23,7 @@ Rectangle {
 
     property var date
     property string typeWeather
+    property string descriptionWeather
     property int temperature
     property int pressure
     property int humidity
@@ -33,35 +34,160 @@ Rectangle {
     readonly property string degTemperatureStr: "°"
 
 
-    function getIconByWeather(type) {
+    function getIconByWeather(type, description) {
         switch(type) {
-        case "clear sky":
-            return "qrc:/image/weather/clearSky-black.svg"
-        case "clouds":
-             return "qrc:/image/weather/brokenClouds-black.svg"
-        case "few clouds":
-            return "qrc:/image/weather/fewClouds-black.svg"
-        case "scattered clouds":
-            return "qrc:/image/weather/scatteredClouds-black.svg"
-        case "broken clouds":
-            return "qrc:/image/weather/brokenClouds-black.svg"
-        case "rain":
-            return "qrc:/image/weather/rain-black.svg"
-        case "shower raind":
-            return "qrc:/image/weather/showerRain-black.svg"
-        case "thunderstorm":
-            return "qrc:/image/weather/thunderstorm-black.svg"
-        case "snow":
-            return "qrc:/image/weather/snow-black.svg"
-        case "mist":
-            return "qrc:/image/weather/mist-black.svg"
-        default :
-            return "qrc:/image/weather/clearSky-black.svg"
+        case "Clear":
+            return "qrc:/image/weather/Clear/clearSky.svg"
+        case "Clouds":
+            return getIconByClouds(description)
+        case "Rain":
+            return "qrc:/image/weather/Rain/rain.svg"
+        case "Drizzle":
+            return "qrc:/image/weather/Drizzle/drizzle.svg"
+        case "Snow":
+            return "qrc:/image/weather/Snow/snow.svg"
+        case "Atmosphere":
+            return getIconByAtmosphere(description)
+        case "Thunderstorm":
+            return getIconByThunderstrom(description)
         }
     }
 
-    function getNameByWeather(type) {
-        switch(type) {
+    function getIconByClouds(description) {
+        switch (description) {
+        case "few clouds" :
+            return "qrc:/image/weather/Clouds/fewClouds.svg"
+        case "scattered clouds":
+            return "qrc:/image/weather/Clouds/scatteredClouds.svg"
+        case "broken clouds":
+            return "qrc:/image/weather/Clouds/brokenClouds.svg"
+        case "overcast clouds":
+            return "qrc:/image/weather/Clouds/overcastClouds.svg"
+        }
+    }
+
+    function getIconByThunderstrom(description) {
+        switch (description) {
+        case "light thunderstorm" || "thunderstrom" || "heavy thunderstorm":
+            return "qrc:/image/weather/Thunderstrom/thunderstrom.svg"
+        case "thunderstorm with light rain" || "thunderstrom rain" || "ragged thunderstorm" || "thunderstorm with light drizzle" || "thunderstorm with drizzle":
+            return "qrc:/image/weather/Thunderstrom/thunderstrom-rain.svg"
+        case "thunderstorm with heavy rain" || "thunderstorm with heavy drizzle":
+            return "qrc:/image/weather/Thunderstrom/thunderstrom-heavyRain.svg"
+        }
+    }
+
+    function getIconByAtmosphere(description) {
+        switch (description) {
+        case "mist" :
+            return "qrc:/image/weather/Atmosphere/mist.svg"
+        case "tornado":
+            return "qrc:/image/weather/Atmosphere/tornado.svg"
+        }
+    }
+
+    function getNameByWeather(description) {
+        switch(description) {
+        case "thunderstorm with light rain":
+            return qsTr("Гроза с небольшим дождем")
+        case "thunderstorm with rain":
+            return qsTr("Гроза с дождем")
+        case "thunderstorm with heavy rain":
+            return qsTr("Гроза с проливным дождем")
+        case "light thunderstorm":
+            return qsTr("Легкая гроза")
+        case "thunderstorm":
+            return qsTr("Гроза")
+        case "heavy thunderstorm":
+            return qsTr("Сильная гроза")
+        case "ragged thunderstorm":
+            return qsTr("Рваная гроза")
+        case "thunderstorm with light drizzle":
+            return qsTr("Гроза с легкой моросью")
+        case "thunderstorm with drizzle":
+            return qsTr("Гроза с моросящим дождем")
+        case "thunderstorm with heavy drizzle":
+            return qsTr("Гроза с сильным моросящим дождем")
+        case "light intensity drizzle":
+            return qsTr("Моросящий дождь")
+        case "drizzle":
+            return qsTr("Изморось")
+        case "heavy intensity drizzle":
+            return qsTr("Сильная морось")
+        case "light intensity drizzle rain":
+            return qsTr("Интенсивный моросящий дождь")
+        case "drizzle rain":
+            return qsTr("Моросящий дождь")
+        case "heavy intensity drizzle rain":
+            return qsTr("Сильный дождь")
+        case "shower rain and drizzle":
+            return qsTr("Дождь")
+        case "heavy shower rain and drizzle":
+            return qsTr("Сильный ливень и морось")
+        case "shower drizzle":
+            return qsTr("Моросящий дождь")
+        case "light rain":
+            return qsTr("Легкий дождь")
+        case "moderate rain":
+            return qsTr("Умеренный дождь")
+        case "heavy intensity rain":
+            return qsTr("Сильный дождь")
+        case "very heavy rain":
+            return qsTr("Очень сильный дождь")
+        case "extreme rain":
+            return qsTr("Сверх сильный дождь")
+        case "freezing rain":
+            return qsTr("Холодный дождь")
+        case "light intensity shower rain":
+            return qsTr("Легкая интенсивность дождя")
+        case "shower rain":
+            return qsTr("Дождь")
+        case "heavy intensity shower rain":
+            return qsTr("Сильный дождь")
+        case "ragged shower rain":
+            return qsTr("Рваный дождь")
+        case "light snow":
+            return qsTr("Небольшой снег")
+        case "Snow":
+            return qsTr("Снег")
+        case "Heavy snow":
+            return qsTr("Сильный снегопад")
+        case "Sleet":
+            return qsTr("Мокрый снег")
+        case "Light shower sleet":
+            return qsTr("Легкий мокрый снег")
+        case "Shower sleet":
+            return qsTr("Дождь со снегом")
+        case "Light rain and snow":
+            return qsTr("Небольшой дождь и снег")
+        case "Rain and snow":
+            return qsTr("Дождь и снег")
+        case "Light shower snow":
+            return qsTr("Легкий снегопад")
+        case "Shower snow":
+            return qsTr("Снегопад")
+        case "Heavy shower snow":
+            return qsTr("Сильный снегопад")
+        case "mist":
+            return qsTr("Туман")
+        case "Smoke":
+            return qsTr("Дым")
+        case "Haze":
+            return qsTr("Мгла")
+        case "sand/ dust whirls":
+            return qsTr("Песчаная пыль")
+        case "fog":
+            return qsTr("Дымка")
+        case "sand":
+            return qsTr("Песок")
+        case "dust":
+            return qsTr("Пыль")
+        case "volcanic ash":
+            return qsTr("Вулканический пепел")
+        case "squalls":
+            return qsTr("Шквалы")
+        case "tornado":
+            return qsTr("Торнадо")
         case "clear sky":
             return qsTr("Ясно")
         case "few clouds":
@@ -70,16 +196,8 @@ Rectangle {
             return qsTr("Переменная облачность")
         case "broken clouds":
             return qsTr("Облачно")
-        case "rain":
-            return qsTr("Дождь")
-        case "shower raind":
-            return qsTr("Ливень")
-        case "thunderstorm":
-            return qsTr("Гроза")
-        case "snow":
-            return qsTr("Снег")
-        case "mist":
-            return qsTr("Туман")
+        case "overcast clouds":
+            return qsTr("Пасмурные облака")
         default :
             return ""
         }

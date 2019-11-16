@@ -11,7 +11,7 @@ ServerWorker::~ServerWorker() {
     socket->close();
 }
 
-void ServerWorker::connectToServer(QString addr, int port, QString login, QString password, bool remember) {    
+void ServerWorker::connectToServer(QString addr, int port, QString login, QString password) {
     if(addr.isEmpty() || port == 0 || login.isEmpty() || password.isEmpty()) {
         emit  errorConnected(401, "");
         return;
@@ -20,15 +20,13 @@ void ServerWorker::connectToServer(QString addr, int port, QString login, QStrin
     this->m_password = password;
     emit inputChanged();
     if(login == "test" && password == "test") {
+        testMod = true;
         m_fullName = "Сукачев Александр Игоревич";
         m_companyName = "ИП Сукачев";
         m_role = "Директор";
         emit clientChanged();
         emit winConnected();
         return;
-    }
-    if(remember) {
-
     }
     if(!socket->isOpen()) {
         socket->connectToHost(QHostAddress(addr), static_cast<uint16_t>(port), QIODevice::ReadWrite);
@@ -52,6 +50,7 @@ void ServerWorker::connectToTestServer() {
     connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),
             this, SLOT(slotTcpError(QAbstractSocket::SocketError)));
 }
+
 
 void ServerWorker::slotConnected() {
     QJsonObject obj;
@@ -107,12 +106,12 @@ void ServerWorker::slotTcpError(QAbstractSocket::SocketError socketError) {
     socket->close();
     Q_UNUSED(socketError)
     emit errorConnected(404, socket->errorString());
-
 }
 
 void ServerWorker::slotDisconnected() {
     socket->close();
     qDebug() << "disconnect";
+    testMod= false;
     disconnect(socket, &QTcpSocket::connected, this, &ServerWorker::slotConnected);
     disconnect(socket, &QTcpSocket::readyRead, this, &ServerWorker::slotReadyRead);
     disconnect(socket, &QTcpSocket::connected, this, &ServerWorker::slotConnected);
@@ -149,13 +148,54 @@ void ServerWorker::sendServerJsonDocument(QJsonDocument doc) {
     socket->write("\n");
 }
 
-QJsonDocument ServerWorker::getServerJsonDocument() {   
+QJsonDocument ServerWorker::getServerJsonDocument() {       
     return QJsonDocument::fromJson(socket->readAll());
 }
 
 void ServerWorker::requestUpdateFields() {
-    QJsonDocument doc = getFormatedJson(UpdateFields);
-    sendServerJsonDocument(doc);
+    if(testMod) {
+        QJsonObject obj;
+        obj.insert("name", "filed1");
+        obj.insert("pressure", 783.5);
+        obj.insert("temperature", 23.85);
+        obj.insert("humidity", 73.5);
+        obj.insert("id", 1);
+        obj.insert("lastUpdate", "2019-11-04 13:43:14.0");
+
+        QJsonObject point;
+        point.insert("latitude", 51.757726);
+        point.insert("longitude", 39.178850);
+        obj.insert("center", point);
+
+        QJsonArray location;
+
+        point.insert("latitude", 51.758113);
+        point.insert("longitude", 39.177992);
+        location.append(point);
+
+        point.insert("latitude", 51.757883);
+        point.insert("longitude", 39.179853);
+        location.append(point);
+
+        point.insert("latitude", 51.757364);
+        point.insert("longitude", 39.179730);
+        location.append(point);
+
+        point.insert("latitude", 51.757613);
+        point.insert("longitude", 39.177997);
+        location.append(point);
+
+        obj.insert("location", location);
+        QJsonArray fields;
+        fields.append(obj);
+        QJsonObject mainObj;
+        mainObj.insert("fields", fields);
+
+        emit comeDataFields(ServerWorker::UpdateFields, mainObj);
+    } else {
+        QJsonDocument doc = getFormatedJson(UpdateFields);
+        sendServerJsonDocument(doc);
+    }
 }
 
 void ServerWorker::requestNewFields(QJsonObject obj) {
