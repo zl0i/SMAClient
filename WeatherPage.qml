@@ -88,19 +88,19 @@ Rectangle {
         }
         WeatherDelegat {
             x:20; y: 68
-            temperature:_weather.currentWeather.type ? _weather.currentWeather.temp : 0
-            pressure: _weather.currentWeather.type ? _weather.currentWeather.pressure : 0
-            humidity: _weather.currentWeather.type ? _weather.currentWeather.humidity : 0
-            minTemperature: _weather.currentWeather.min_temp ? _weather.currentWeather.min_temp: 0
-            maxTemperature: _weather.currentWeather.max_temp ? _weather.currentWeather.max_temp : 0
-            windSpeed: _weather.currentWeather.type ? _weather.currentWeather.speedWind : 0
-            windDeg: _weather.currentWeather.type ? _weather.currentWeather.degWind : 0
-            date: _weather.currentWeather.type ? _weather.currentWeather.dt : 0
-            sunrise: _weather.currentWeather.type ? _weather.currentWeather.sunrise : 0
-            sunset:_weather.currentWeather.type ? _weather.currentWeather.sunset : 0
-            typeWeather: _weather.currentWeather.type ?  _weather.currentWeather.type : ""
-            descriptionWeather: _weather.currentWeather.type ? _weather.currentWeather.description : ""
-            dailyForecast: _weather.currentWeather.type ? _weather.currentWeather.forecast : 0
+            temperature: _weather.relevantData ? _weather.currentWeather.temp : 0
+            pressure:  _weather.relevantData ? _weather.currentWeather.pressure : 0
+            humidity:  _weather.relevantData ? _weather.currentWeather.humidity : 0
+            minTemperature:  _weather.relevantData ? _weather.currentWeather.temp_min: 0
+            maxTemperature:  _weather.relevantData ? _weather.currentWeather.temp_max : 0
+            windSpeed:  _weather.relevantData ? _weather.currentWeather.speedWind : 0
+            windDeg:  _weather.relevantData ? _weather.currentWeather.degWind : 0
+            date:  _weather.relevantData ? _weather.currentWeather.dt : 0
+            sunrise:  _weather.relevantData ? _weather.currentWeather.sunrise : 0
+            sunset: _weather.relevantData ? _weather.currentWeather.sunset : 0
+            typeWeather: _weather.relevantData?  _weather.currentWeather.type : ""
+            descriptionWeather: _weather.relevantData ? _weather.currentWeather.description : ""
+            dailyForecast: _weather.relevantData ? _weather.currentWeather.forecast : 0
         }
         Label {
             x:20; y:283

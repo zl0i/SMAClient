@@ -69,8 +69,8 @@ void WeatherWorker::parseCurrentWeather(QJsonObject obj) {
     QJsonObject rootObj = obj;
     m_currentWeather.insert("dt", getStringDateFromUTS(rootObj.value("dt").toInt()));
     QJsonObject temp = rootObj.value("weather").toArray().at(0).toObject();
-    m_currentWeather.insert("type", temp.value("main"));
-    m_currentWeather.insert("description", temp.value("description"));
+    m_currentWeather.insert("type", temp.value("main").toString());
+    m_currentWeather.insert("description", temp.value("description").toString());
 
     temp =  rootObj.value("main").toObject();
     m_currentWeather.insert("temp", temp.value("temp").toDouble()-273);
@@ -87,7 +87,6 @@ void WeatherWorker::parseCurrentWeather(QJsonObject obj) {
     m_currentWeather.insert("sunrise", getStringDateFromUTS(temp.value("sunrise").toInt()));
     m_currentWeather.insert("sunset", getStringDateFromUTS(temp.value("sunset").toInt()));
 
-    //qDebug() << m_currentWeather;
 }
 
 void WeatherWorker::parseDailyForecast(QJsonObject obj) {
@@ -118,37 +117,40 @@ void WeatherWorker::parseDailyForecast(QJsonObject obj) {
         }
     }
 
-    m_currentWeather.insert("forecast", model);
-    qDebug() << cnt <<model;
-    emit currentWetherChanged();
+    m_currentWeather.insert("forecast", model);    
 
-    for(; cnt < listObj.size(); ++cnt) {
-        QJsonObject element = listObj.at(cnt).toObject();
+    for(; cnt < listObj.size(); cnt+=8) {
+        QJsonObject startElement = listObj.at(cnt).toObject();
+         QJsonObject midElement;
+        if(cnt + 4 < listObj.size())
+            midElement = listObj.at(cnt+4).toObject();
+        else
+            midElement = listObj.last().toObject();
+
         QJsonObject item;
 
         QDateTime dt;
-        dt.setSecsSinceEpoch(element.value("dt").toInt());
+        dt.setSecsSinceEpoch(midElement.value("dt").toInt());
+        item.insert("dt", getStringDateFromUTS(midElement.value("dt").toInt()));
 
-        item.insert("dt", getStringDateFromUTS(element.value("dt").toInt()));
-
-        QJsonObject temp = element.value("weather").toArray().at(0).toObject();
+        QJsonObject temp = midElement.value("weather").toArray().at(0).toObject();
         item.insert("type", temp.value("main"));
         item.insert("description", temp.value("description"));
 
-        temp =  element.value("main").toObject();
+        temp =  midElement.value("main").toObject();
         item.insert("temp", temp.value("temp").toDouble()-273.00);
         item.insert("temp_min", temp.value("temp_min").toDouble()-273.00);
         item.insert("temp_max", temp.value("temp_max").toDouble()-273.00);
         item.insert("pressure", temp.value("pressure"));
         item.insert("humidity", temp.value("humidity"));
 
-        temp =  element.value("wind").toObject();
+        temp =  midElement.value("wind").toObject();
         item.insert("speedWind", temp.value("speed"));
         item.insert("degWind", temp.value("deg"));
 
         QJsonArray forecastDay;
 
-        for(int i = cnt; i < listObj.size(); ++i) {
+        for(int i = cnt; i < listObj.size() && (i < cnt + 8); ++i) {
             QJsonObject element2 = listObj.at(i).toObject();
 
             QDateTime dt2;
@@ -160,19 +162,11 @@ void WeatherWorker::parseDailyForecast(QJsonObject obj) {
                     {"temp", element2.value("main").toObject().value("temp").toDouble()-273.00}
                 };
                 forecastDay.append(item2);
-            } else {
-                cnt = i;
-                break;
             }
-            if(i == listObj.size()-1) {
-                cnt = i;
-                break;
-            }
-
         }
-        item.insert("forecast", forecastDay);
+        item.insert("forecast", forecastDay);       
         m_dailyForecast.append(item);
-    }
+    }    
 }
 
 void WeatherWorker::parseTwoDailyForecast(QJsonObject obj) {
@@ -214,6 +208,7 @@ void WeatherWorker::handlerCurrentWeather() {
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
 
     parseCurrentWeather(document.object());
+    m_relevantData = true;
     emit currentWetherChanged();
     reply->deleteLater();
 }
@@ -223,6 +218,7 @@ void WeatherWorker::handlerDailyForecast() {
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
 
     parseDailyForecast(document.object());
+    emit currentWetherChanged();
     emit dailyForecastChanged();
     reply->deleteLater();
 }

@@ -46,7 +46,7 @@ Rectangle {
             return "qrc:/image/weather/Drizzle/drizzle.svg"
         case "Snow":
             return "qrc:/image/weather/Snow/snow.svg"
-        case "Atmosphere":
+        case "Mist"|| "Smoke" || "Haze"	|| "Dust" || "Fog" || "Sand" || "Dust" || "Ash" || "Squall" || "Tornado":
             return getIconByAtmosphere(description)
         case "Thunderstorm":
             return getIconByThunderstrom(description)

@@ -13,6 +13,7 @@ class WeatherWorker : public QObject
     Q_PROPERTY(QJsonObject currentWeather READ wether NOTIFY currentWetherChanged)
     Q_PROPERTY(QJsonArray dailyForecast READ dailyForecast NOTIFY dailyForecastChanged)
     Q_PROPERTY(QJsonArray twoDailyForecast READ twoDailyForecast NOTIFY twoDailyForecastChanged)
+    Q_PROPERTY(bool relevantData READ relevantData NOTIFY currentWetherChanged)
 
 
 public:
@@ -22,6 +23,7 @@ public:
     QJsonObject wether() { return  m_currentWeather; }
     QJsonArray dailyForecast() { return  m_dailyForecast; }
     QJsonArray twoDailyForecast() { return  m_twoDailyForecast; }
+    bool relevantData() { return  m_relevantData; }
 
 
 
@@ -41,6 +43,8 @@ private:
     QJsonObject m_currentWeather;
     QJsonArray m_dailyForecast;
     QJsonArray m_twoDailyForecast;
+
+    bool m_relevantData = false;
 
     void parseCurrentWeather(QJsonObject);
     void parseDailyForecast(QJsonObject);

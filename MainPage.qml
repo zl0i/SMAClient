@@ -123,7 +123,7 @@ Rectangle {
     }
 
     property var favoritModel: [
-        {
+        /*{
             "component": "WeatherDelegat.qml",
             "temperature": -10,
             "pressure": 755,
@@ -186,7 +186,7 @@ Rectangle {
             "width": 200,
             "date": 1572019348,
             "typeWeather": "few clouds",
-        },
+        },*/
     ]
 
 

@@ -87,7 +87,6 @@ BaseWeatherDelegate {
         }
     }
 
-
     Row {
         x: 16; y:91
         height: 22
@@ -160,6 +159,7 @@ BaseWeatherDelegate {
         Item {
             width: 100; height: 60
             Image {
+                id: _mainImage
                 anchors.centerIn: parent
                 width: 75; height: 60
                 fillMode: Image.PreserveAspectFit
