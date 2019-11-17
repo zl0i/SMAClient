@@ -111,38 +111,57 @@ void FieldWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
 }
 
 QJsonObject FieldWorker::getFiledById(int id) {
-    QModelIndex index = fieldModel->index(id, 0);
+
+    QModelIndex index;
+    bool finded = false;
+
+    for(int i = 0; i < fieldModel->rowCount(); i++) {
+        index = fieldModel->index(i, 0);
+        if(fieldModel->data(index, FieldWorker::idRole).toInt() == id)  {
+            finded = true;
+            break;
+        }
+    }
+
+    if(!finded)
+        return QJsonObject {};
 
     QJsonObject obj;
     obj.insert("id", fieldModel->data(index, FieldWorker::idRole).toJsonValue());
     obj.insert("name", fieldModel->data(index, FieldWorker::NameRole).toJsonValue());
 
     QJsonArray arr;
-    QJsonObject temp;
-    /*temp.insert("type", "Environment");
-    temp.insert("dataName", tr("location"));
-    temp.insert("data", fieldModel->data(index, FieldWorker::LocationRole).toJsonValue());
+    QJsonObject temp;    
+
+    temp.insert("type", "Окружающая среда");
+    temp.insert("dataName", tr("Температура"));
+    temp.insert("value", fieldModel->data(index, FieldWorker::TemperatureRole).toJsonValue());
+    arr.append(temp);
+
+    temp.insert("type", "Окружающая среда");
+    temp.insert("dataName", tr("Влажность"));
+    temp.insert("value", fieldModel->data(index, FieldWorker::HumidityRole).toJsonValue());
+    arr.append(temp);
+
+    temp.insert("type", "Окружающая среда");
+    temp.insert("dataName", tr("Давление"));
+    temp.insert("value", fieldModel->data(index, FieldWorker::PressureRole).toJsonValue());
     arr.append(temp);
 
 
-    temp.insert("type", "Environment");
-    temp.insert("dataName", tr("center"));
-    temp.insert("data", fieldModel->data(index, FieldWorker::CenterRole).toJsonValue());
-    arr.append(temp);*/
-
-    temp.insert("type", "Environment");
-    temp.insert("dataName", tr("temperature"));
-    temp.insert("data", fieldModel->data(index, FieldWorker::TemperatureRole).toJsonValue());
+    temp.insert("type", "Общие");
+    temp.insert("dataName", tr("Долгота"));
+    temp.insert("value", fieldModel->data(index, FieldWorker::CenterRole).toJsonObject().value("latitude"));
     arr.append(temp);
 
-    temp.insert("type", "Environment");
-    temp.insert("dataName", tr("humidity"));
-    temp.insert("data", fieldModel->data(index, FieldWorker::HumidityRole).toJsonValue());
+    temp.insert("type", "Общие");
+    temp.insert("dataName", tr("Широта"));
+    temp.insert("value", fieldModel->data(index, FieldWorker::CenterRole).toJsonObject().value("longitude"));
     arr.append(temp);
 
-    temp.insert("type", "Environment");
-    temp.insert("dataName", tr("pressure"));
-    temp.insert("data", fieldModel->data(index, FieldWorker::PressureRole).toJsonValue());
+    temp.insert("type", "Общие");
+    temp.insert("dataName", tr("Количество датчиков"));
+    temp.insert("value", fieldModel->data(index, FieldWorker::CountRole).toJsonValue());
     arr.append(temp);
 
     obj.insert("info", arr);

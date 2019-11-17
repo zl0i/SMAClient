@@ -163,7 +163,7 @@ BaseWeatherDelegate {
                 anchors.centerIn: parent
                 width: 75; height: 60
                 fillMode: Image.PreserveAspectFit
-                source: getIconByWeather(typeWeather, descriptionWeather)
+                source: typeWeather != "" && descriptionWeather != "" ? getIconByWeather(typeWeather, descriptionWeather) : ""
                 layer.enabled: true
                 layer.effect: ColorOverlay {
                     color: MyStyle.textColor
@@ -209,5 +209,4 @@ BaseWeatherDelegate {
             }
         }
     }
-
 }

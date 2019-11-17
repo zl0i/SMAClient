@@ -123,21 +123,23 @@ Rectangle {
     }
 
     property var favoritModel: [
-        /*{
-            "component": "WeatherDelegat.qml",
-            "temperature": -10,
-            "pressure": 755,
-            "humidity": 85,
-            "typeWeather": "snow",
-            "date": 1570159679,
-            "minTemperature": -12,
-            "maxTemperature": -5,
-            "windSpeed": 10,
-            "windDeg": 325,
-            "sunrise": 1570159679,
-            "sunset": 1570159679
-        },
         {
+            "component": "WeatherDelegat.qml",
+            "temperature": _weather.relevantData ? _weather.currentWeather.temp : 0,
+            "pressure":  _weather.relevantData ? _weather.currentWeather.pressure : 0,
+            "humidity":  _weather.relevantData ? _weather.currentWeather.humidity : 0,
+            "minTemperature":  _weather.relevantData ? _weather.currentWeather.temp_min: 0,
+            "maxTemperature":  _weather.relevantData ? _weather.currentWeather.temp_max : 0,
+            "windSpeed":  _weather.relevantData ? _weather.currentWeather.speedWind : 0,
+            "windDeg":  _weather.relevantData ? _weather.currentWeather.degWind : 0,
+            "date":  _weather.relevantData ? _weather.currentWeather.dt : 0,
+            "sunrise":  _weather.relevantData ? _weather.currentWeather.sunrise : 0,
+            "sunset": _weather.relevantData ? _weather.currentWeather.sunset : 0,
+            "typeWeather": _weather.relevantData?  _weather.currentWeather.type : "",
+            "descriptionWeather": _weather.relevantData ? _weather.currentWeather.description : "",
+            "dailyForecast": _weather.relevantData ? _weather.currentWeather.forecast : 0
+        },
+        /*{
             "component": "SmallWeatherDelegat.qml",
             "temperature": 25,
             "pressure": 755,

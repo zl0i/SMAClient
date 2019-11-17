@@ -20,7 +20,7 @@ public:
         TemperatureRole,
         HumidityRole,
         PressureRole,
-        CountRole
+        CountRole        
     }FieldRole;
     Q_ENUM(FieldRole)
 

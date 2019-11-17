@@ -50,7 +50,7 @@ Popup {
                     Image {
                         anchors.centerIn: parent
                         width: 8; height: 16
-                        source: "qrc:/image/weather/temperature-black.svg"
+                        source: "qrc:/image/weather/value-icons/temperature-black.svg"
                         layer.enabled: true
                         layer.effect: ColorOverlay {
                             color: MyStyle.textColor
@@ -71,7 +71,7 @@ Popup {
                     Image {
                         anchors.centerIn: parent
                         width: 16; height: 16
-                        source: "qrc:/image/weather/pressure-black.svg"
+                        source: "qrc:/image/weather/value-icons/pressure-black.svg"
                         layer.enabled: true
                         layer.effect: ColorOverlay {
                             color: MyStyle.textColor
@@ -92,7 +92,7 @@ Popup {
                     Image {
                         anchors.centerIn: parent
                         width: 16; height: 20
-                        source: "qrc:/image/weather/humidity-black.svg"
+                        source: "qrc:/image/weather/value-icons/humidity-black.svg"
                         layer.enabled: true
                         layer.effect: ColorOverlay {
                             color: MyStyle.textColor

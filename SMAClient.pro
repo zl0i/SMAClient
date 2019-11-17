@@ -1,4 +1,4 @@
-QT += quick location network charts svg
+QT += quick qml location network charts svg
 
 CONFIG += c++11
 
