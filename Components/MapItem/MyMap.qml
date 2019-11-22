@@ -57,7 +57,8 @@ Map {
             latitude: latitudeData
             longitude: longitudeData
             onMoreClicked: {
-                _sensorInfoDialog.open()
+                var model = _sensors.getSensorById(sensor_id)
+                _sensorInfoDialog.show(model)
             }
 
         }

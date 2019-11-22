@@ -46,8 +46,6 @@ public:
     Q_ENUM(HistoryRole)
 
 
-    Q_INVOKABLE void fillInTestData();
-
     Q_INVOKABLE void updateSensors();
     Q_INVOKABLE void getHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end);
 
@@ -61,6 +59,8 @@ public:
     QString getUnitsName() { return  unitsName; }
     qint64 getDtStart() { return dtStart.toSecsSinceEpoch(); }
     qint64 getDtEnd() { return dtEnd.toSecsSinceEpoch(); }
+
+    Q_INVOKABLE QJsonObject getSensorById(int id);
 
 private:
     QStandardItemModel *sensorModel = new QStandardItemModel(this);

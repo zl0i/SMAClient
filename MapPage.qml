@@ -28,6 +28,12 @@ Item {
         onSelectFields: {
             _fields.updateFields();
         }
+        onSelectSensors: {
+            _sensors.updateSensors();
+        }
+        onSelectCar: {
+            _cars.updateCars()
+        }
 
         onMoveMap: {
             map.moveCenter(coordinate)

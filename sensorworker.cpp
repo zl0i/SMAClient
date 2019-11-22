@@ -23,47 +23,6 @@ SensorWorker::SensorWorker(QObject *parent) : QObject(parent)
     historyModel->setItemRoleNames(hash);
 }
 
-void SensorWorker::fillInTestData() {
-    sensorModel->insertColumn(0);
-    sensorModel->insertRows(0, 4);
-    QModelIndex index = sensorModel->index(0, 0);
-    sensorModel->setData(index, 0, SensorWorker::idRole);
-    sensorModel->setData(index, "Сенсор 1", SensorWorker::NameRole);
-    sensorModel->setData(index, 51.511281, SensorWorker::LatitudeRole);
-    sensorModel->setData(index, 39.267537, SensorWorker::LongitudeRole);
-    sensorModel->setData(index, 23.3, SensorWorker::TemperatureRole);
-    sensorModel->setData(index, 65, SensorWorker::HumidityRole);
-    sensorModel->setData(index, 785, SensorWorker::PressureRole);
-
-    index = sensorModel->index(1, 0);
-    sensorModel->setData(index, 1, SensorWorker::idRole);
-    sensorModel->setData(index, "Сенсор 2", SensorWorker::NameRole);
-    sensorModel->setData(index, 51.522671, SensorWorker::LatitudeRole);
-    sensorModel->setData(index, 39.267861, SensorWorker::LongitudeRole);
-    sensorModel->setData(index, 26, SensorWorker::TemperatureRole);
-    sensorModel->setData(index, 82, SensorWorker::HumidityRole);
-    sensorModel->setData(index, 767, SensorWorker::PressureRole);
-
-    index = sensorModel->index(2, 0);
-    sensorModel->setData(index, 2, SensorWorker::idRole);
-    sensorModel->setData(index, "Сенсор 3", SensorWorker::NameRole);
-    sensorModel->setData(index, 51.521788, SensorWorker::LatitudeRole);
-    sensorModel->setData(index, 39.279748, SensorWorker::LongitudeRole);
-    sensorModel->setData(index, 24.5, SensorWorker::TemperatureRole);
-    sensorModel->setData(index, 75, SensorWorker::HumidityRole);
-    sensorModel->setData(index, 780, SensorWorker::PressureRole);
-
-    index = sensorModel->index(3, 0);
-    sensorModel->setData(index, 3, SensorWorker::idRole);
-    sensorModel->setData(index, "Сенсор 4", SensorWorker::NameRole);
-    sensorModel->setData(index, 51.510167, SensorWorker::LatitudeRole);
-    sensorModel->setData(index, 39.279191, SensorWorker::LongitudeRole);
-    sensorModel->setData(index, 20, SensorWorker::TemperatureRole);
-    sensorModel->setData(index, 50, SensorWorker::HumidityRole);
-    sensorModel->setData(index, 790, SensorWorker::PressureRole);
-    emit sensorModelChanged();
-}
-
 void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
     if(type == ServerWorker::UpdateSensors) {
         QJsonArray array = mainObj.value("sensors").toArray();
@@ -74,6 +33,7 @@ void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
             QJsonObject obj = array.at(i).toObject();
             QModelIndex index = sensorModel->index(i, 0);
             sensorModel->setData(index, obj.value("id").toInt(), SensorWorker::idRole);
+            sensorModel->setData(index, obj.value("name").toString(), SensorWorker::NameRole);
             sensorModel->setData(index, obj.value("latitude").toDouble(), SensorWorker::LatitudeRole);
             sensorModel->setData(index, obj.value("longitude").toDouble(), SensorWorker::LongitudeRole);
             sensorModel->setData(index, obj.value("temperature").toDouble(), SensorWorker::TemperatureRole);
@@ -112,6 +72,89 @@ void SensorWorker::updateSensors() {
 
 void SensorWorker::getHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end) {
     emit getHistorySensorFromServer(id, property, dt_start, dt_end);
+}
+
+QJsonObject SensorWorker::getSensorById(int id)
+{
+    QModelIndex index;
+    bool finded = false;
+
+    for(int i = 0; i < sensorModel->rowCount(); i++) {
+        index = sensorModel->index(i, 0);
+        if(sensorModel->data(index, SensorWorker::idRole).toInt() == id)  {
+            finded = true;
+            break;
+        }
+    }
+
+    if(!finded)
+        return QJsonObject {};
+    QJsonObject obj;
+    obj.insert("id", sensorModel->data(index, SensorWorker::idRole).toJsonValue());
+    obj.insert("name", sensorModel->data(index, SensorWorker::NameRole).toJsonValue());
+
+    QJsonArray arr;
+    QJsonObject temp;
+
+    temp.insert("type", "Окружающая среда");
+    temp.insert("dataName", tr("Температура"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::TemperatureRole).toJsonValue());
+    arr.append(temp);
+
+    temp.insert("type", "Окружающая среда");
+    temp.insert("dataName", tr("Влажность"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::HumidityRole).toJsonValue());
+    arr.append(temp);
+
+    temp.insert("type", "Окружающая среда");
+    temp.insert("dataName", tr("Давление"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::PressureRole).toJsonValue());
+    arr.append(temp);
+
+
+    temp.insert("type", "Общие");
+    temp.insert("dataName", tr("Долгота"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::LatitudeRole).toDouble());
+    arr.append(temp);
+
+    temp.insert("type", "Общие");
+    temp.insert("dataName", tr("Широта"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::LongitudeRole).toDouble());
+    arr.append(temp);
+
+    temp.insert("type", "Общие");
+    temp.insert("dataName", tr("Батарея"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::BattaryRole).toInt());
+    arr.append(temp);
+
+    temp.insert("type", "Общие");
+    temp.insert("dataName", tr("Сеть"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::GSMLevelRole).toInt());
+    arr.append(temp);
+
+    temp.insert("type", "Почва");
+    temp.insert("dataName", tr("50 см"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::GroundRole).toJsonObject().value("1"));
+    arr.append(temp);
+
+    temp.insert("type", "Почва");
+    temp.insert("dataName", tr("100 см"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::GroundRole).toJsonObject().value("2"));
+    arr.append(temp);
+
+    temp.insert("type", "Почва");
+    temp.insert("dataName", tr("150 см"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::GroundRole).toJsonObject().value("3"));
+    arr.append(temp);
+
+    temp.insert("type", "Почва");
+    temp.insert("dataName", tr("200 см"));
+    temp.insert("value", sensorModel->data(index, SensorWorker::GroundRole).toJsonObject().value("4"));
+    arr.append(temp);
+
+    obj.insert("info", arr);
+
+    return  obj;
 }
 
 

@@ -143,12 +143,13 @@ QJsonDocument ServerWorker::getFormatedJson(Request type, QJsonObject obj) {
 }
 
 void ServerWorker::sendServerJsonDocument(QJsonDocument doc) {
+    if(!socket->isOpen()) return;
     QString strJson(doc.toJson(QJsonDocument::Compact));
     socket->write(strJson.toUtf8());
     socket->write("\n");
 }
 
-QJsonDocument ServerWorker::getServerJsonDocument() {       
+QJsonDocument ServerWorker::getServerJsonDocument() {
     return QJsonDocument::fromJson(socket->readAll());
 }
 
@@ -203,8 +204,102 @@ void ServerWorker::requestNewFields(QJsonObject obj) {
 }
 
 void ServerWorker::requestUpdateSensors() {
-    QJsonDocument doc = getFormatedJson(UpdateSensors);
-    sendServerJsonDocument(doc);
+    if(testMod) {
+        QJsonArray sensors;
+
+        QJsonObject obj1 {
+            {"battery", 47},
+            {"ground", QJsonObject {
+                    {"1", 58},
+                    {"2", 60},
+                    {"3", 65},
+                    {"4", 70}
+                }
+            },
+            {"gsmlvl", 85},
+            {"humidity", 75},
+            {"id", 1},
+            {"lastUpdate", "2019-11-04 13:43:14.0"},
+            {"latitude", 51.757893},
+            {"longitude", 39.178092},
+            {"name", "sensors1"},
+            {"pressure", 785},
+            {"temperature", 24.5}
+        };
+        sensors.append(obj1);
+
+        QJsonObject obj2 {
+            {"battery", 46},
+            {"ground", QJsonObject {
+                    {"1", 57},
+                    {"2", 69},
+                    {"3", 64},
+                    {"4", 69}
+                }
+            },
+            {"gsmlvl", 84},
+            {"humidity", 74},
+            {"id", 2},
+            {"lastUpdate", "2019-11-04 18:50:11.0"},
+            {"latitude", 51.75781},
+            {"longitude", 39.178548},
+            {"name", "sensors2"},
+            {"pressure", 784},
+            {"temperature", 24.4}
+        };
+        sensors.append(obj2);
+
+
+        QJsonObject obj3 {
+            {"battery", 45},
+            {"ground", QJsonObject {
+                    {"1", 56},
+                    {"2", 68},
+                    {"3", 63},
+                    {"4", 68}
+                }
+            },
+            {"gsmlvl", 83},
+            {"humidity", 73},
+            {"id", 3},
+            {"lastUpdate", "2019-11-04 18:52:24.0"},
+            {"latitude", 51.757736},
+            {"longitude", 39.179084},
+            {"name", "sensors3"},
+            {"pressure", 783},
+            {"temperature", 23.3}
+        };
+        sensors.append(obj3);
+
+        QJsonObject obj4 {
+            {"battery", 44},
+            {"ground", QJsonObject {
+                    {"1", 55},
+                    {"2", 67},
+                    {"3", 62},
+                    {"4", 67}
+                }
+            },
+            {"gsmlvl", 82},
+            {"humidity", 72},
+            {"id", 4},
+            {"lastUpdate", "2019-11-04 18:53:57.0"},
+            {"latitude", 51.757643},
+            {"longitude", 39.17961},
+            {"name", "sensors4"},
+            {"pressure", 782},
+            {"temperature", 23.2}
+        };
+
+        sensors.append(obj4);
+
+        QJsonObject mainObj;
+        mainObj.insert("sensors", sensors);
+        emit comeDataSensors(ServerWorker::UpdateSensors, mainObj);
+    } else {       
+        QJsonDocument doc = getFormatedJson(UpdateSensors);
+        sendServerJsonDocument(doc);
+    }
 }
 
 void ServerWorker::requestHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end) {

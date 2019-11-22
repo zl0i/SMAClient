@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
 
 import Components.Controls 1.0
+import Components.Delegats 1.0
 import MyStyle 1.0
 
 Dialog {
@@ -48,7 +49,16 @@ Dialog {
             id: _swipeView
             x:15; y: 57
             width: 420; height: 445
+            ListView {
+                anchors.fill: parent
+                spacing: 10
 
+                model: ["../Delegats/WeatherDelegat.qml", "../Delegats/SmallWeatherDelegat.qml"]
+                delegate: Loader {
+                    source: modelData
+                    asynchronous: true
+                }
+            }
         }
         PageIndicator {
             x:parent.width/2-width; y: 513
