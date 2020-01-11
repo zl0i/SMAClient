@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "mainworker.h"
 #include <QDateTime>
+#include <QSslSocket>
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,8 @@ int main(int argc, char *argv[])
 
     QGuiApplication::setApplicationName("SMAClient");
     QGuiApplication::setOrganizationName("zloi");
+
+    //qDebug() << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString();
 
     QQmlApplicationEngine engine;
     engine.addImportPath(":/");
@@ -26,9 +29,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("_sensors", mainWorker->sensorWorker);
     engine.rootContext()->setContextProperty("_cars", mainWorker->carWorker);
 
-    /*mainWorker->fieldWorker->fillInTestData();
-    mainWorker->sensorWorker->fillInTestData();
-    mainWorker->carWorker->fillTestData();*/
 
     qmlRegisterSingletonType(QUrl("qrc:/MyStyle.qml"), "MyStyle", 1, 0, "MyStyle");
 

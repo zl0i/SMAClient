@@ -39,5 +39,6 @@
         <file>image/weather/Clouds/overcastClouds.svg</file>
         <file>image/weather/Clouds/scatteredClouds.svg</file>
         <file>image/weather/Clouds/fewClouds.svg</file>
+        <file>image/other/trashBin-black.svg</file>
     </qresource>
 </RCC>

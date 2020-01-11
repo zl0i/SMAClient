@@ -97,8 +97,10 @@ Item {
     }
 
     CircleImageButton {
+        id: _addFieldButton
         x: parent.width - width-20; y: 140
         width: 40; height: 40
+        enabled: !map.isEditMode
         iconWidth: 20; iconHeight: 20
         style: "custom"
         releasedColor: MyStyle.foregroundColor
@@ -108,12 +110,31 @@ Item {
         pressedIconColor: MyStyle.textColor
         source: "qrc:/image/other/plus-black.svg"
         onClicked: {
+            _addFieldDialog.reset()
             _addFieldDialog.open()
         }
     }
 
     AddFieldDialog {
         id: _addFieldDialog
+        onEditField: {
+            map.inputEditMode()
+            close()
+            map.endEditMode.connect(function (path) {
+                pathField = path
+                open()
+                map.exitEditMode()
+            })
+        }
+        onNewFiled: {
+            _fields.addField(nameField, pathField)
+            close()
+        }
+        onEarlierClosed: {
+            map.exitEditMode()
+            close()
+        }
+
     }
 
 

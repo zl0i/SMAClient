@@ -27,7 +27,7 @@ WeatherWorker::~WeatherWorker() {
 void WeatherWorker::updateCurrentWeather()
 {
     //https://api.openweathermap.org/data/2.5/weather?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4
-    QNetworkRequest req(QUrl("https://api.openweathermap.org/data/2.5/weather?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4"));
+    QNetworkRequest req(QUrl("http://api.openweathermap.org/data/2.5/weather?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4"));
     QNetworkReply *reply;
     reply = networkManager->get(req);
     connect(reply, &QNetworkReply::finished, this, &WeatherWorker::handlerCurrentWeather);
@@ -89,8 +89,8 @@ void WeatherWorker::parseCurrentWeather(QJsonObject obj) {
 
 }
 
-void WeatherWorker::parseDailyForecast(QJsonObject obj) {
-
+void WeatherWorker::parseDailyForecast(QJsonObject obj)
+{
     QJsonArray listObj = obj.value("list").toArray();
     QJsonArray model;
     QDateTime today = QDateTime::currentDateTime();

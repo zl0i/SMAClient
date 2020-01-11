@@ -58,5 +58,6 @@
         <file>Components/SettingPage/RowCheckBox.qml</file>
         <file>Components/SettingPage/RowComboBox.qml</file>
         <file>Components/SettingPage/RowTextField.qml</file>
+        <file>Components/Delegats/FieldMapDelegat.qml</file>
     </qresource>
 </RCC>

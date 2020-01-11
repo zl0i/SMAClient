@@ -14,8 +14,8 @@ MainWorker::MainWorker(QObject *parent) : QObject(parent)
     connect(carWorker, &CarWorker::updateCarsFromServer, serverWorker, &ServerWorker::requestUpdateCars);
     connect(serverWorker, &ServerWorker::comeDataCars, carWorker, &CarWorker::parseDate);
 
-    weatherTimer->setInterval(1000*60*30);
-    connect(weatherTimer, &QTimer::timeout, this, &MainWorker::slotUpdateWeatherTimer);
+    //weatherTimer->setInterval(1000*60*30);
+    //connect(weatherTimer, &QTimer::timeout, this, &MainWorker::slotUpdateWeatherTimer);
 
     m_mapType = settings->value("settings/map/type", "1").toString();
     m_style = settings->value("settings/interface/style", 0).toInt();

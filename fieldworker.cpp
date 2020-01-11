@@ -18,7 +18,12 @@ void FieldWorker::updateFields() {
     emit updateFieldsFromServer();
 }
 
-void FieldWorker::addField(QJsonObject obj) {
+void FieldWorker::addField(QString name, QJsonArray arr) {
+    QJsonObject obj {
+        {"name", name },
+        {"center", arr.at(0)},
+        {"location", arr}
+    };
     emit sendNewFieldToServer(obj);
 }
 

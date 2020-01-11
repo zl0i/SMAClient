@@ -200,7 +200,12 @@ void ServerWorker::requestUpdateFields() {
 }
 
 void ServerWorker::requestNewFields(QJsonObject obj) {
-    Q_UNUSED(obj)
+    if(testMod) {
+        qDebug() << "test mode";
+    } else {
+        QJsonDocument doc = getFormatedJson(AddField, obj);
+        sendServerJsonDocument(doc);
+    }
 }
 
 void ServerWorker::requestUpdateSensors() {
@@ -296,7 +301,7 @@ void ServerWorker::requestUpdateSensors() {
         QJsonObject mainObj;
         mainObj.insert("sensors", sensors);
         emit comeDataSensors(ServerWorker::UpdateSensors, mainObj);
-    } else {       
+    } else {
         QJsonDocument doc = getFormatedJson(UpdateSensors);
         sendServerJsonDocument(doc);
     }

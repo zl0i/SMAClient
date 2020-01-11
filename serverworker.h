@@ -30,6 +30,7 @@ public:
         UpdateFields,
         UpdateSensors,
         UpdateCars,
+        AddField,
         HistorySensors
     }Request;
 
@@ -76,11 +77,13 @@ signals:
     void inputChanged();
     void clientChanged();
 
-public slots:
+private slots:
     void slotConnected();
     void slotReadyRead();
     void slotTcpError(QAbstractSocket::SocketError socketError);
     void slotDisconnected();
+
+public slots:   
 
     void requestUpdateFields();
     void requestNewFields(QJsonObject);

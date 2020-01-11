@@ -9,6 +9,8 @@ BaseWeatherDelegate {
     width: 150; height: 200
     antialiasing: true
 
+    property bool visibleSun: true
+
     Label {
         x: 0; y: 5
         width: parent.width
@@ -29,7 +31,7 @@ BaseWeatherDelegate {
         }
     }
     Column {
-        x: parent.width/2-width/2; y: 65
+        x: parent.width/2-width/2; y: parent.height/2-height/2 + 32
         spacing: 5
         Row {
             spacing: 10
@@ -116,6 +118,7 @@ BaseWeatherDelegate {
             }
         }
         Row {
+            visible: _delegat.visibleSun
             spacing: 10
             Item {
                 width: 33; height: 18
@@ -137,6 +140,7 @@ BaseWeatherDelegate {
             }
         }
         Row {
+            visible: _delegat.visibleSun
             spacing: 10
             Item {
                 width: 33; height: 18

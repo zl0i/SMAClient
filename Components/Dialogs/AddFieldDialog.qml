@@ -14,13 +14,20 @@ Dialog {
     padding: 0
     closePolicy: Popup.NoAutoClose
 
+    property alias nameField: _nameField.text
+    property var pathField: []
+
+    signal editField()
+    signal newFiled()
+    signal earlierClosed()
+
     Overlay.modal: Rectangle {
         color: "#AA000000"
     }
 
     function reset() {
-        _nameField.text = ""
-        _coordArea.text = ""
+        nameField = ""
+        pathField = []
     }
 
     background: Rectangle {
@@ -35,9 +42,7 @@ Dialog {
             isOverlayColor: true
             pressedIconColor: "#487690"
             releasedIconColor: MyStyle.textColor
-            onClicked: {
-                _dialog.close()
-            }
+            onClicked: _dialog.earlierClosed()
         }
     }
     contentItem: Item {
@@ -74,26 +79,27 @@ Dialog {
             size: "custom"
             text: qsTr("Указать\nна карте")
             onClicked: {
-
+                _dialog.editField()
             }
         }
         InputTextArea {
             id: _coordArea
             x: 20; y: 180
             width: 350; height: 90
+            wrapMode: Text.WrapAnywhere
+            text: JSON.stringify(pathField).toString()
         }
 
         RoundButton {
             x: 20; y: parent.height-height-20
             text: qsTr("Добавить")
+            onClicked: _dialog.newFiled()
         }
         RoundButton {
             x: parent.width-width-20; y: parent.height-height-20
             style: "transparent"
             text: qsTr("Отмена")
-            onClicked: {
-                _dialog.close()
-            }
+            onClicked: _dialog.earlierClosed()
         }
     }
 

@@ -302,12 +302,16 @@
     },
     {
         "type": 5, //AddField
-        "name": "filed4",
-        "location": [],
-        "center": {
-            "latitude": 51.511281,
-            "longitude": 39.267537
+        "system": {
+            "dt": 1569653340
+        },
+        "main" : {
+            "name": "filed4",
+            "location": [],
+            "center": {
+                "latitude": 51.511281,
+                "longitude": 39.267537
+            }
         }
-
     }
 ]

@@ -8,7 +8,8 @@
 class FieldWorker : public QObject
 {
     Q_OBJECT
-     Q_PROPERTY(QStandardItemModel *fieldModel READ getFieldModel NOTIFY fieldModelChanged)
+    Q_PROPERTY(QStandardItemModel *fieldModel READ getFieldModel NOTIFY fieldModelChanged)
+
 public:
     explicit FieldWorker(QObject *parent = nullptr);
 
@@ -27,7 +28,7 @@ public:
     void fillInTestData();
 
     Q_INVOKABLE void updateFields();
-    Q_INVOKABLE void addField(QJsonObject);
+    Q_INVOKABLE void addField(QString name, QJsonArray);
 
     Q_INVOKABLE QJsonObject getFiledById(int id);
 

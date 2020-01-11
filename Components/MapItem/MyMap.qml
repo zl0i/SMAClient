@@ -17,9 +17,46 @@ Map {
     property bool visibleSensors: true
     property bool visibleCars: true
 
+    property bool isEditMode: false
+    property var newPolygonField: []
+
+    signal endEditMode(var path)
+
     function moveCenter(coordinate) {
         _centerAnimation.to = coordinate
         _moveAnimation.start()
+    }
+
+    function inputEditMode() {
+        isEditMode = true
+        newPolygonField = []
+        _newFieldPolygon.path = []
+    }
+
+    function exitEditMode() {
+        isEditMode = false
+    }
+
+    MouseArea {
+
+        width: parent.width; height: parent.height
+        visible: isEditMode
+        onClicked: {
+            newPolygonField.push(_map.toCoordinate(Qt.point(mouseX, mouseY)))
+            _newFieldPolygon.path = newPolygonField
+            if(newPolygonField.length == 4) {
+                //exitEditMode()
+                endEditMode(_newFieldPolygon.path)
+            }
+        }
+    }
+
+    MapPolygon {
+        id: _newFieldPolygon
+        visible: isEditMode
+        color: "#6AABF7"
+        opacity: 0.3
+        border.width: 1; border.color: "#000000"
     }
 
     MapItemView {
@@ -33,10 +70,10 @@ Map {
             humidity: humidityData
             pressure: pressureData
             visibleField:  _map.visibleFields
-            visiblePolygon: _map.visibleBorderFields            
+            visiblePolygon: _map.visibleBorderFields
             onMoreClicked: {
                 console.log(filed_id)
-                 var model = _fields.getFiledById(filed_id)
+                var model = _fields.getFiledById(filed_id)
                 _filedInfoDialog.show(model)
             }
         }
@@ -64,7 +101,7 @@ Map {
         }
     }
     SensorInfoDialog {
-         id: _sensorInfoDialog
+        id: _sensorInfoDialog
     }
 
     MapItemView {
