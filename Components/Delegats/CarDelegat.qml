@@ -27,13 +27,7 @@ Item {
         font.weight: Font.Bold
         text: nameCar       
     }
-    Label {
-        x: _nameLable.x + _nameLable.contentWidth+5; y: 7
-        height: 16
-        verticalAlignment: Text.AlignVCenter
-        color: "#FFFFFF"
-        text: qsTr("(%1)").arg(belongsNameFiled)
-    }
+
     Row {
         x:11; y: parent.height-height-11
         height: 11

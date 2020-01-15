@@ -14,7 +14,7 @@ Dialog {
     padding: 0
     closePolicy: Popup.NoAutoClose
 
-    property string url: "46.72.206.93"//_server.url
+    property string url: _main.url
     property var port: 6666//_server.port
     property string login: _main.login
     property string password: _main.password
@@ -203,6 +203,7 @@ Dialog {
                     onClicked: {
                         _loader.sourceComponent = _lodingComponent
                         if(member) {
+                            _main.url = _urlFielf.text
                             _main.login = _loginField.text
                             _main.password = _passwordField.text
                         } else {

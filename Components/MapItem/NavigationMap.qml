@@ -137,7 +137,7 @@ Item {
     ListView {
         id: _list
         x: 13; y: 89
-        width: 233; height: parent.height-y-20
+        width: 240; height: parent.height-y-20
         clip: true
         model: _filedModel
     }
@@ -173,6 +173,7 @@ Item {
             humidity: humidityData
             latitude: latitudeData
             longitude: longitudeData
+            ground: groundData
             isLast: ListView.view.count -1 === index
             onClicked: {
                 var point = QtPositioning.coordinate(coord.latitude,

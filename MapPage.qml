@@ -100,7 +100,7 @@ Item {
         id: _addFieldButton
         x: parent.width - width-20; y: 140
         width: 40; height: 40
-        enabled: !map.isEditMode
+        visible: !map.isEditMode
         iconWidth: 20; iconHeight: 20
         style: "custom"
         releasedColor: MyStyle.foregroundColor

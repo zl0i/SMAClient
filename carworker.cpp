@@ -49,11 +49,11 @@ void CarWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
             QJsonObject obj = array.at(i).toObject();
             QModelIndex index = carsModel->index(i, 0);
             carsModel->setData(index, obj.value("id").toInt(), CarWorker::idRole);
-            carsModel->setData(index, obj.value("name").toInt(), CarWorker::NameRole);
+            carsModel->setData(index, obj.value("name").toString(), CarWorker::NameRole);
             carsModel->setData(index, obj.value("latitude").toDouble(), CarWorker::LatitudeRole);
             carsModel->setData(index, obj.value("longitude").toDouble(), CarWorker::LongitudeRole);
             carsModel->setData(index, obj.value("speed").toInt(), CarWorker::SpeedRole);
-            carsModel->setData(index, obj.value("lastUpdate").toInt(), CarWorker::LastUpdateRole);
+            carsModel->setData(index, obj.value("lastUpdate").toString(), CarWorker::LastUpdateRole);
         }
         emit carsModelChanged();
     }

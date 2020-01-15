@@ -16,6 +16,8 @@ class MainWorker : public QObject
     Q_PROPERTY(int style READ style WRITE setStyle NOTIFY styleChanged)
     Q_PROPERTY(QString login READ login WRITE setLogin NOTIFY loginChanged)
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
+    Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
+
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
 
 public:
@@ -42,6 +44,9 @@ public:
     QString password() { return m_password; }
     void setPassword(QString);
 
+    QString url() { return  m_url; }
+    void setUrl(QString);
+
     QString language() { return  m_language; }
     void setLanguage(QString);
 
@@ -54,6 +59,7 @@ private:
     int m_style;
     QString m_login;
     QString m_password;
+    QString m_url;
     QString m_language;
 
 signals:   
@@ -61,6 +67,7 @@ signals:
     void styleChanged();
     void loginChanged();
     void passwordChanged();
+    void urlChanged();
     void languageChanged();
 
 public slots:

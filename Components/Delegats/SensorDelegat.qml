@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 
 Item {
     id: _delegat
-    width: 233; height: 55
+    width: 250; height: 75
 
     property int sensor_id
     property string nameSensor: ""
@@ -11,6 +11,7 @@ Item {
     property int temperature: 0
     property int pressure: 0
     property int humidity: 0
+    property var ground: ({})
     property bool isFavorite: false
     property bool isLast: false
 
@@ -30,15 +31,8 @@ Item {
         font.weight: Font.Bold
         text: nameSensor
     }
-    Label {
-        x: _nameLable.x + _nameLable.contentWidth+5; y:7
-        height: 16
-        verticalAlignment: Text.AlignVCenter
-        color: "#FFFFFF"
-        text: qsTr("(%1)").arg(belongsNameFiled)
-    }
     Row {
-        x:11; y: parent.height-height-11
+        x:11; y: parent.height-height-33
         height: 11
         spacing: 10
         Label {
@@ -54,6 +48,27 @@ Item {
             text: qsTr("P: %1 мм").arg(_delegat.pressure)
         }
     }
+    Row {
+        x:11; y: parent.height-height-11
+        height: 11
+        spacing: 7
+        Label {
+            color: "#FFFFFF"
+            text: qsTr("g1: %1%").arg(_delegat.ground["1"])
+        }
+        Label {
+            color: "#FFFFFF"
+            text: qsTr("g2: %1%").arg(_delegat.ground["2"])
+        }
+        Label {
+            color: "#FFFFFF"
+            text: qsTr("g3: %1%").arg(_delegat.ground["3"])
+        }
+        Label {
+            color: "#FFFFFF"
+            text: qsTr("g4: %1%").arg(_delegat.ground["4"])
+        }
+    }
     Image {
         x:parent.width-width-11;y: 13
         width: 30; height: 30
@@ -62,8 +77,8 @@ Item {
         source: "qrc:/image/other/favorite-blue.png"
     }
     Rectangle {
-        x: 19; y: parent.height-height
-        width: 189; height: 1
+        x: 20; y: parent.height-height
+        width: 200; height: 1
         visible: !_delegat.isLast
         color: "#C4C4C4"
     }

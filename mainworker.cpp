@@ -21,6 +21,7 @@ MainWorker::MainWorker(QObject *parent) : QObject(parent)
     m_style = settings->value("settings/interface/style", 0).toInt();
     m_login = settings->value("settings/system/login", "").toString();
     m_password = settings->value("settings/system/password", "").toString();
+    m_url = settings->value("settings/system/url", "46.72.236.186").toString();
     m_language = settings->value("", "ru").toString();
 
 }
@@ -56,6 +57,13 @@ void MainWorker::setPassword(QString password) {
     m_password = password;
     settings->setValue("settings/system/password", m_password);
     emit passwordChanged();
+}
+
+void MainWorker::setUrl(QString url)
+{
+    m_url = url;
+    settings->setValue("settings/system/url", m_url);
+    emit urlChanged();
 }
 
 void MainWorker::setLanguage(QString lang) {
