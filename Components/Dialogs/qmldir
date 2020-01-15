@@ -11,3 +11,4 @@ CarInfoDialog 1.0 CarInfoDialog.qml
 FieldMapPopup 1.0 FieldMapPopup.qml
 SensorMapPopup 1.0 SensorMapPopup.qml
 CarMapPopup 1.0 CarMapPopup.qml
+AddWeatherPlaceDialog 1.0 AddWeatherPlaceDialog.qml

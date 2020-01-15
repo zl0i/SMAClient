@@ -11,7 +11,9 @@ WeatherWorker::WeatherWorker(QObject *parent) : QObject(parent)
     //updateDailyForecastWeather();
     //updateTwoDailyForecastWeather();
 
-    updateAll();
+    //updateAll();
+    weatherModel = new WeatherPlaceModel();
+    weatherModel->fillModel();
 
     //https://api.openweathermap.org/data/2.5/uvi?lat=51.67&lon=39.17&appid=10a1eeb233d35e9780031ad22d567cd4 // ультрафиолет
     //https://api.openweathermap.org/data/2.5/forecast?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4 // прогноз на 5 дней

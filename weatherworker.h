@@ -7,6 +7,8 @@
 #include <QDateTime>
 #include <QDebug>
 
+#include "weatherplacemodel.h"
+
 class WeatherWorker : public QObject
 {
     Q_OBJECT
@@ -14,6 +16,8 @@ class WeatherWorker : public QObject
     Q_PROPERTY(QJsonArray dailyForecast READ dailyForecast NOTIFY dailyForecastChanged)
     Q_PROPERTY(QJsonArray twoDailyForecast READ twoDailyForecast NOTIFY twoDailyForecastChanged)
     Q_PROPERTY(bool relevantData READ relevantData NOTIFY currentWetherChanged)
+
+    Q_PROPERTY(WeatherPlaceModel *placeModel READ placeModel NOTIFY placeModelChanged)
 
 
 public:
@@ -26,6 +30,7 @@ public:
     bool relevantData() { return  m_relevantData; }
 
 
+    WeatherPlaceModel *placeModel() { return  weatherModel; }
 
     Q_INVOKABLE void updateCurrentWeather();
     Q_INVOKABLE void updateDailyForecastWeather();
@@ -53,11 +58,15 @@ private:
 
     QString getStringDateFromUTS(int);
 
+    WeatherPlaceModel *weatherModel;
+
+
 
 signals:
     void currentWetherChanged();
     void dailyForecastChanged();
-    void twoDailyForecastChanged();    
+    void twoDailyForecastChanged();
+    void placeModelChanged();
 
 public slots:   
 

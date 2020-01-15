@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 
 import Components.Controls 1.0
 import Components.Delegats 1.0
+import Components.Dialogs 1.0
 
 import MyStyle 1.0
 
@@ -67,9 +68,13 @@ Rectangle {
             size: "big"
             text: qsTr("Добавить место")
             onClicked: {
-
+                _addWeatherPlaceDialog.open()
             }
         }
+    }
+
+    AddWeatherPlaceDialog {
+        id: _addWeatherPlaceDialog
     }
 
 

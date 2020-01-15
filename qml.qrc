@@ -59,5 +59,6 @@
         <file>Components/SettingPage/RowComboBox.qml</file>
         <file>Components/SettingPage/RowTextField.qml</file>
         <file>Components/Delegats/FieldMapDelegat.qml</file>
+        <file>Components/Dialogs/AddWeatherPlaceDialog.qml</file>
     </qresource>
 </RCC>

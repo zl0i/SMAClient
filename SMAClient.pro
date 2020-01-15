@@ -20,6 +20,7 @@ SOURCES += \
         mainworker.cpp \
         sensorworker.cpp \
         serverworker.cpp \
+        weatherplacemodel.cpp \
         weatherworker.cpp
 
 RESOURCES += qml.qrc \
@@ -43,6 +44,7 @@ HEADERS += \
     mainworker.h \
     sensorworker.h \
     serverworker.h \
+    weatherplacemodel.h \
     weatherworker.h
 
 DISTFILES += \
