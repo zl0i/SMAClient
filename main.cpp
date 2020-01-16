@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDebug>
@@ -8,12 +9,13 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-    QGuiApplication app(argc, argv);
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
-    QGuiApplication::setApplicationName("SMAClient");
-    QGuiApplication::setOrganizationName("zloi");
+    QApplication app(argc, argv);
+
+    QApplication::setApplicationName("SMAClient");
+    QApplication::setOrganizationName("zloi");
 
     //qDebug() << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString();
 

@@ -32,6 +32,8 @@ public:
         TemperatureRole,
         HumidityRole,
         PressureRole,
+        WindSpeedRole,
+        WindDirectionRole,
         BattaryRole,
         GSMLevelRole,
         GroundRole,

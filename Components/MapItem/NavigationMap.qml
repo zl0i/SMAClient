@@ -171,6 +171,8 @@ Item {
             temperature: temperatureData
             pressure: pressureData
             humidity: humidityData
+            windSpeed: windSpeedData
+            windDirection: windDirectionData
             latitude: latitudeData
             longitude: longitudeData
             ground: groundData

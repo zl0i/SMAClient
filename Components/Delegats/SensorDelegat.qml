@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 
 Item {
     id: _delegat
-    width: 250; height: 75
+    width: 250; height: 86
 
     property int sensor_id
     property string nameSensor: ""
@@ -11,6 +11,8 @@ Item {
     property int temperature: 0
     property int pressure: 0
     property int humidity: 0
+    property var windSpeed: 0
+    property var windDirection: ""
     property var ground: ({})
     property bool isFavorite: false
     property bool isLast: false
@@ -19,6 +21,18 @@ Item {
     property var longitude
 
     signal clicked(var id, var coord)
+
+    function getDirectionByDeg(deg) {
+        if(deg >= 336  || deg < 22) return qsTr("с")
+        if(deg >= 22 && deg < 67) return qsTr("с-в")
+        if(deg >= 67 && deg < 112) return qsTr("в")
+        if(deg >= 112 && deg < 157) return qsTr("ю-в")
+        if(deg >= 157 && deg < 202) return qsTr("ю")
+        if(deg >= 202 && deg < 247) return qsTr("ю-з")
+        if(deg >= 247 && deg < 292) return qsTr("з")
+        if(deg >= 292 && deg < 336) return qsTr("с-з")
+        return " "
+    }
 
     Label {
         id: _nameLable
@@ -32,7 +46,7 @@ Item {
         text: nameSensor
     }
     Row {
-        x:11; y: parent.height-height-33
+        x:11; y: parent.height-height-45
         height: 11
         spacing: 10
         Label {
@@ -49,7 +63,7 @@ Item {
         }
     }
     Row {
-        x:11; y: parent.height-height-11
+        x:11; y: parent.height-height-28
         height: 11
         spacing: 7
         Label {
@@ -69,6 +83,14 @@ Item {
             text: qsTr("g4: %1%").arg(_delegat.ground["4"])
         }
     }
+    Label {
+        x:11; y: parent.height-height-10
+        height: 11
+        color: "#FFFFFF"
+        text: qsTr("Ветер %1, %2 м/с").arg(_delegat.getDirectionByDeg(_delegat.windDirection)).arg(_delegat.windSpeed)
+    }
+
+
     Image {
         x:parent.width-width-11;y: 13
         width: 30; height: 30

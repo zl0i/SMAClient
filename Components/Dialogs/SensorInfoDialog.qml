@@ -22,10 +22,10 @@ Dialog {
         _modelData.clear()
         model.forEach(function(item) {
             _modelData.append({
-                              type: item.type,
-                              name: item.dataName,
-                              value: item.value
-                          })
+                                  type: item.type,
+                                  name: item.dataName,
+                                  value: item.value
+                              })
 
         })
     }
@@ -104,23 +104,45 @@ Dialog {
                     text: section
                 }
             }
+        }
 
+        ComboBox {
+            x: 250; y: 0
+            height: 25
+            model: ["","Humidity", "Pressure", "Temperature"]
+            onActivated: {
+                if(currentText == "")
+                    return
 
+                _sensors.getHistorySensor(sensorId, currentText.toLowerCase(), 0, 0)
+            }
 
         }
-        /*ChartView {
+
+        ChartView {
             id: chart
-            x: 170; y: 50
-            width: 307; height: 170
-            PieSeries {
-                id: pieSeries
-                PieSlice { label: "Volkswagen"; value: 13.5 }
-                PieSlice { label: "Toyota"; value: 10.9 }
-                PieSlice { label: "Ford"; value: 8.6 }
-                PieSlice { label: "Skoda"; value: 8.2 }
-                PieSlice { label: "Volvo"; value: 6.8 }
+            x: 170; y: 20
+            width: 290; height: 230
+            margins.bottom: 0
+            margins.top: 0
+            margins.left: 0
+            margins.right: 0
+            plotArea: Qt.rect(30, 30, 240, 140)
+            backgroundColor: MyStyle.foregroundColor
+            clip: false
+            DateTimeAxis { id: _axisX; format:  "dd-MM-yyyy"; labelsAngle: 45 }
+
+            LineSeries {
+                axisX: _axisX
+                XYPoint { x: new Date().setHours(17); y: 0 }
+                XYPoint { x:new Date().setHours(18); y: 50 }
+                XYPoint { x: new Date().setHours(19); y: 47 }
+                XYPoint { x: new Date().setHours(20); y: 25 }
+                XYPoint { x: new Date().setHours(21); y: 90 }
+                XYPoint { x: new Date().setHours(22); y: 100 }
+                XYPoint { x: new Date().setHours(23); y: 68 }
             }
-        }*/
+        }
     }
 
 
