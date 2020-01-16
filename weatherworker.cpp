@@ -4,7 +4,13 @@ WeatherWorker::WeatherWorker(QObject *parent) : QObject(parent)
 {
 
     networkManager = new QNetworkAccessManager(this);
-    //connect(networkManager, &QNetworkAccessManager::finished, this, &WeatherWorker::onResult);
+    m_addedModel = new QStandardItemModel(this);
+
+    QHash<int, QByteArray> hash;
+    hash.insert(WeatherPlaceModel::City_id, "addedCityId");
+    hash.insert(WeatherPlaceModel::City_name, "addedCityName");
+    m_addedModel->setItemRoleNames(hash);
+    m_addedModel->insertColumn(0);
 
 
     //updateCurrentWeather();
@@ -29,7 +35,7 @@ WeatherWorker::~WeatherWorker() {
 void WeatherWorker::updateCurrentWeather()
 {
     //https://api.openweathermap.org/data/2.5/weather?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4
-    QNetworkRequest req(QUrl("http://api.openweathermap.org/data/2.5/weather?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4"));
+    QNetworkRequest req(QUrl("http://api.openweathermap.org/data/2.5/weather?id="+ QString::number(currentId) + "&appid=10a1eeb233d35e9780031ad22d567cd4"));
     QNetworkReply *reply;
     reply = networkManager->get(req);
     connect(reply, &QNetworkReply::finished, this, &WeatherWorker::handlerCurrentWeather);
@@ -40,7 +46,7 @@ void WeatherWorker::updateDailyForecastWeather()
 {
     //http://api.openweathermap.org/data/2.5/forecast?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4
     QNetworkReply *reply;
-    reply = networkManager->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/forecast?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4")));
+    reply = networkManager->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/forecast?id="+ QString::number(currentId) + "&appid=10a1eeb233d35e9780031ad22d567cd4")));
     connect(reply, &QNetworkReply::finished, this, &WeatherWorker::handlerDailyForecast);
 
 }
@@ -49,17 +55,30 @@ void WeatherWorker::updateTwoDailyForecastWeather()
 {
     //http://api.openweathermap.org/data/2.5/forecast/daily?id=472045&cnt=14&appid=10a1eeb233d35e9780031ad22d567cd4
     QNetworkReply *reply;
-    reply = networkManager->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/forecast/daily?id=472045&cnt=14&appid=10a1eeb233d35e9780031ad22d567cd4")));
+    reply = networkManager->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/forecast/daily?id="+ QString::number(currentId) + "&cnt=14&appid=10a1eeb233d35e9780031ad22d567cd4")));
     connect(reply, &QNetworkReply::finished, this, &WeatherWorker::handlerTwoDailyForecast);
 
 }
 
-void WeatherWorker::updateAll() {
+void WeatherWorker::updateWeatherById(int id)
+{
+    currentId = id;
+    m_relevantData = false;
     updateCurrentWeather();
     updateDailyForecastWeather();
     updateTwoDailyForecastWeather();
 
 }
+
+void WeatherWorker::addPlaceWeather(int id, QString name)
+{
+    m_addedModel->insertRow(m_addedModel->rowCount());
+    QModelIndex index = m_addedModel->index(m_addedModel->rowCount()-1, 0);
+    m_addedModel->setData(index, id, WeatherPlaceModel::City_id);
+    m_addedModel->setData(index, name, WeatherPlaceModel::City_name);
+    emit addedPlaceChanged();
+}
+
 
 QStringList WeatherWorker::getSytiList()
 {

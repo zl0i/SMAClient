@@ -6,7 +6,8 @@
 #include <QtNetwork>
 #include <QDateTime>
 #include <QDebug>
-
+#include <QStandardItemModel>
+#include <QHash>
 #include "weatherplacemodel.h"
 
 class WeatherWorker : public QObject
@@ -18,6 +19,8 @@ class WeatherWorker : public QObject
     Q_PROPERTY(bool relevantData READ relevantData NOTIFY currentWetherChanged)
 
     Q_PROPERTY(WeatherPlaceModel *placeModel READ placeModel NOTIFY placeModelChanged)
+
+    Q_PROPERTY(QStandardItemModel *addedPlace READ addedPlace NOTIFY addedPlaceChanged)
 
 
 public:
@@ -32,11 +35,17 @@ public:
 
     WeatherPlaceModel *placeModel() { return  weatherModel; }
 
+    QStandardItemModel *addedPlace() { return  m_addedModel; }
+
     Q_INVOKABLE void updateCurrentWeather();
     Q_INVOKABLE void updateDailyForecastWeather();
     Q_INVOKABLE void updateTwoDailyForecastWeather();
 
-    Q_INVOKABLE void updateAll();
+    Q_INVOKABLE void updateWeatherById(int);
+
+
+    
+    Q_INVOKABLE void addPlaceWeather(int id, QString name);
 
 
     Q_INVOKABLE QStringList getSytiList();
@@ -60,6 +69,10 @@ private:
 
     WeatherPlaceModel *weatherModel;
 
+    QStandardItemModel *m_addedModel;
+
+    long currentId;
+
 
 
 signals:
@@ -67,6 +80,7 @@ signals:
     void dailyForecastChanged();
     void twoDailyForecastChanged();
     void placeModelChanged();
+    void addedPlaceChanged();
 
 public slots:   
 

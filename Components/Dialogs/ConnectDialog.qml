@@ -79,6 +79,12 @@ Dialog {
         width: parent.width; height: parent.height
         radius: 10
         color: MyStyle.foregroundColor
+        layer.enabled: true
+        layer.effect: DropShadow {
+            samples: 8
+            radius: 16
+            color: "#80000000"
+        }
     }
     contentItem: Loader {
         id: _loader

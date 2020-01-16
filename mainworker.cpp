@@ -28,7 +28,7 @@ MainWorker::MainWorker(QObject *parent) : QObject(parent)
 
 
 void MainWorker::slotUpdateWeatherTimer() {
-    weatherWorker->updateAll();
+    //weatherWorker->updateAll();
 }
 
 void MainWorker::removeAllSettings() {

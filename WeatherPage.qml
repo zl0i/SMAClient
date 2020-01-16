@@ -32,7 +32,7 @@ Rectangle {
             x: 0; y: 96
             width: parent.width; height: parent.height-y-90
             clip: true
-            model: 5
+            model: _weather.addedPlace
             delegate: Item {
                 id: _delegat
                 width: parent.width; height: 64
@@ -42,7 +42,7 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                     font.pixelSize: 20
                     color: "#FFFFFF"
-                    text: modelData
+                    text: addedCityName
                 }
                 Rectangle {
                     width: parent.width; height: parent.height
@@ -59,6 +59,7 @@ Rectangle {
                     onExited: hovered = false
                     onClicked: {
                         _delegat.ListView.view.currentIndex = index
+                        _weather.updateWeatherById(addedCityId)
                     }
                 }
             }
