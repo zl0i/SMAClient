@@ -60,5 +60,6 @@
         <file>Components/SettingPage/RowTextField.qml</file>
         <file>Components/Delegats/FieldMapDelegat.qml</file>
         <file>Components/Dialogs/AddWeatherPlaceDialog.qml</file>
+        <file>Components/Controls/SearchBar.qml</file>
     </qresource>
 </RCC>

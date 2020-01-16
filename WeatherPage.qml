@@ -69,7 +69,7 @@ Rectangle {
             size: "big"
             text: qsTr("Добавить место")
             onClicked: {
-                _addWeatherPlaceDialog.open()
+                _addWeatherPlaceDialog.show()
             }
         }
     }

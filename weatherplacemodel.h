@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QStandardItemModel>
+#include <QSortFilterProxyModel>
 #include <QModelIndex>
 #include <QFile>
 #include <QJsonDocument>
@@ -10,7 +11,7 @@
 #include <QJsonObject>
 #include <QDebug>
 
-class WeatherPlaceModel : public QStandardItemModel
+class WeatherPlaceModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
@@ -24,7 +25,12 @@ public:
         City_Country,
     }WeatherPlaceRole;
 
+    Q_INVOKABLE void cityFilter(QString reg);
+
 private:
+
+    QStandardItemModel model;
+
 
     bool isFiil = false;
 

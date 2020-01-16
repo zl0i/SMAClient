@@ -10,10 +10,14 @@ Dialog {
     id: _dialog
 
     x: parent.width/2 - width/2; y: parent.height/2 - height/2
-    width: 400; height: 560
-    //padding: 0
+    width: 400; height: 560    
     modal: true; dim: true
     closePolicy: Popup.NoAutoClose
+
+    function show() {
+        _searchBar.text = ""
+        _dialog.open()
+    }
 
     background: Rectangle {
         width: parent.width; height: parent.height; radius: 20
@@ -48,13 +52,22 @@ Dialog {
             text: qsTr("Список мест")
         }
 
+        SearchBar {
+            id: _searchBar
+            y: 35
+            anchors.horizontalCenter: parent.horizontalCenter
+            onTextChanged: {
+                _weather.placeModel.cityFilter(text)
+            }
+        }
 
         ListView {
             id: _cityList
-            y: 35
-            width: parent.width; height: parent.height-80
+            y: 70
+            width: parent.width; height: parent.height-120
             clip: true
             model: _weather.placeModel
+            currentIndex: -1
             ScrollIndicator.vertical: ScrollIndicator { }
 
             section.property: "cityCountry"
@@ -114,6 +127,9 @@ Dialog {
             x: 10; y: parent.height - height
             text: qsTr("Добавить")
             onClicked: {
+                if(_cityList.currentIndex == -1)
+                    return
+
                 _weather.addPlaceWeather(_cityList.currentItem.cId, _cityList.currentItem.cName)
                 _dialog.close()
             }

@@ -73,6 +73,12 @@ private:
 
     long currentId;
 
+    QSettings settings;
+
+    void filledPlaceFromSettings();
+
+    void settingsPlace();
+
 
 
 signals:

@@ -12,24 +12,16 @@ WeatherWorker::WeatherWorker(QObject *parent) : QObject(parent)
     m_addedModel->setItemRoleNames(hash);
     m_addedModel->insertColumn(0);
 
-
-    //updateCurrentWeather();
-    //updateDailyForecastWeather();
-    //updateTwoDailyForecastWeather();
-
-    //updateAll();
     weatherModel = new WeatherPlaceModel();
     weatherModel->fillModel();
 
-    //https://api.openweathermap.org/data/2.5/uvi?lat=51.67&lon=39.17&appid=10a1eeb233d35e9780031ad22d567cd4 // ультрафиолет
-    //https://api.openweathermap.org/data/2.5/forecast?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4 // прогноз на 5 дней
-    //https://api.openweathermap.org/data/2.5/forecast/daily?id=472045&appid=10a1eeb233d35e9780031ad22d567cd4 // прогноз на 16 дней
-    //https://tile.openweathermap.org/map/temp_new/6/53.0561/37.8864.png?appid=10a1eeb233d35e9780031ad22d567cd4 тайл на карту
+    filledPlaceFromSettings();
+
 }
 
 
 WeatherWorker::~WeatherWorker() {
-    //delete  networkManager;
+    delete  networkManager;
 }
 
 void WeatherWorker::updateCurrentWeather()
@@ -77,6 +69,7 @@ void WeatherWorker::addPlaceWeather(int id, QString name)
     m_addedModel->setData(index, id, WeatherPlaceModel::City_id);
     m_addedModel->setData(index, name, WeatherPlaceModel::City_name);
     emit addedPlaceChanged();
+    settingsPlace();
 }
 
 
@@ -222,6 +215,32 @@ QString WeatherWorker::getStringDateFromUTS(int sec) {
     QDateTime dt;
     dt.setSecsSinceEpoch(sec);
     return  dt.toString();
+}
+
+void WeatherWorker::filledPlaceFromSettings()
+{
+    QJsonArray arr = settings.value("settings/placeWeather", QJsonArray {}).toJsonArray();
+    for(int i = 0; i < arr.size(); i++) {
+        QJsonObject obj = arr.at(i).toObject();
+        m_addedModel->insertRow(i);
+        QModelIndex index = m_addedModel->index(i, 0);
+        m_addedModel->setData(index, obj.value("id").toInt() ,WeatherPlaceModel::City_id);
+        m_addedModel->setData(index, obj.value("name").toString(), WeatherPlaceModel::City_name);
+    }
+    emit addedPlaceChanged();
+}
+
+void WeatherWorker::settingsPlace()
+{
+    QJsonArray arr;
+    for(int i = 0; i < m_addedModel->rowCount(); i++) {
+        QJsonObject obj;
+        QModelIndex index = m_addedModel->index(i, 0);
+        obj.insert("id", m_addedModel->data(index, WeatherPlaceModel::City_id).toJsonValue());
+        obj.insert("name", m_addedModel->data(index, WeatherPlaceModel::City_name).toJsonValue());
+        arr.append(obj);
+    }
+    settings.setValue("settings/placeWeather", arr);
 }
 
 void WeatherWorker::handlerCurrentWeather() {
