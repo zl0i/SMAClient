@@ -142,8 +142,11 @@ QJsonDocument ServerWorker::getFormatedJson(Request type, QJsonObject obj) {
     return doc;
 }
 
-void ServerWorker::sendServerJsonDocument(QJsonDocument doc) {
-    if(!socket->isOpen()) return;
+void ServerWorker::sendServerJsonDocument(QJsonDocument doc)
+{
+    if(!socket->isOpen())
+        return;
+
     QString strJson(doc.toJson(QJsonDocument::Compact));
     socket->write(strJson.toUtf8());
     socket->write("\n");
@@ -308,16 +311,93 @@ void ServerWorker::requestUpdateSensors() {
 }
 
 void ServerWorker::requestHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end) {
-    QJsonObject obj;
-    obj.insert("target_id", id);
-    obj.insert("dt_start", static_cast<int>(dt_start));
-    obj.insert("dt_end", static_cast<int>(dt_end));
-    obj.insert("property", property);
-    QJsonDocument doc = getFormatedJson(HistorySensors, obj);
-    sendServerJsonDocument(doc);
+
+    if(testMod) {
+        QJsonObject obj {
+            {"history",  QJsonArray {
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:17:53.919"},
+                        {"value", 786}
+                    },
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:18:53.919"},
+                        {"value", 785}
+                    },
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:19:53.919"},//2020-01-16 19:17:53.919
+                        {"value", 758}
+                    },
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:20:53.919"},
+                        {"value", 750}
+                    },
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:21:53.919"},
+                        {"value", 400}
+                    },
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:22:53.919"},
+                        {"value", 525}
+                    },
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:23:53.919"},
+                        {"value", 800}
+                    },
+                    QJsonObject {
+                        {"dt", "2020-01-16 19:24:53.919"},
+                        {"value", 755}
+                    }
+                }
+            },
+            {"property", "pressure"},
+            {"target_id", 1}
+        };
+        emit comeDataSensors(ServerWorker::HistorySensors, obj);
+    } else {
+        QJsonObject obj;
+        obj.insert("target_id", id);
+        obj.insert("dt_start", static_cast<int>(dt_start));
+        obj.insert("dt_end", static_cast<int>(dt_end));
+        obj.insert("property", property);
+        QJsonDocument doc = getFormatedJson(HistorySensors, obj);
+        sendServerJsonDocument(doc);
+    }
 }
 
 void ServerWorker::requestUpdateCars() {
-    QJsonDocument doc = getFormatedJson(UpdateCars);
-    sendServerJsonDocument(doc);
+    if(testMod) {
+        QJsonObject obj {
+            {"cars", QJsonArray {
+                    QJsonObject {
+                        {"id", 1},
+                        {"name", "cars1"},
+                        {"latitude", 51.511226},
+                        {"longitude", 39.286618},
+                        {"speed", 0},
+                        {"lastUpdate", "16564897415"}
+                    },
+                    QJsonObject {
+                        {"id", 2},
+                        {"name", "cars2"},
+                        {"latitude", 51.511039},
+                        {"longitude", 39.286660},
+                        {"speed", 0},
+                        {"lastUpdate", "16564897415"}
+                    },
+                    QJsonObject {
+                        {"id", 3},
+                        {"name", "cars3"},
+                        {"latitude", 51.510959},
+                        {"longitude", 39.276959},
+                        {"speed", 30},
+                        {"lastUpdate", "16564897415"}
+                    }
+                }
+            }
+        };
+        emit comeDataCars(ServerWorker::UpdateCars, obj);
+    } else {
+        QJsonDocument doc = getFormatedJson(UpdateCars);
+        sendServerJsonDocument(doc);
+    }
 }

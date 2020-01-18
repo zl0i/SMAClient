@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
-import QtCharts 2.0
+import QtCharts 2.3
 
 import Components.Controls 1.0
 import MyStyle 1.0
@@ -107,9 +107,10 @@ Dialog {
         }
 
         ComboBox {
+            id: _comboBox
             x: 250; y: 0
             height: 25
-            model: ["","Humidity", "Pressure", "Temperature"]
+            model: ["","Humidity", "Pressure", "Temperature", "Wind Speed"]
             onActivated: {
                 if(currentText == "")
                     return
@@ -119,32 +120,52 @@ Dialog {
 
         }
 
+        Connections {
+            target: _sensors
+            onHistoryModelChanged: {
+                _sensors.updateChart(_series)
+            }
+            onMinMaxDtChanged: {
+                _axisX.min = new Date(min)
+                _axisX.max = new Date(max)
+            }
+            onMinMaxValueChanged: {
+                _axisY.min = min - 1
+                _axisY.max = max + 1
+
+            }
+        }
+
+
         ChartView {
             id: chart
             x: 170; y: 20
             width: 290; height: 230
-            margins.bottom: 0
-            margins.top: 0
+            margins.bottom: -10
+            //margins.top: 0
             margins.left: 0
             margins.right: 0
-            plotArea: Qt.rect(30, 30, 240, 140)
+            //plotArea: Qt.rect(40, 30, 240, 150)
             backgroundColor: MyStyle.foregroundColor
-            clip: false
-            DateTimeAxis { id: _axisX; format:  "dd-MM-yyyy"; labelsAngle: 45 }
+
+            DateTimeAxis {
+                id: _axisX
+                format:  "d-M hh:mm"
+                labelsAngle: 30
+                labelsColor: MyStyle.textColor
+            }
+
+            ValueAxis {
+                id: _axisY
+                 labelsColor: MyStyle.textColor
+            }
 
             LineSeries {
+                id: _series
                 axisX: _axisX
-                XYPoint { x: new Date().setHours(17); y: 0 }
-                XYPoint { x:new Date().setHours(18); y: 50 }
-                XYPoint { x: new Date().setHours(19); y: 47 }
-                XYPoint { x: new Date().setHours(20); y: 25 }
-                XYPoint { x: new Date().setHours(21); y: 90 }
-                XYPoint { x: new Date().setHours(22); y: 100 }
-                XYPoint { x: new Date().setHours(23); y: 68 }
+                axisY: _axisY
+                name: "History " + _comboBox.currentText
             }
         }
     }
-
-
-
 }

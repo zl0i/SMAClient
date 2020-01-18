@@ -71,7 +71,7 @@ signals:
     void errorConnected(int code, QString text);
 
     void comeDataFields(Request type, QJsonObject obj);
-    void comeDataSensors(Request type, QJsonObject obj);
+    void comeDataSensors(Request type, QJsonObject obj);    
     void comeDataCars(Request type, QJsonObject obj);
 
     void inputChanged();

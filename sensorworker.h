@@ -7,6 +7,18 @@
 #include <QDebug>
 #include <serverworker.h>
 #include <QDateTime>
+#include <QChart>
+#include <QtCharts/QXYSeries>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QAreaSeries>
+#include <QVector>
+#include <QPointF>
+
+QT_BEGIN_NAMESPACE
+class QQuickView;
+QT_END_NAMESPACE
+
+QT_CHARTS_USE_NAMESPACE
 
 class SensorWorker : public QObject
 {
@@ -14,6 +26,7 @@ class SensorWorker : public QObject
     Q_PROPERTY(QStandardItemModel *sensorModel READ getSensorModel RESET resetSensorModel NOTIFY sensorModelChanged)
 
     Q_PROPERTY(QStandardItemModel *historyModel READ getHistoryModel RESET resetHistoryModel NOTIFY historyModelChanged)
+
     Q_PROPERTY(int target_id READ getTargetId NOTIFY historyModelChanged)
     Q_PROPERTY(QString valueName READ getValueName NOTIFY historyModelChanged)
     Q_PROPERTY(QString unitsName READ getUnitsName NOTIFY historyModelChanged)
@@ -51,6 +64,8 @@ public:
     Q_INVOKABLE void updateSensors();
     Q_INVOKABLE void getHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end);
 
+    Q_INVOKABLE void updateChart(QAbstractSeries *series);
+
     QStandardItemModel *getHistoryModel() { return  historyModel; }
     void resetHistoryModel() { historyModel->clear(); }
 
@@ -65,6 +80,10 @@ public:
     Q_INVOKABLE QJsonObject getSensorById(int id);
 
 private:
+
+    QPair<qreal, qreal> getMinMaxDt();
+    QPair<qreal, qreal>getMinMaxValue();
+
     QStandardItemModel *sensorModel = new QStandardItemModel(this);
 
     QStandardItemModel *historyModel = new QStandardItemModel(this);   
@@ -80,6 +99,9 @@ signals:
 
     void updateSensorsFromServer();
     void getHistorySensorFromServer(int id, QString property, quint64 dt_start, quint64 dt_end);
+
+    void minMaxDtChanged(qreal min, qreal max);
+    void minMaxValueChanged(qreal min, qreal max);
 
 public slots:
     void parseDate(ServerWorker::Request, QJsonObject);

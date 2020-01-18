@@ -1,5 +1,10 @@
 #include "sensorworker.h"
 
+QT_CHARTS_USE_NAMESPACE
+
+Q_DECLARE_METATYPE(QAbstractSeries *)
+Q_DECLARE_METATYPE(QAbstractAxis *)
+
 SensorWorker::SensorWorker(QObject *parent) : QObject(parent)
 {  
     QHash<int, QByteArray> hash;
@@ -23,6 +28,10 @@ SensorWorker::SensorWorker(QObject *parent) : QObject(parent)
     hash.insert(SensorWorker::dtRole, "dateTime");
     hash.insert(SensorWorker::valueRole, "value");
     historyModel->setItemRoleNames(hash);
+
+    qRegisterMetaType<QAbstractSeries*>();
+    qRegisterMetaType<QAbstractAxis*>();
+
 }
 
 void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
@@ -59,14 +68,17 @@ void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
         QJsonArray array = mainObj.value("history").toArray();
         historyModel->clear();
         historyModel->insertColumn(0);
-        historyModel->insertRows(0, array.count());
+        historyModel->insertRows(0, array.count());       
         for(int i = 0; i < array.count(); ++i) {
             QJsonObject obj = array.at(i).toObject();
-            QModelIndex index = sensorModel->index(i, 0);
-            historyModel->setData(index, obj.value("dt").toInt(), SensorWorker::dtRole);
-            historyModel->setData(index, obj.value("value").toDouble(), SensorWorker::valueRole);
-        }
-        emit sensorModelChanged();
+            QModelIndex index = historyModel->index(i, 0);
+
+            QDateTime dt = QDateTime::fromString(obj.value("dt").toString(), Qt::ISODate);
+
+            historyModel->setData(index, dt.toMSecsSinceEpoch(), SensorWorker::dtRole);
+            historyModel->setData(index, obj.value("value").toDouble(), SensorWorker::valueRole);            
+        }        
+        emit historyModelChanged();
     }
 }
 
@@ -76,6 +88,29 @@ void SensorWorker::updateSensors() {
 
 void SensorWorker::getHistorySensor(int id, QString property, quint64 dt_start, quint64 dt_end) {
     emit getHistorySensorFromServer(id, property, dt_start, dt_end);
+}
+
+void SensorWorker::updateChart(QAbstractSeries *series)
+{
+    if (series) {
+        QXYSeries *lineSeries = static_cast<QXYSeries *>(series);
+
+        //QVector<QPointF> points;
+        lineSeries->clear();
+
+        for(int i = 0; i < historyModel->rowCount(); i++) {
+            QModelIndex index = historyModel->index(i, 0);
+
+            lineSeries->append(historyModel->data(index, HistoryRole::dtRole).toReal(),
+                               historyModel->data(index, HistoryRole::valueRole).toReal());
+        }
+
+        QPair<qreal, qreal> dtPair = getMinMaxDt();
+        QPair<qreal, qreal> valuePair = getMinMaxValue();
+
+        emit minMaxDtChanged(dtPair.first, dtPair.second);
+        emit minMaxValueChanged(valuePair.first, valuePair.second);
+    }
 }
 
 QJsonObject SensorWorker::getSensorById(int id)
@@ -159,6 +194,39 @@ QJsonObject SensorWorker::getSensorById(int id)
     obj.insert("info", arr);
 
     return  obj;
+}
+
+QPair<qreal, qreal> SensorWorker::getMinMaxDt()
+{
+    qreal min = historyModel->data(historyModel->index(0, 0), HistoryRole::dtRole).toReal();
+    qreal max = 0;
+    for(int i = 0; i < historyModel->rowCount(); i++) {
+        QModelIndex index = historyModel->index(i, 0);
+        if(min > historyModel->data(index, HistoryRole::dtRole).toReal()) {
+            min = historyModel->data(index, HistoryRole::dtRole).toReal();
+        }
+        if(max < historyModel->data(index, HistoryRole::dtRole).toReal()) {
+            max = historyModel->data(index, HistoryRole::dtRole).toReal();
+        }
+    }
+    return  QPair<qreal, qreal> {min, max};
+
+}
+
+QPair<qreal, qreal> SensorWorker::getMinMaxValue()
+{
+    qreal min = historyModel->data(historyModel->index(0, 0), HistoryRole::valueRole).toReal();
+    qreal max = 0;
+    for(int i = 0; i < historyModel->rowCount(); i++) {
+        QModelIndex index = historyModel->index(i, 0);
+        if(min > historyModel->data(index, HistoryRole::valueRole).toReal()) {
+            min = historyModel->data(index, HistoryRole::valueRole).toReal();
+        }
+        if(max < historyModel->data(index, HistoryRole::valueRole).toReal()) {
+            max = historyModel->data(index, HistoryRole::valueRole).toReal();
+        }
+    }
+    return  QPair<qreal, qreal> {min, max};
 }
 
 

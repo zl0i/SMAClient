@@ -17,6 +17,9 @@ WeatherWorker::WeatherWorker(QObject *parent) : QObject(parent)
 
     filledPlaceFromSettings();
 
+    currentId = 472045;
+    updateWeatherById(currentId);
+
 }
 
 
@@ -227,6 +230,7 @@ void WeatherWorker::filledPlaceFromSettings()
         m_addedModel->setData(index, obj.value("id").toInt() ,WeatherPlaceModel::City_id);
         m_addedModel->setData(index, obj.value("name").toString(), WeatherPlaceModel::City_name);
     }
+
     emit addedPlaceChanged();
 }
 
