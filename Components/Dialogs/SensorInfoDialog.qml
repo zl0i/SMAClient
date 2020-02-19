@@ -81,7 +81,7 @@ Dialog {
                 horizontalAlignment: Text.AlignLeft
                 color: MyStyle.textColor
                 elide: Text.ElideMiddle
-                text: name + ": " + value
+                text: name + ": " + Number(value).toFixed(2)
             }
             section.property: "type"
             section.criteria: ViewSection.FullString

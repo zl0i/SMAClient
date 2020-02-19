@@ -44,7 +44,7 @@ Popup {
             y: 25
             anchors.horizontalCenter: parent.horizontalCenter
             Row {
-                spacing: 10
+                spacing: 3
                 Item {
                     width: 33; height: 18
                     Image {
@@ -61,11 +61,11 @@ Popup {
                     width: 53; height: 18
                     verticalAlignment: Text.AlignVCenter
                     color: MyStyle.textColor
-                    text: _popup.temperature + " °C"
+                    text: Number(_popup.temperature).toFixed(2) + " °C"
                 }
             }
             Row {
-                spacing: 10
+                spacing: 3
                 Item {
                     width: 33; height: 18
                     Image {
@@ -82,11 +82,11 @@ Popup {
                     width: 53; height: 18
                     verticalAlignment: Text.AlignVCenter
                     color: MyStyle.textColor
-                    text: _popup.pressure + " мм"
+                    text: Number(_popup.pressure).toFixed(2) + " мм"
                 }
             }
             Row {
-                spacing: 10
+                spacing: 3
                 Item {
                     width: 33; height: 18
                     Image {
@@ -103,7 +103,7 @@ Popup {
                     width: 53; height: 18
                     verticalAlignment: Text.AlignVCenter
                     color: MyStyle.textColor
-                    text: _popup.humidity + " %"
+                    text: Number(_popup.humidity).toFixed(2) + " %"
                 }
             }
         }

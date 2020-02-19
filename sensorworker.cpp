@@ -48,8 +48,8 @@ void SensorWorker::parseDate(ServerWorker::Request type, QJsonObject mainObj) {
             sensorModel->setData(index, obj.value("latitude").toDouble(), SensorWorker::LatitudeRole);
             sensorModel->setData(index, obj.value("longitude").toDouble(), SensorWorker::LongitudeRole);
             sensorModel->setData(index, obj.value("temperature").toDouble(), SensorWorker::TemperatureRole);
-            sensorModel->setData(index, obj.value("humidity").toDouble(), SensorWorker::HumidityRole);
-            sensorModel->setData(index, obj.value("pressure").toInt(), SensorWorker::PressureRole);
+            sensorModel->setData(index, obj.value("humidity").toDouble()*100.0, SensorWorker::HumidityRole);
+            sensorModel->setData(index, obj.value("pressure").toDouble()/133.33, SensorWorker::PressureRole);
             sensorModel->setData(index, obj.value("windSpeed").toInt(), SensorWorker::WindSpeedRole);
             sensorModel->setData(index, obj.value("windDirection").toDouble(), SensorWorker::WindDirectionRole);
             sensorModel->setData(index, obj.value("battery").toInt(), SensorWorker::BattaryRole);

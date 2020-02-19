@@ -14,7 +14,7 @@ void WeatherPlaceModel::fillModel()
     if(isFiil)
         return;
 
-    QFile *cityFile = new QFile("D:/Project/Qt/SMAClient/SMAClient/city.list.json");
+    QFile *cityFile = new QFile("city.list.json");
     if(cityFile->open(QIODevice::ReadOnly)) {
         QByteArray array = cityFile->readAll();
         QJsonDocument document = QJsonDocument::fromJson(array);

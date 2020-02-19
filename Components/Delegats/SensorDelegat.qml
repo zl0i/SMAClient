@@ -8,9 +8,9 @@ Item {
     property int sensor_id
     property string nameSensor: ""
     property string belongsNameFiled: ""
-    property int temperature: 0
-    property int pressure: 0
-    property int humidity: 0
+    property real temperature: 0
+    property real pressure: 0
+    property real humidity: 0
     property var windSpeed: 0
     property var windDirection: ""
     property var ground: ({})

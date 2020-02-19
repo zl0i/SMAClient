@@ -29,14 +29,13 @@ void ServerWorker::connectToServer(QString addr, int port, QString login, QStrin
         return;
     }
     if(!socket->isOpen()) {
-        socket->connectToHost(QHostAddress(addr), static_cast<uint16_t>(port), QIODevice::ReadWrite);
+        socket->connectToHost(addr, static_cast<uint16_t>(port), QIODevice::ReadWrite);
         connect(socket, &QTcpSocket::connected, this, &ServerWorker::slotConnected);
         connect(socket, &QTcpSocket::readyRead, this, &ServerWorker::slotReadyRead);
         connect(socket, &QTcpSocket::disconnected, this, &ServerWorker::slotDisconnected);
         connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),
                 this, SLOT(slotTcpError(QAbstractSocket::SocketError)));
-    }
-    else {
+    } else {
         slotConnected();
     }
 }
@@ -104,7 +103,8 @@ void ServerWorker::slotReadyRead()  {
 
 void ServerWorker::slotTcpError(QAbstractSocket::SocketError socketError) {
     socket->close();
-    Q_UNUSED(socketError)
+    qDebug() << socketError;
+    //Q_UNUSED(socketError)
     emit errorConnected(404, socket->errorString());
 }
 
